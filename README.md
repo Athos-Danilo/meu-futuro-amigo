@@ -9,9 +9,9 @@ Este repositório contém o projeto final da disciplina de Programação para In
 ## 🚀 Link do Projeto (GitHub Pages)
 
 O site está hospedado e pode ser acessado em:
-**https://athos-danilo.github.io/meu-futuro-amigo/**
+**[text](https://athos-danilo.github.io/meu-futuro-amigo/)**
 
-🎨 Protótipo de Alta Fidelidade:
+## 🎨 Protótipo de Alta Fidelidade:
 Todo o design foi planejado e prototipado no Figma, focando em uma identidade visual "Aconchegante e Calorosa" e em uma experiência de usuário (UX) clara e convidativa.
 
 **[https://www.figma.com/design/GDqz34u7yU78RZSstfax6A/Projeto-Web?node-id=0-1&t=Cj0maHrw5e0URM2f-1]**
