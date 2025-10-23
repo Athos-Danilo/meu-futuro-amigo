@@ -1,3 +1,4 @@
+## O Projeto:
 **Meu Futuro Amigo** é uma plataforma comunitária de adoção de animais, desenvolvida para conectar, de forma segura e humana, animais que precisam de um lar em Pernambuco com pessoas dispostas a adotar.
 
 O projeto centraliza dois caminhos principais para a adoção:
@@ -8,8 +9,7 @@ Este repositório contém o projeto final da disciplina de Programação para In
 
 ## 🚀 Link do Projeto (GitHub Pages)
 
-O site está hospedado e pode ser acessado em:
-**[text](https://athos-danilo.github.io/meu-futuro-amigo/)**
+O site está hospedado e pode ser acessado em: **[text](https://athos-danilo.github.io/meu-futuro-amigo/)**
 
 ## 🎨 Protótipo de Alta Fidelidade:
 Todo o design foi planejado e prototipado no Figma, focando em uma identidade visual "Aconchegante e Calorosa" e em uma experiência de usuário (UX) clara e convidativa.
