@@ -30,7 +30,7 @@ body {
     height: 80px;
     padding-left: 5px;
     padding-right: 45px;
-    background-image: url(/img/Barra.jpg);
+    background-image: url('../img/Barra.jpg');
     background-size: cover;
     background-position: center;
     
@@ -76,6 +76,7 @@ body {
 .Botão.Entrar:hover {
     background-color: var(--cor-marrom);
     color: var(--cor-branco);
+    transform: scale(1.1);
 }
 
 .Banners {
@@ -125,52 +126,63 @@ body {
 
 .Mensagem {
     width: 782px;
+    height: 366px;
     position: absolute;
-    top: 50%;
-    left: 100px;
-    transform: translateY(-50%);
+    top: 250px;
+    left: 97px;
     background-color: rgba(139, 69, 19, 0.9);
     border: 5px solid var(--cor-bege);
     border-radius: 30px 5px 30px 5px;
-    padding: 30px 40px 70px 40px;
-    color: var(--cor-branco);
+    color: var(--cor-branco);                                                     
 }
 
 .Mensagem h1 {
     font-family: var(--fonte-titulos);
     font-size: 50px;
     font-weight: 400;
-    text-align: center;
-    color: var(--cor-branco);
-    margin-bottom: 25px;
     line-height: 57px;
+    letter-spacing: 2%;
+    width: 464px;
+    height: 114px;
+    text-align: center;
+    margin: 29px auto 16px auto;
 }
 
 .Mensagem p {
     font-family: var(--fonte-textos);
     font-size: 25px;
+    line-height: 28px;
+    letter-spacing: 2%;
+    font-weight: 400;
     width: 687px;
+    height: 144px;
     text-align: justify;
-    line-height: 1.4;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 28px auto;
 }
 
 .Botão.ver-os-animais {
-    font-family: var(--fonte-titulos);
-    font-size: 30px;
+    width: 206px;
+    height: 65px;
     background-color: var(--cor-laranja);
-    color: var(--cor-branco);
-    padding: 12px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.2s ease;
+    border: 5px solid var(--cor-bege);
+    border-radius: 10px;
     position: absolute;
-    bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
+    top: 333.5px;
+    font-family: var(--fonte-titulos);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 2%;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
 
 .Botão.ver-os-animais:hover {
     background-color: var(--cor-verde);
-    transform: translateX(-50%) scale(1.03)
+    transform: translateX(-50%) scale(1.1)
 }
