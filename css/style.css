@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+/* ---------------------------------------- Variáveis do Projeto ---------------------------------------- */
 :root {
     --cor-marrom: #8B4513;
     --cor-bege: #F5DEB3;
@@ -22,6 +22,8 @@ body {
     color: var(--cor-preto);
     background-color: var(--cor-branco);
 }
+
+/* ---------------------------------------- Cabeçalho / Barra Verde ---------------------------------------- */
 
 .Cabeçalho {
     display: flex;
@@ -42,6 +44,8 @@ body {
     display: block;
 }
 
+/* ---------------------------------------- Opções Links ---------------------------------------- */
+
 .Opções ul {
     display: flex;
     list-style: none;
@@ -61,6 +65,8 @@ body {
     color: var(--cor-marrom);
 }
 
+/* ---------------------------------------- Botão Entrar ---------------------------------------- */
+
 .Botão.Entrar {
     margin-left: auto;
     font-family: var(--fonte-cabeçalho);
@@ -78,6 +84,8 @@ body {
     color: var(--cor-branco);
     transform: scale(1.1);
 }
+
+/* ---------------------------------------- Seção Banners Slider ---------------------------------------- */
 
 .Banners {
     position: relative;
@@ -123,6 +131,8 @@ body {
 
     100% {transform: translateX(-83.333%);}
 }
+
+/* ---------------------------------------- Seção Mensagem ---------------------------------------- */
 
 .Mensagem {
     width: 782px;
@@ -186,6 +196,8 @@ body {
     background-color: var(--cor-verde);
     transform: translateX(-50%) scale(1.1)
 }
+
+/* ---------------------------------------- O Que Vocçê Deseja Fazer? ---------------------------------------- */
 
 .Seção.o-que-fazer {
     width: 1447px;
@@ -300,6 +312,8 @@ body {
     transform: scale(1.05);
 }
 
+/* ---------------------------------------- Imagem Primeiro Respiro ---------------------------------------- */
+
 .Imagem.Primeiro-respiro {
     width: 100%;
     margin-top: 45px;
@@ -307,6 +321,171 @@ body {
 }
 
 .Imagem.Primeiro-respiro img {
+    width: 100%;
+    height: auto;
+}
+
+/* ---------------------------------------- Seção Por que Adotar ---------------------------------------- */
+
+.Seção-por-que-adotar {
+    width: 1733px;
+    height: 437px;
+    margin: 0 auto 45px auto;
+}
+
+.Titulo-por-que-adotar {
+    font-family: var(--fonte-titulos);
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--cor-marrom);
+    width: 333px;
+    height: 57px;
+    margin: 0 0 30px 0;
+}
+
+.Motivos-para-adotar {
+    display: flex;
+    justify-content: center;
+    gap: 90px;
+}
+
+.Primeiro-Motivo {
+    width: 520px;
+    height: 220px;
+    background-color: var(--cor-bege);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+    padding-right: 19px;
+    gap: 8px;
+}
+
+.Segundo-Motivo {
+    width: 520px;
+    height: 220px;
+    background-color: var(--cor-bege);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+    padding-right: 19px;
+    gap: 8px;
+}
+
+.Terceiro-Motivo {
+    width: 520px;
+    height: 220px;
+    background-color: var(--cor-bege);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+    padding-right: 19px;
+    gap: 8px;
+}
+
+.Primeiro-Motivo img {
+    width: 139.5px;
+    height: 186px;
+    display: block; 
+}
+
+.Segundo-Motivo img {
+    width: 139.5px;
+    height: 185.88px;
+    display: block;
+}
+
+.Terceiro-Motivo img {
+    width: 139.5px;
+    height: 185.88px;
+    display: block;
+}
+
+.Primeiro-Motivo p {
+    font-family: var(--fonte-textos);
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    color: var(--cor-preto);
+    width: 334px;
+    text-align: justify;
+}
+
+.Segundo-Motivo p {
+    font-family: var(--fonte-textos);
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    color: var(--cor-preto);
+    width: 334px;
+    text-align: justify;
+}
+
+.Terceiro-Motivo p {
+    font-family: var(--fonte-textos);
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    color: var(--cor-preto);
+    width: 334px;
+    text-align: justify;
+}
+
+.Primeiro-Motivo p .Texto-destaque-um {
+    font-weight: 700;
+    color: var(--cor-marrom);
+}
+
+.Segundo-Motivo p .Texto-destaque-dois {
+    font-weight: 700;
+    color: var(--cor-marrom);
+}
+
+.Terceiro-Motivo p .Texto-destaque-tres {
+    font-weight: 700;
+    color: var(--cor-marrom);
+}
+
+.Botão.Encontrar-Amigo {
+    width: 365px;
+    height: 77px;
+    background-color: var(--cor-laranja);
+    border-radius: 10px;
+    font-family: var(--fonte-titulos);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 53px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.Botão.Encontrar-Amigo:hover {
+    background-color: var(--cor-marrom);
+    transform: scale(1.1);
+}
+
+/* ---------------------------------------- Imagem Segundo Respiro ---------------------------------------- */
+
+.Imagem.Segundo-respiro {
+    width: 100%;
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+.Imagem.Segundo-respiro img {
     width: 100%;
     height: auto;
 }
