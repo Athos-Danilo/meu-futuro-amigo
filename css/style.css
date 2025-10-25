@@ -489,3 +489,181 @@ body {
     width: 100%;
     height: auto;
 }
+
+/* ---------------------------------------- Seção Processo de Adoção ---------------------------------------- */
+
+.Seção-Processo-de-Adoção {
+    width: 1758px;
+    margin: 45px auto 45px auto;
+}
+
+.Titulo-Processo {
+    font-family: var(--fonte-titulos);
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--cor-marrom);
+    margin: 45px auto 0 auto;
+    text-align: center;
+}
+
+.Subtitulo-Processo {
+    font-family: var(--fonte-textos);
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--cor-preto);
+    margin: -10px auto 40px auto;
+    text-align: center;
+}
+
+.Passos-Adoção {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.Primeiro-Passo {
+    width: 386px;
+    height: 395px;
+    background-color: var(--cor-bege);
+    border-radius: 20px 5px 5px 20px;
+    position: relative;
+}
+
+.Segundo-Passo {
+    width: 386px;
+    height: 395px;
+    background-color: var(--cor-bege);
+    border-radius: 20px 5px 5px 20px;
+    position: relative;
+}
+
+.Terceiro-Passo {
+    width: 386px;
+    height: 395px;
+    background-color: var(--cor-bege);
+    border-radius: 20px 5px 5px 20px;
+    position: relative;
+}
+
+.Quarto-Passo {
+    width: 386px;
+    height: 395px;
+    background-color: var(--cor-bege);
+    border-radius: 20px 5px 5px 20px;
+    position: relative;
+}
+
+.Número-Um {
+    width: 68px;
+    height: 68px;
+    background-color: var(--cor-verde);
+    border-radius: 50%;
+    position: absolute;
+    top: -18px;
+    left: 352px;
+    font-family: var(--fonte-textos);
+    font-size: 50px;
+    font-weight: 700;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Número-Dois {
+    width: 68px;
+    height: 68px;
+    background-color: var(--cor-verde);
+    border-radius: 50%;
+    position: absolute;
+    top: -18px;
+    left: 352px;
+    font-family: var(--fonte-textos);
+    font-size: 50px;
+    font-weight: 700;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Número-Três {
+    width: 68px;
+    height: 68px;
+    background-color: var(--cor-verde);
+    border-radius: 50%;
+    position: absolute;
+    top: -18px;
+    left: 352px;
+    font-family: var(--fonte-textos);
+    font-size: 50px;
+    font-weight: 700;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Número-Quatro {
+    width: 68px;
+    height: 68px;
+    background-color: var(--cor-verde);
+    border-radius: 50%;
+    position: absolute;
+    top: -18px;
+    left: 352px;
+    font-family: var(--fonte-textos);
+    font-size: 50px;
+    font-weight: 700;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Primeiro-Passo img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 61px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    object-fit: contain;
+}
+
+.Segundo-Passo img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 61px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    object-fit: contain;
+}
+
+.Terceiro-Passo img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 61px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    object-fit: contain;
+}
+
+.Quarto-Passo img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 61px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    object-fit: contain;
+}
