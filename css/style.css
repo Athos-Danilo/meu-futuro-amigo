@@ -842,7 +842,7 @@ body {
     justify-content: center;
 }
 
-.Cartão-Adotados {
+.Cartão-Adotado {
     width: 318px;
     height: 379px;
     background-color: var(--cor-laranja);
@@ -850,4 +850,256 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.Cartão-Adotado img {
+    width: 100%;
+    height: 212px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: block;
+    object-fit: cover;
+}
+
+.Cartão-Adotado:hover {
+    transform: scale(1.05);
+    background-color: var(--cor-bege);
+    cursor: pointer;
+}
+
+.linha {
+    height: 10px;
+    width: 100%;
+    background-color: var(--cor-preto);
+    position: absolute;
+    top: 261px;
+    left: 0;
+}
+
+.Nome-animal {
+    width: 100%;
+    height: 49px;
+    position: absolute;
+    top: 212px;
+    left: 0;
+    font-family: var(--fonte-textos);
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--cor-preto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Detalhes-animal p { 
+    font-family: var(--fonte-textos); 
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.02em; 
+    color: var(--cor-branco); 
+    line-height: 22px; 
+    text-align: center; 
+    width: 317px;
+    height: 109px; 
+    position: absolute;
+    top: 281px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+}
+
+.Cartão-Adotado:hover .Detalhes-animal p {
+    color: var(--cor-preto);
+}
+
+.Texto-Convite-Adotar {
+    font-family: var(--fonte-textos);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 0.02em;
+    color: var(--cor-preto);
+    width: 1035px;
+    height: 60px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 64px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.Botão.mais-finais-felizes {
+    width: 256px;
+    height: 42px;
+    background-color: var(--cor-laranja); 
+    border-radius: 10px; 
+    font-family: var(--fonte-titulos); 
+    font-size: 30px;
+    font-weight: 400; 
+    letter-spacing: 0.02em; 
+    color: var(--cor-branco); 
+    text-align: center; 
+    line-height: 42px; 
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px; 
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.Botão.mais-finais-felizes:hover {
+    background-color: var(--cor-marrom); 
+    transform: scale(1.1); 
+}
+
+/* ---------------------------------------- Imagem Quarto Respiro ---------------------------------------- */
+
+.Imagem.Quarto-respiro {
+    width: 100%;
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+.Imagem.Quarto-respiro img {
+    width: 100%;
+    height: auto;
+}
+
+/* ---------------------------------------- Seção Rodapé ---------------------------------------- */
+
+.Rodapé-Principal {
+    width: 100%;
+    height: 353;
+    background-color: var(--cor-verde);
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.Rodapé-Container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 273px;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.Rodapé-Coluna.Coluna-Navegação {
+    margin-left: 240px; 
+}
+
+.Rodapé-Coluna.Coluna-Contato {
+    margin-left: 294px; 
+}
+
+
+.Rodapé-Coluna.Coluna-Logo-Social {
+    width: 392px; 
+}
+
+
+.Rodapé-Logo img { 
+    width: 392px;
+    height: 157px;
+    display: block; 
+}
+
+.Slogan { 
+    font-family: var(--fonte-textos); 
+    font-size: 25px;
+    font-weight: 700; 
+    letter-spacing: 0.02em; 
+    color: var(--cor-branco); 
+    margin-top: -11px; 
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.Ícones-Sociais { 
+    display: flex;
+    justify-content: center; 
+    gap: 0; 
+    margin-top: 35px; 
+}
+
+
+.Ícones-Sociais img { 
+    width: 65px;
+    height: 65px;
+    transition: transform 0.2s ease;
+}
+
+.Ícones-Sociais img:hover {
+    transform: scale(1.15);
+    cursor: pointer; 
+}
+
+.Coluna-Navegação {
+    text-align: center; 
+}
+
+.Coluna-Navegação h3 {
+    font-family: var(--fonte-textos); 
+    font-size: 25px;
+    font-weight: 700; 
+    letter-spacing: 0.02em; 
+    color: var(--cor-branco); 
+    margin-bottom: 10px; 
+}
+
+.Coluna-Navegação ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.Coluna-Navegação li a {
+    font-family: var(--fonte-textos); 
+    font-size: 20px;
+    font-weight: 400; 
+    color: var(--cor-branco); 
+    text-decoration: none; 
+    transition: color 0.2s ease; 
+    line-height: 25px; 
+}
+
+.Coluna-Navegação li a:hover {
+    color: var(--cor-marrom); 
+}
+
+.Coluna-Contato h3 {
+    font-family: var(--fonte-textos); 
+    font-size: 25px;
+    font-weight: 700; 
+    letter-spacing: 0.02em; 
+    color: var(--cor-branco); 
+    text-align: center;
+    margin-bottom: 10px; 
+}
+
+.Coluna-Contato p {
+    font-family: var(--fonte-textos); 
+    font-size: 20px;
+    font-weight: 400; 
+    color: var(--cor-branco); 
+    text-align: center;
+    line-height: 25px; 
+    margin: 0; 
+}
+
+.Rodapé-Copyright { 
+    margin-top: 10px; 
+}
+
+.Rodapé-Copyright p { 
+    font-family: var(--fonte-textos); 
+    font-size: 20px;
+    font-weight: 400; 
+    letter-spacing: 0.02em; 
+    color: var(--cor-branco); 
+    text-align: center; 
+    margin: 0; 
 }
