@@ -69,7 +69,7 @@
 
 
 .secao-hero {
-    background-image: url('/img/bannerGato.jpg');
+    background-image: url('../img/bannerGato.jpg');
     background-size: cover;
     background-position: center;
     height: 600px; 
