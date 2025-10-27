@@ -65,7 +65,7 @@
 /* SEÇÃO HERO*/
 
 .secao-hero {
-    background-image: url('/img/bannerCachorro.jpg');
+    background-image: url('../img/bannerCachorro.jpg');
     background-size: cover;
     background-position: center;
     height: 600px; 
