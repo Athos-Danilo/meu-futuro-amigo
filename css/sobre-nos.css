@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* CABEÇALHO */
+.cabecalho {
+    background-color: #6b8e23; 
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    padding: 10px 30px;
+    gap: 30px; 
+}
+
+.logo img {
+    max-height: 70px; 
+}
+
+.menu-navegacao ul {
+    display: flex; 
+    list-style: none; 
+    gap: 25px; 
+}
+
+
+.menu-navegacao a {
+    color: #FFFFFF;
+    font-size: 20px; 
+    text-decoration: none; 
+    padding: 15px 15px;
+}
+
+.menu-navegacao a:hover {
+    color: #d38e04; 
+}
+
+.header-login {
+    margin-left: auto; 
+}
+
+.Botão.Entrar { 
+    background-color: #d38e04; 
+    color: #FFFFFF;
+    padding: 10px 24px; 
+    border-radius: 25px;
+    font-size: 18px; 
+    font-family: 'Acme', sans-serif; 
+    font-weight: 400; 
+    display: inline-block; 
+    text-decoration: none; 
+    text-align: center; 
+    line-height: normal; 
+    transition: background-color 0.2s ease; 
+    cursor: pointer;
+}
+
+.Botão.Entrar:hover {
+    background-color: #b87b03; 
+    color: #FFFFFF; 
+}
+
+
+/* SEÇÃO HERO*/
+
+.secao-hero {
+    background-image: url('/img/bannerCachorro.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 600px; 
+    display: flex;
+    align-items: flex-end;  
+    justify-content: flex-start;
+    padding: 60px;
+}
+
+.hero-texto {
+    background-color: #6d3c14; 
+    border: 4px solid #b87e4f;  
+    color: #FFFFFF;             
+    border-radius: 20px;
+    padding: 30px;      
+    max-width: 450px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero-texto h1 {
+    font-size: 40px; 
+    margin-bottom: 10px; 
+}
+
+.hero-texto p {
+    font-size: 20px; 
+}
+
+.secao-sobre {
+    padding: 80px 60px; 
+    background-color: #FFFFFF; 
+}
+
+.secao-sobre h2 {
+    letter-spacing: 1px;
+    font-family: "Anton", sans-serif;
+    font-size: 32px;  
+    color: #333333;  
+    text-align: left;
+    margin-bottom: 40px; 
+}
+
+.colunas-container {
+    display: flex; 
+    gap: 50px; 
+}
+
+.coluna-texto {
+    flex: 1; 
+}
+
+.coluna-texto p {
+    font-family: "Afacad", sans-serif;
+    font-size: 20px; 
+    color: #555555; 
+    line-height: 1.6; 
+}
+
+.coluna-texto strong {
+    color: #b87e4f; 
+    font-weight: 900; 
+}
+
+
+/* SEÇÃO 02 */
+
+.secao-parceiro {
+    background-color: #FFFFFF; 
+    padding: 0; 
+}
+
+.imagem-divisor-patas {
+    width: 100%; 
+    display: block; 
+    height: auto; 
+}
+
+.conteudo-parceiro {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto; 
+}
+
+.secao-parceiro h2 {
+    font-family: "Anton", sans-serif;
+    letter-spacing: 1px;
+    font-size: 32px;
+    color: #333; 
+    margin-bottom: 40px;
+    text-align: left; 
+}
+
+
+
+/* SEÇÃO VALORES */
+
+.secao-valores {
+    padding: 80px 40px; 
+    background-color: #FFFFFF;
+}
+
+.titulo-valores {
+    font-family: "Anton", sans-serif;
+    letter-spacing: 2px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #6d3c14; 
+    text-align: center;
+}
+
+.subtitulo-valores {
+    font-family: "Afacad", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333; 
+    text-align: center;
+    margin-bottom: 50px; 
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center; 
+    gap: 30px; 
+    flex-wrap: wrap; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card-valor {
+    background-color: #F5DEB3; 
+    border-radius: 16px;
+    padding: 30px; 
+    flex-basis: 350px; 
+    flex-grow: 1; 
+    max-width: 400px; 
+    text-align: center; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-icone {
+    font-size: 48px; 
+    margin-bottom: 20px;
+}
+
+.card-valor h4 {
+    font-family: "Afacad", sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card-valor p {
+
+    font-family: "Afacad", sans-serif;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+
+
+
+
+/* RODAPÉ */
+
+.rodape {
+    font-family: "Afacad", sans-serif;
+    background-color: #6b8e23; 
+    color: #FFFFFF; 
+    padding: 60px 40px 20px 40px; 
+}
+
+
+.rodape-container {
+    display: flex;
+    justify-content: space-between; 
+    flex-wrap: wrap;
+    gap: 40px;
+    
+    max-width: 1200px; 
+    margin: 0 auto; 
+    margin-bottom: 40px; 
+}
+
+.rodape-coluna {
+    flex: 1; 
+    min-width: 250px; 
+}
+
+.rodape-logo {
+    max-height: 80px; 
+    margin-bottom: 10px;
+}
+
+.rodape-tagline {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.rodape-sociais img {
+
+    max-width: 200px;
+    height: auto;
+}
+
+
+.rodape-coluna h4 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.rodape-coluna ul {
+    list-style: none; 
+}
+
+.rodape-coluna li {
+    margin-bottom: 10px;
+}
+
+.rodape-coluna a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.rodape-coluna a:hover {
+    text-decoration: underline;
+}
+
+
+.rodape-copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); 
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}

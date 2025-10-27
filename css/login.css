@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad:wght@400;700&family=Nunito:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.container {
+    display: flex;
+    width: 100vw; 
+    min-height: 100vh; 
+}
+
+.imagem-principal {
+    flex-basis: 58.3%;
+    flex-shrink: 0; 
+}
+
+.imagem-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.secao-formulario {
+    flex-basis: 41.7%;
+    flex-shrink: 0;
+    background-color: rgb(107, 142, 35, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start; 
+    padding: 15px 2rem 2rem; 
+    overflow-y: auto;
+}
+
+.header-formulario .logo {
+    max-width: 306.28px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 0;
+}
+
+.header-formulario p {
+    font-family: 'Afacad', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem; 
+    margin-top: -1rem; 
+}
+
+.titulo {
+    max-width: 564px;
+    width: 60%;
+    border: 3px solid rgba(255, 255, 255, 1);
+    border-radius: 30px;
+    padding: 2.5rem 3rem;
+    margin: 0 auto;
+}
+
+.titulo h2 {
+    font-family: 'Afacad', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: -1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.baloes-escrever {
+    margin-bottom: 1rem;
+}
+
+.baloes-escrever:focus-within {
+    z-index: 1;
+}
+
+.baloes-escrever label {
+    display: block;
+    font-family: 'Afacad', Regular;
+    font-weight: 400;
+    color: #FFFFFF;
+    font-size: 22px;
+    margin-bottom: 0.3rem;
+    padding-left: 5%;
+}
+
+#email,
+.escrever-senha {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50px;
+    background-color: #fff;
+    border: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; 
+}
+
+#email {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #555;
+}
+
+#email:focus,
+.escrever-senha:focus-within {
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(245, 166, 35, 0.7);
+}
+
+.escrever-senha {
+    display: flex;
+    align-items: center;
+    padding: 0; 
+}
+
+.escrever-senha input {
+    flex-grow: 1;
+    box-shadow: none;
+    border: none; 
+    outline: none; 
+    width: auto; 
+    padding: 0.8rem 1rem; 
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #555;
+    background-color: transparent;
+    border-radius: 50px 0 0 50px;
+    margin: 0;
+}
+
+.escrever-senha i {
+    color: #888;
+    cursor: pointer;
+    padding-right: 1rem;
+}
+
+.esqueceu-senha {
+    display: block;
+    text-align: right;
+    color: rgba(139, 69, 19, 1);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-family: 'Afacad', sans-serif;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+    padding-right: 5%;
+}
+
+.grupo-termos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: white;
+    margin: 1.5rem 0;
+}
+
+.grupo-termos input[type="checkbox"] {
+    margin-right: 0.5rem;
+    accent-color: #F5A623;
+}
+
+.botao-principal {
+    max-width: 250px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    padding: 0.8rem;
+    background-color: #F5A623; 
+    color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    font-family: 'Acme', sans-serif; 
+    font-size: 30px;
+    font-weight: 700; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 0 4px white;
+    text-align: center;     
+    text-decoration: none;   
+    line-height: normal;     
+}
+
+.separador {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1rem 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.separador::before,
+.separador::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.separador:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.separador:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.login-rede-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.botao-google,
+.botao-facebook {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem;
+    border-radius: 15px;
+    border: 2px solid white;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botao-google:hover,
+.botao-facebook:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.botao-google img,
+.botao-facebook img {
+    width: 20px;
+    margin-right: 0.5rem;
+}
+
+.rodapé {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: white;
+}
+
+.rodapé p {
+    font-size: 0.9rem;
+}
+
+.rodapé a {
+    color: #F5A623;
+    font-weight: 700;
+    text-decoration: none;
+}
