@@ -35,7 +35,7 @@ O **Meu Futuro Amigo** oferece dois caminhos principais:
 * **Versionamento:** Git & GitHub
 * **Hospedagem:** GitHub Pages
 
-## 👥 Equipe e Contexto Acadêmico
+## 👥 Equipe
 
 Este projeto foi realizado em trio por:
 
