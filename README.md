@@ -1,4 +1,4 @@
-# 🐾 Meu Futuro Amigo 🐶❤️🐱
+Meu Futuro Amigo
 
 **Conectando Lares e Corações: Uma Plataforma de Adoção Responsáve**
 
@@ -39,9 +39,9 @@ O **Meu Futuro Amigo** oferece dois caminhos principais:
 
 Este projeto foi realizado em trio por:
 
-* **[Athos Danilo]:** Responsável pelo Design de Interface/UX (Figma) e desenvolvimento Front-End (HTML/CSS).
-* **[Cauã Herculano]:** Responsável pelo desenvolvimento Front-End (HTML/CSS).
-* **[Marcus Vinícius]:** Responsável pelo desenvolvimento Front-End (HTML/CSS).
+* **Athos Danilo:** Responsável pelo Design de Interface/UX (Figma) e desenvolvimento Front-End (HTML/CSS).
+* **Cauã Herculano:** Responsável pelo desenvolvimento Front-End (HTML/CSS).
+* **Marcus Vinícius:** Responsável pelo desenvolvimento Front-End (HTML/CSS).
 
 
 
