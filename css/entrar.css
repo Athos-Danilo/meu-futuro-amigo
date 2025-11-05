@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ---------------------------------------- Variáveis da Tela ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+
+body {
+    font-family: var(--fonte-textos);
+    color: var(--cor-preto);
+    background-color: var(--cor-verde);
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    background-image: url('../img/Patas.png');
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.Login-Container {
+    background-color: var(--cor-verde);
+    padding: 40px 30px;
+    border-radius: 25px;
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
+    max-width: 400px;
+    width: 90%;
+}
+
+.Imagem {
+    display: none;
+}
+
+/* ---------------------------------------- Seção do Formulário ---------------------------------------- */
+
+.Painel-do-Formulário {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.Logo {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.Painel-do-Formulário h1 {
+    color: var(--cor-branco);
+    font-family: var(--fonte-textos);
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+
+.Painel-do-Formulário h2 {
+    color: var(--cor-branco);
+    font-family: var(--fonte-textos);
+    font-size: 30px;
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+form {
+    width: 100%;
+}
+
+.Dados-Usuário {
+    margin-bottom: 15px;
+    width: 100%;
+    position: relative;
+}
+
+.Dados-Usuário label {
+    display: block;
+    color: var(--cor-branco);
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    margin-bottom: 5px;
+}
+
+.Dados-Usuário input {
+    width: 100%;
+    padding: 15px;
+    padding-right: 45px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-family: var(--fonte-textos);
+    background-color: #F0F0F0;
+    box-shadow: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.Botão-Entrar {
+    width: 60%;
+    display: block;
+    margin: 10px auto 0;
+    padding: 5px;
+    background-color: var(--cor-laranja);
+    border: 3px solid var(--cor-bege);
+    border-radius: 10px;
+    color: var(--cor-branco);
+    font-family: var(--fonte-cabeçalho);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    margin-top: 36px;
+    transition: transform 0.1s;
+}
+
+.Botão-Entrar:active {
+    transform: scale(0.95);
+}
+
+.Botão-Entrar:hover {
+    transition: background-color 0.3s ease;
+    background-color: var(--cor-marrom);
+}
+
+.Esqueceu-sua-Senha {
+    color: var(--cor-amarelo);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.inscrição {
+    color: var(--cor-branco);
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.inscrição a {
+    color: var(--cor-amarelo);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.ícone-olho-fechado {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    width: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+
+@media (min-width: 900px) {
+    .Login-Container {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        max-width: 1200px;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .Imagem {
+        display: block;
+        flex-basis: 75%;
+        box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
+        border-radius: 25px 0 0 25px;
+        overflow: hidden;
+    }
+
+    .Imagem img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .Painel-do-Formulário {
+        flex-basis: 50%;
+        background-color: var(--cor-verde);
+        box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
+        border-radius: 0 25px 25px 0;
+        padding: 40px 30px;
+        justify-content: center;
+    }
+    
+    .Mensagem-de-Erro {
+        width: 85%;
+        font-size: 20px;
+    }
+}
+
+/* ---------------------------------------- Mensagem de Erro ---------------------------------------- */
+
+.Mensagem-de-Erro {
+    display: none;
+    width: auto;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--cor-preto);
+    background-color: rgb(181, 169, 169);
+    box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, 0.3);
+    padding: 12px 15px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
