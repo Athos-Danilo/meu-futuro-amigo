@@ -79,9 +79,9 @@ body::before {
 .Painel-do-Formulário h1 {
     color: var(--cor-branco);
     font-family: var(--fonte-textos);
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 400;
-    margin-top: -20px;
+    margin-top: -19px;
     margin-bottom: 30px;
 }
 
@@ -126,16 +126,16 @@ form {
 }
 
 .Botão-Entrar {
-    width: 60%;
+    width: 50%;
     display: block;
     margin: 10px auto 0;
-    padding: 8px;
+    padding: 6px;
     background-color: var(--cor-laranja);
     border: 3px solid var(--cor-bege);
     border-radius: 10px;
     color: var(--cor-branco);
     font-family: var(--fonte-cabeçalho);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 400;
     letter-spacing: 0.02em;
     cursor: pointer;
@@ -167,7 +167,7 @@ form {
     text-align: center;
     margin-top: 15px;
     font-weight: 400;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .inscrição a {
