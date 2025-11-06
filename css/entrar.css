@@ -54,7 +54,7 @@ body::before {
     padding: 40px 30px;
     border-radius: 25px;
     box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
-    max-width: 400px;
+    max-width: 370px;
     width: 90%;
 }
 
@@ -72,14 +72,14 @@ body::before {
 }
 
 .Logo {
-    width: 300px;
+    width: 250px;
     margin-bottom: 10px;
 }
 
 .Painel-do-Formulário h1 {
     color: var(--cor-branco);
     font-family: var(--fonte-textos);
-    font-size: 20px;
+    font-size: 1.1rem;
     font-weight: 400;
     margin-top: -20px;
     margin-bottom: 30px;
@@ -88,7 +88,7 @@ body::before {
 .Painel-do-Formulário h2 {
     color: var(--cor-branco);
     font-family: var(--fonte-textos);
-    font-size: 30px;
+    font-size: 1.5rem;
     letter-spacing: 0.02em;
     margin-bottom: 30px;
     text-align: center;
@@ -108,18 +108,18 @@ form {
     display: block;
     color: var(--cor-branco);
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.1rem;
     letter-spacing: 0.02em;
     margin-bottom: 5px;
 }
 
 .Dados-Usuário input {
     width: 100%;
-    padding: 15px;
+    padding: 12px 15px;
     padding-right: 45px;
     border: none;
     border-radius: 15px;
-    font-size: 18px;
+    font-size: 1rem;
     font-family: var(--fonte-textos);
     background-color: #F0F0F0;
     box-shadow: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
@@ -129,13 +129,13 @@ form {
     width: 60%;
     display: block;
     margin: 10px auto 0;
-    padding: 5px;
+    padding: 8px;
     background-color: var(--cor-laranja);
     border: 3px solid var(--cor-bege);
     border-radius: 10px;
     color: var(--cor-branco);
     font-family: var(--fonte-cabeçalho);
-    font-size: 30px;
+    font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.02em;
     cursor: pointer;
@@ -155,7 +155,7 @@ form {
 .Esqueceu-sua-Senha {
     color: var(--cor-amarelo);
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1.1rem;
     font-weight: 600;
     display: block;
     text-align: center;
@@ -167,14 +167,14 @@ form {
     text-align: center;
     margin-top: 15px;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.1rem;
 }
 
 .inscrição a {
     color: var(--cor-amarelo);
     text-decoration: none;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1.1rem;
 }
 
 .ícone-olho-fechado {
@@ -221,10 +221,6 @@ form {
         justify-content: center;
     }
     
-    .Mensagem-de-Erro {
-        width: 85%;
-        font-size: 20px;
-    }
 }
 
 /* ---------------------------------------- Mensagem de Erro ---------------------------------------- */
