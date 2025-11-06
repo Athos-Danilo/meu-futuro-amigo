@@ -13,6 +13,7 @@
     --cor-preto: #000000; 
     --cor-vermelho: #ff0000;
     --cor-amarelo: #FFFF00; 
+    --cor-cinza:  rgb(219, 205, 205);
 
 
     --fonte-cabeçalho: 'Acme', sans-serif;
@@ -192,7 +193,7 @@ form {
     .Login-Container {
         display: flex;
         flex-direction: row;
-        padding: 0;
+        padding: 30px 30px;
         max-width: 1200px;
         background-color: transparent;
         box-shadow: none;
@@ -212,6 +213,10 @@ form {
         object-fit: cover;
     }
 
+    .Logo {
+        width: 300px;
+    }
+
     .Painel-do-Formulário {
         flex-basis: 50%;
         background-color: var(--cor-verde);
@@ -219,6 +224,40 @@ form {
         border-radius: 0 25px 25px 0;
         padding: 40px 30px;
         justify-content: center;
+    }
+
+    .Painel-do-Formulário h1 {
+        font-size: 1.25rem;
+        margin-top: -15px;
+        margin-bottom: 25px;
+    }
+
+    .Painel-do-Formulário h2 {
+        font-size: 1.75rem; 
+        margin-bottom: 30px;
+    }
+
+    .Dados-Usuário label {
+        font-size: 1.1rem;
+    }
+
+    .Dados-Usuário input {
+        font-size: 1rem; /* 16px está bom */
+        padding: 15px; /* Devolve o padding "gordo" */
+        padding-right: 45px; /* Mantém o espaço do ícone */
+    }
+
+
+    .Botão-Entrar {
+        width: 60%; /* De volta aos 60% */
+        font-size: 1.5rem; /* 24px */
+        padding: 8px;
+    }
+
+    .Esqueceu-sua-Senha,
+    .inscrição,
+    .inscrição a {
+        font-size: 1.20rem;
     }
     
 }
@@ -228,11 +267,11 @@ form {
 .Mensagem-de-Erro {
     display: none;
     width: auto;
-    max-width: 90%;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
     color: var(--cor-preto);
-    background-color: rgb(181, 169, 169);
+    background-color: var(--cor-cinza);
     box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, 0.3);
     padding: 12px 15px;
     border-radius: 15px;
