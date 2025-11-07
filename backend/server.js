@@ -1,26 +1,22 @@
-// 1. Importando o express.
-// 2. Criando a aplicação.
-// 3. Definindo uma porta.
-// 4. Criando uma rota de teste | Quando alguém acessar http://localhost:3000/.
-// 5. Ligando o servidor.
-
+// Ela carrega todas as senhas do arquivo '.env' para a memória (process.env).
 require('dotenv').config();
 
-const express = require('express');
-const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const db = require('./db');
+// Importando as ferramentas.
+const express = require('express');  // O framework do servidor.
+const cors = require('cors');  // O porteiro que libera o acesso do front-end.
+const bcrypt = require('bcryptjs');  // Nosso criptografador de senhas.
+const db = require('./db');  // O conector do banco de dados.
 
-
+// Criando nossa aplicação Express e onde ele irá rodar.
 const app = express();
 const PORT = 3000;
-//Adicionando 'cors' para liberar o acesso entre diferentes domínios.
-// Comando para o servidor usar JSON.
+
+// Comando para o servidor transformar um texto JSON em um objeto JavaScript (o 'req.body').
 app.use(express.json());
 app.use(cors());
 
 
-// Rota de Teste.
+// Rota de Teste para verificar se o servidor está funcionando.
 app.get('/', (req, res) => {
     res.send('O servidor BACK_END está funcionando!');
 });
@@ -36,7 +32,7 @@ app.post('/login', async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         if (result.rows.length === 0) {
-            return res.status(404).json({ mensagem: 'Usuário não encontrado!'});
+            return res.status(404).json({ mensagem: 'Usuário não Encontrado!'});
         }
 
         const user = result.rows[0];
@@ -44,13 +40,13 @@ app.post('/login', async (req, res) => {
         const senhaCorreta = await bcrypt.compare(senha, user.senha);
 
     if (senhaCorreta) {
-        res.status(200).json({ mensagem: 'Login realizado com sucesso!'});
+        res.status(200).json({ mensagem: 'Login Realizado com Sucesso!'});
     } else {
-        res.status(401).json({ mensagem: 'Senha incorreta.'});
+        res.status(401).json({ mensagem: 'Senha Incorreta.'});
     }
     } catch (error) {
-        console.error('Erro ao tentar fazer login:', error);
-        res.status(500).json({ mensagem: 'Erro interno do servidor'});
+        console.error('Erro ao tentar fazer Login:', error);
+        res.status(500).json({ mensagem: 'Erro interno do Servidor'});
     }
 });
 
@@ -88,8 +84,8 @@ app.post('/cadastro', async (req, res) => {
 
 
 
-
+// Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
-    console.log('AGORA PRONTO para receber POSTs em http://localhost:3000/login');
+    console.log('AGORA estpa pronto para receber POSTs em http://localhost:3000/login');
 });
