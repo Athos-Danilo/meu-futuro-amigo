@@ -79,4 +79,4 @@ O projeto utiliza um conjunto moderno e robusto de tecnologias Full Stack:
 * **Hospedagem Front-end:** GitHub Pages
 
 -------
-Desenvolvido  por [**Athos Danilo**]
+Desenvolvido  por **Athos Danilo**.
