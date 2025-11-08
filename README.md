@@ -1,10 +1,13 @@
-## Meu Futuro Amigo
+## Meu Futuro Amigo 🐾
 
 **Conectando Lares e Corações: Uma Plataforma de Adoção Responsáve**
+**🚧 Projeto em Evolução Contínua: De um site estático para uma aplicação Web Full Stack.**
 
 ## 🌟 Sobre o Projeto
 
-Bem-vindo ao repositório do **Meu Futuro Amigo**! Este projeto foi desenvolvido como trabalho final da disciplina de **Programação para Internet 1**, com o objetivo de criar um site funcional e visualmente atraente utilizando **HTML5 Semântico** e **CSS3**, baseado em um protótipo de alta fidelidade.
+Bem-vindo ao repositório do **Meu Futuro Amigo**! Este projeto  nasceu como um trabalho para a disciplina de **Programação para Internet 1**, focado em Front-end, com o objetivo de criar um site funcional e visualmente atraente utilizando **HTML5 Semântico** e **CSS3**, baseado em um protótipo de alta fidelidade.
+
+Atualmente, o projeto está em uma fase avançada de desenvolvimento, **evoluindo para uma aplicação Full Stack completa**. Além de uma interface bonita e responsiva, agora ele conta com um **servidor próprio, banco de dados real e funcionalidades dinâmicas de autenticação e gerenciamento de perfil**.
 
 A plataforma busca solucionar um problema real: a dificuldade em conectar animais que precisam de um lar (sejam de abrigos ou de doações particulares) com pessoas dispostas a adotar de forma responsável em Pernambuco.
 
