@@ -4,8 +4,23 @@ require('dotenv').config();
 // Importando as ferramentas.
 const express = require('express');  // O framework do servidor.
 const cors = require('cors');  // O porteiro que libera o acesso do front-end.
-const bcrypt = require('bcryptjs');  // Nosso criptografador de senhas.
+const bcrypt = require('bcryptjs');  // Criptografador de senhas.
 const db = require('./db');  // O conector do banco de dados.
+const multer = require('multer'); // Cara responsavel por fazer o upload da imagem do perfil.
+
+
+// Onde ele vai guardar e com qual nome ele salvará as imagens.
+const storage = multer.diskStorage({
+    destination: (req, file, cd) => {
+        cd(null, 'uploads/');
+    },
+    filename: (req, file, cd) => {
+        cd(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage});
+
 
 // Criando nossa aplicação Express e onde ele irá rodar.
 const app = express();
@@ -14,6 +29,9 @@ const PORT = 3000;
 // Comando para o servidor transformar um texto JSON em um objeto JavaScript (o 'req.body').
 app.use(express.json());
 app.use(cors());
+
+// Permitir acesso as imagens pela URL.
+app.use('/uploads', express.static('uploads'));
 
 
 // Rota de Teste para verificar se o servidor está funcionando.
@@ -90,9 +108,11 @@ app.post('/cadastro', async (req, res) => {
 
 
 // Rota da 2ª Parte do Cadastro.
-app.post('/completar-perfil', async (req, res) => {
+app.post('/completar-perfil', upload.single('foto_perfil'), async (req, res) => {
     // Precisa do email para saber quem atualizar. 
     const { email, numero, cep, cidade, estado } = req.body;
+
+    const foto_perfil = req.file ? req.file.path : null;
 
     if (!email || !numero || !cep || !cidade || !estado) {
         return res.status(400).json({ mensagem: 'Todos os Campos são Obrigatórios!'});
@@ -100,8 +120,8 @@ app.post('/completar-perfil', async (req, res) => {
 
     try {
         const result = await db.query(
-            'UPDATE usuarios SET numero = $1, cep = $2, cidade = $3, estado = $4 WHERE email = $5 RETURNING id, nome_exibicao',
-            [numero, cep, cidade, estado, email]
+            'UPDATE usuarios SET numero = $1, cep = $2, cidade = $3, estado = $4, foto_perfil = $5 WHERE email = $6 RETURNING id, nome_exibicao, foto_perfil',
+            [numero, cep, cidade, estado, foto_perfil, email]
         );
 
         if (result.rows.length === 0) {
@@ -120,5 +140,5 @@ app.post('/completar-perfil', async (req, res) => {
 // Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
-    console.log('AGORA está pronto para receber POSTs em http://localhost:3000/login');
+    console.log('Agora está pronto para receber POSTs em /login, /cadastro e /completar-perfil');
 });

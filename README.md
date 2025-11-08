@@ -34,14 +34,3 @@ O **Meu Futuro Amigo** oferece dois caminhos principais:
 * **Estilização:** CSS3 (Flexbox, Grid, Keyframes, Variáveis)
 * **Versionamento:** Git & GitHub
 * **Hospedagem:** GitHub Pages
-
-## 👥 Equipe
-
-Este projeto foi realizado em trio por:
-
-* **Athos Danilo:** Responsável pelo Design de Interface/UX (Figma) e desenvolvimento Front-End (HTML/CSS).
-* **Cauã Herculano:** Responsável pelo desenvolvimento Front-End (HTML/CSS).
-* **Marcus Vinícius:** Responsável pelo desenvolvimento Front-End (HTML/CSS).
-
-
-

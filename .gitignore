@@ -1,5 +1,8 @@
-# Ignora a pasta de dependências do Node
+# Ignora a pasta de dependências do Node.
 node_modules/
 
-# Ignora o arquivo de senhas e variáveis de ambiente
+# Ignora o arquivo de senhas e variáveis de ambiente.
 .env
+
+# Igonora a pasta de uploads.
+backend/uploads/
