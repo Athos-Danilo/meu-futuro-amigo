@@ -13,7 +13,8 @@
     --cor-preto: #000000; 
     --cor-vermelho: #ff0000;
     --cor-amarelo: #FFFF00; 
-    --cor-cinza: #DBCDCD;
+    --cor-cinza: #4A4A4A;
+
 
 
     --fonte-cabeçalho: 'Acme', sans-serif;
@@ -51,7 +52,7 @@ body::before {
     background-position: center center;
 }
 
-.Login-Container {
+.Cadastrar-Container {
     background-color: var(--cor-verde);
     padding: 30px 20px;
     border-radius: 25px;
@@ -60,13 +61,10 @@ body::before {
     width: 90%;
 }
 
-/*----- A Imagem está desativada para telas pequenas -----*/
-.Imagem {
-    display: none;
-}
+/* ---------------------------------------- Seção do Formulário (Mobile) ---------------------------------------- */
+/* No mobile, os dois painéis (Info e Formulário) são transparentes e ficam um em cima do outro dentro do .Cadastrar-Container */
 
-/* ---------------------------------------- Seção do Formulário ---------------------------------------- */
-
+.Painel-Info-Perfil,
 .Painel-do-Formulário {
     display: flex;
     flex-direction: column;
@@ -79,7 +77,7 @@ body::before {
     margin-bottom: 10px;
 }
 
-.Painel-do-Formulário h1 {
+.Painel-Info-Perfil h1 {
     color: var(--cor-branco);
     font-family: var(--fonte-textos);
     font-size: 0.9rem;
@@ -88,7 +86,7 @@ body::before {
     margin-bottom: 30px;
 }
 
-.Painel-do-Formulário h2 {
+.Painel-Info-Perfil h2 {
     color: var(--cor-branco);
     font-family: var(--fonte-textos);
     font-size: 1.5rem;
@@ -96,6 +94,46 @@ body::before {
     margin-bottom: 25px;
     text-align: center;
 }
+
+.Painel-Info-Perfil h3 {
+    display: none;
+}
+
+.Botão-Enviar-Foto {
+    width: 100%;
+    padding: 8px 15px;
+    background-color: var(--cor-cinza);
+    border: 2px solid var(--cor-branco);
+    border-radius: 10px;
+    color: var(--cor-branco);
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.1s;
+}
+
+.Botão-Enviar-Foto:hover {
+    transition: background-color 0.4s ease;
+    background-color: var(--cor-laranja);
+}
+
+.Botão-Enviar-Foto:active {
+    background-color: var(--cor-laranja);
+    transform: scale(0.98);
+}
+
+.Botão-Enviar-Foto img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
 
 form {
     width: 100%;
@@ -107,7 +145,6 @@ form {
     position: relative;
 }
 
-/*----- Etiqueta 'E-mail' e 'senha' -----*/
 .Dados-Usuário label {
     display: block;
     color: var(--cor-branco);
@@ -117,20 +154,18 @@ form {
     margin-bottom: 5px;
 }
 
-/*----- Caixa de texto para o usuário preencher suas informações -----*/
 .Dados-Usuário input {
     width: 100%;
     padding: 12px 15px;
-    padding-right: 45px;
     border: none;
     border-radius: 15px;
     font-size: 1rem;
     font-family: var(--fonte-textos);
     background-color: #F0F0F0;
-    box-shadow: inset 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 2px 4px 0px rgba(0, 0,0, 0.3);
 }
 
-.Botão-Entrar {
+.Botão-Concluir {
     width: 50%;
     display: block;
     margin: 10px auto 0;
@@ -148,126 +183,121 @@ form {
     transition: transform 0.1s;
 }
 
-.Botão-Entrar:active {
+.Botão-Concluir:active {
     transform: scale(0.95);
 }
 
-.Botão-Entrar:hover {
+.Botão-Concluir:hover {
     transition: background-color 0.3s ease;
     background-color: var(--cor-marrom);
 }
 
-.Esqueceu-sua-Senha {
-    color: var(--cor-amarelo);
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 600;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.inscrição {
+.legenda-final {
     color: var(--cor-branco);
     text-align: center;
     margin-top: 15px;
     font-weight: 400;
-    font-size: 1rem;
-}
-
-.inscrição a {
-    color: var(--cor-amarelo);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-.ícone-olho-fechado {
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
-    width: 20px;
-    cursor: pointer;
-    opacity: 0.7;
+    font-size: 0.9rem;
 }
 
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
 
 @media (min-width: 900px) {
-    .Login-Container {
+  
+  .Cadastrar-Container {
         display: flex;
         flex-direction: row;
-        padding: 30px 30px;
-        max-width: 1200px;
-        background-color: transparent;
+        padding: 0; 
+        max-width: 1100px; 
+        background-color: transparent; 
         box-shadow: none;
+        min-height: 650px;
     }
 
-    .Imagem {
-        display: block;
-        flex-basis: 75%;
+    /*----- O PAINEL DA ESQUERDA (PRETO) -----*/
+    .Painel-Info-Perfil {
+        flex-basis: 50%; 
+        background-color: var(--cor-preto);
         box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
         border-radius: 25px 0 0 25px;
-        overflow: hidden;
+        padding: 40px 30px;
+        justify-content: center; 
     }
 
-    .Imagem img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .Logo {
-        width: 300px;
-    }
-
+    /*----- O PAINEL DA DIREITA (VERDE) -----*/
     .Painel-do-Formulário {
-        flex-basis: 50%;
+        flex-basis: 50%; 
         background-color: var(--cor-verde);
         box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
         border-radius: 0 25px 25px 0;
-        padding: 40px 30px;
-        justify-content: center;
+        padding: 40px 70px;
+        justify-content: center; 
     }
 
-    .Painel-do-Formulário h1 {
-        font-size: 1.25rem;
-        margin-top: -15px;
+    .Logo {
+        width: 300px; 
+        height: 120px;
+        margin-top: -30px;
+    }
+
+    .Painel-Info-Perfil h1 {
+        font-size: 1.20rem;
+        margin-top: -18px;
         margin-bottom: 25px;
     }
 
-    .Painel-do-Formulário h2 {
-        font-size: 1.75rem; 
+    .Painel-Info-Perfil h2 {
+        font-size: 2.5rem;
         margin-bottom: 30px;
     }
 
-    .Dados-Usuário label {
-        font-size: 1.1rem;
+    /*----- Ligando  o H3 de volta -----*/
+    .Painel-Info-Perfil h3 {
+        display: block;
+        color: var(--cor-branco);
+        font-family: var(--fonte-textos);
+        font-size: 1.5rem;
+        font-weight: 400;
+        text-align: justify;
+        margin: 20px 35px 50px 35px;
+    }
+
+    .Botão-Enviar-Foto {
+        font-size: 1.4rem;
+        width: 75%;
+        margin: 0 auto; 
+    }
+
+    .Botão-Enviar-Foto img {
+        width: 40px;
+        height: 40px;
     }
 
     .Dados-Usuário input {
-        font-size: 1rem; 
         padding: 15px; 
-        padding-right: 45px; 
+        font-size: 1rem;
     }
 
+    .Dados-Usuário label {
+        font-size: 1.3rem;
+    }
 
-    .Botão-Entrar {
-        width: 60%; 
-        font-size: 1.5rem; 
+    .Botão-Concluir {
+        width: 50%;
+        font-size: 1.8rem;
+        letter-spacing: 0.02em;
         padding: 8px;
+        margin-top: 40px;
     }
 
-    .Esqueceu-sua-Senha,
-    .inscrição,
-    .inscrição a {
-        font-size: 1.20rem;
+    .legenda-final {
+        font-size: 1.1rem;
+        margin-top: 60px;
     }
-    
 }
 
-/* ---------------------------------------- Mensagem de Erro  ---------------------------------------- */
-/*----- Mostra informações, se o usuário preencheu todos os campos, senha incorreta, erro no servidor etc. -----*/
+/* ---------------------------------------- Mensagem de Erro ---------------------------------------- */
+
 .Mensagem-de-Erro {
     display: none;
     width: auto;

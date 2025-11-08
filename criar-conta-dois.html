@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - 2ª Parte | Meu Melhor Amigo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/criar-conta-dois.css">
+</head>
+<body>
+    <main class="Cadastrar-Container">
+
+        <section class="Painel-Info-Perfil">
+
+            <img class="Logo" src="img/Logo (Branco).png" alt="Logo Meu Melhor Amigo">
+            <h1>Conectando Corações e Patas</h1>
+            <h2>Falta só um pouquinho!</h2>
+            <h3>Envie uma foto de perfil e preencha suas informações de endereço pra gente te conhecer melhor.</h3>
+
+            <button type="button" class="Botão-Enviar-Foto">
+                <img src="img/ícone perfil.png" alt="ícone-perfil">
+                <span>Envie sua Foto de Perfil</span>
+            </button>
+
+        </section>
+
+        <section class="Painel-do-Formulário">
+            
+            <form action="#" method="POST" novalidate>
+
+                <div class="Dados-Usuário">
+                    <label for="Número">Número</label>
+                    <input type="tel" id="número-celular" name="número-celular" placeholder="(DD) 9XXXX-XXXX" required>
+                </div>
+
+                <div class="Dados-Usuário">
+                    <label for="CEP">Cep</label>
+                    <input type="text" id="número-cep" name="número-cep" placeholder="Ex: 55385-000" required>
+                </div>
+
+                <div class="Dados-Usuário">
+                    <label for="Cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Ex: Lajedo" required>
+                </div>
+
+                <div class="Dados-Usuário">
+                    <label for="Estado">Estado</label>
+                    <input type="text" id="estado" name="estado" placeholder="Ex: Pernambuco" required>
+                </div>
+
+                <p class="Mensagem-de-Erro" id="mensagemErro"></p>
+
+                <button type="submit" class="Botão-Concluir">Concluir</button>
+
+            </form>
+
+            <p class="legenda-final">Esses dados nos ajudam a manter seu perfil organizado</p>
+
+        </section>
+
+    </main>
+
+    <script src="js/criar-conta-dois.js"></script>    
+</body>
+</html>
