@@ -1,6 +1,7 @@
 ## Meu Futuro Amigo 🐾
 
 **Conectando Lares e Corações: Uma Plataforma de Adoção Responsáve**
+
 **🚧 Projeto em Evolução Contínua: De um site estático para uma aplicação Web Full Stack.**
 
 ## 🌟 Sobre o Projeto
@@ -11,19 +12,38 @@ Atualmente, o projeto está em uma fase avançada de desenvolvimento, **evoluind
 
 A plataforma busca solucionar um problema real: a dificuldade em conectar animais que precisam de um lar (sejam de abrigos ou de doações particulares) com pessoas dispostas a adotar de forma responsável em Pernambuco.
 
-O **Meu Futuro Amigo** oferece dois caminhos principais:
-1.  **Adoção Direta:** Usuários podem navegar pela galeria, filtrar animais por características e iniciar o processo de adoção.
-2.  **Divulgação Comunitária:** Usuários cadastrados podem divulgar animais que estão sob seus cuidados, buscando um novo lar seguro para eles. (Funcionalidade de cadastro implementada, portal de divulgação em desenvolvimento).
-3.  **Parceria Estratégica:** O site também atua como vitrine para os animais resgatados e cuidados pelo **Abrigo de Cuidado Animal**, nosso parceiro fundamental.
 
-## ✨ Destaques e Funcionalidades
+## ✨ Funcionalidades Implementadas
 
-* **Design Aconchegante e Caloroso:** Todo o visual foi cuidadosamente planejado no Figma para criar uma experiência acolhedora, confiável e que transmita o carinho da causa animal.
-* **Página Inicial Completa:** Apresenta a missão, o processo de adoção, casos de sucesso e direciona o usuário para as ações principais. Inclui um slider de imagens feito com CSS Keyframes.
-* **Fluxo de Autenticação:** Páginas dedicadas para Login (`entrar`) e Cadastro (`cadastrar-se`), essenciais para a interação do usuário.
-* **Páginas de Conteúdo:** Seções "Sobre Nós" e "Como Ajudar" detalham a história do projeto, a parceria com o abrigo e as formas de contribuição.
-* **Páginas Futuras:** Links para "Adotar" (galeria principal) e "Finais Felizes" (detalhes das histórias) foram criados e apontam para uma página "Em Construção", indicando o escopo futuro do projeto e cumprindo o requisito mínimo de 5 páginas funcionais.
-* **Estrutura Semântica e CSS Moderno:** O código utiliza HTML5 semântico e técnicas de CSS3 como Flexbox, Grid Layout e Variáveis para organização e layout.
+**🎨 Front-End (Interface)**
+
+* **Design Responsivo (Mobile First):** Layout cuidadosamente planejado para funcionar perfeitamente em celulares e se adaptar elegantemente a telas maiores (desktops).
+
+* UX/UI Aconchegante: Uso de cores, tipografia e espaçamentos que transmitem confiança e carinho.
+
+* **Consumo de APIs**:
+
+    * ViaCEP: Preenchimento automático de endereço (Cidade/Estado) ao digitar o CEP.
+
+    * API Própria: Comunicação com o nosso back-end para login e cadastro.
+
+**⚙️ Back-End (Servidor & Banco de Dados)**
+
+* Sistema de Cadastro em Duas Etapas:
+
+    * Parte 1: Criação de conta com validação de e-mail único e senhas criptografadas.
+
+    * Parte 2: Completar perfil com dados de contato e localização.
+
+* **Upload de Imagens:** Usuários podem enviar sua foto de perfil, que é processada pelo servidor e salva localmente.
+
+* Autenticação Segura:
+
+    * Login com verificação de e-mail e senha.
+
+    * Senhas nunca são salvas em texto puro (uso de bcrypt para hash).
+
+* **Banco de Dados Relacional:** Uso do PostgreSQL para armazenar dados dos usuários de forma estruturada e segura.
 
 ## 🚀 Acesso ao Projeto
 
@@ -32,8 +52,31 @@ O **Meu Futuro Amigo** oferece dois caminhos principais:
 
 ## 💻 Tecnologias Utilizadas
 
-* **Design:** Figma
+O projeto utiliza um conjunto moderno e robusto de tecnologias Full Stack:
+
+### Design & Front-End
+* **Design:** Figma (Protótipo de alta fidelidade)
 * **Estrutura:** HTML5 Semântico
-* **Estilização:** CSS3 (Flexbox, Grid, Keyframes, Variáveis)
+* **Estilização:** CSS3 (Flexbox, Grid, Media Queries, Variáveis, Mobile First)
+* **Linguagem de Script:** JavaScript (ES6+, Fetch API, DOM Manipulation)
+
+### Back-End (Servidor)
+* **Ambiente de Execução:** Node.js
+* **Framework:** Express.js (Criação de rotas e API)
+* **Middlewares & Utilitários:**
+    * `multer` (Upload e armazenamento de imagens)
+    * `bcryptjs` (Criptografia/Hash de senhas para segurança)
+    * `dotenv` (Gerenciamento de variáveis de ambiente sensíveis)
+    * `cors` (Permissão de requisições entre domínios)
+
+### Banco de Dados
+* **SGBD:** PostgreSQL (Banco de dados relacional)
+* **Integração:** Pacote `pg` (node-postgres) para conexão entre o Node.js e o banco.
+
+### Ferramentas & Infraestrutura
 * **Versionamento:** Git & GitHub
-* **Hospedagem:** GitHub Pages
+* **Gerenciamento de Banco:** pgAdmin 4
+* **Hospedagem Front-end:** GitHub Pages
+
+-------
+Desenvolvido  por [**Athos Danilo**]
