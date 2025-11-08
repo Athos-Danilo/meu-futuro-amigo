@@ -21,13 +21,13 @@ app.get('/', (req, res) => {
     res.send('O servidor BACK_END está funcionando!');
 });
 
-// Rota de Login (POST).
+
+// Rota de Login.
 app.post('/login', async (req, res) => {
     const {email, senha} = req.body;
     
     console.log('--- Nova Tentativa de Login ---');
     console.log('E-mail Recebido:', email);
-    console.log('Senha Recebida:', senha);
 
     try {
         const result = await db.query('SELECT * FROM usuarios WHERE email = $1', [email]);
@@ -39,11 +39,17 @@ app.post('/login', async (req, res) => {
 
         const senhaCorreta = await bcrypt.compare(senha, user.senha);
 
-    if (senhaCorreta) {
-        res.status(200).json({ mensagem: 'Login Realizado com Sucesso!'});
-    } else {
-        res.status(401).json({ mensagem: 'Senha Incorreta.'});
-    }
+        if (senhaCorreta) {
+            res.status(200).json({ mensagem: 'Login Realizado com Sucesso!',
+                user: {
+                    id: user.id,
+                    nome_exibicao: user.nome_exibicao,
+                    email: user.email
+                }
+            });
+        } else {
+            res.status(401).json({ mensagem: 'Senha Incorreta.'});
+        }
     } catch (error) {
         console.error('Erro ao tentar fazer Login:', error);
         res.status(500).json({ mensagem: 'Erro interno do Servidor'});
@@ -51,41 +57,68 @@ app.post('/login', async (req, res) => {
 });
 
 
-// 7. ROTA DE CADASTRO (TEMPORÁRIA - SÓ PARA CRIAR UM USUÁRIO)
+// Rota da 1ª Parte do Cadastro.
 app.post('/cadastro', async (req, res) => {
-    const { email, senha } = req.body;
+    const { nome_completo, email, senha } = req.body
 
-    if (!email || !senha) {
-        return res.status(400).json({ mensagem: 'Email e senha são obrigatórios.' });
+    if (!nome_completo || !email || !senha) {
+        return res.status(400).json({ mensagem: 'Nome, Email e Senha são Obrigatórios!'});
     }
 
+    // Criando o nome de exibição, que será o primeiro nome do Usuário.
+    const nome_exibicao = nome_completo.split(' ')[0];
+
     try {
-        // GERAR O "HASH" DA SENHA
         const salt = await bcrypt.genSalt(10);
         const senhaHash = await bcrypt.hash(senha, salt);
 
-        // SALVAR NO BANCO DE DADOS
         const result = await db.query(
-            'INSERT INTO usuarios (email, senha) VALUES ($1, $2) RETURNING id, email',
-            [email, senhaHash]
+            'INSERT INTO usuarios (nome_completo, nome_exibicao, email, senha) VALUES ($1, $2, $3, $4) RETURNING id, email, nome_exibicao',
+            [nome_completo, nome_exibicao, email, senhaHash]
         );
 
         res.status(201).json({ mensagem: 'Usuário criado com sucesso!', user: result.rows[0] });
 
     } catch (error) {
-        // 23505 é o código de erro do Postgres para "violação de chave única" (email duplicado)
         if (error.code === '23505') {
-            return res.status(400).json({ mensagem: 'Este e-mail já está cadastrado.' });
+            return res.status(400).json({ mensagem: 'Este E-mail já está Cadastrado!'});
         }
-        console.error('Erro ao cadastrar usuário:', error);
-        res.status(500).json({ mensagem: 'Erro interno do servidor.' });
+        console.error('Erro ao Cadastrar Usuário', error);
+        res.status(500).json({ mensagem: 'Erro Interno do Servidor.'});
     }
 });
 
+
+// Rota da 2ª Parte do Cadastro.
+app.post('/completar-perfil', async (req, res) => {
+    // Precisa do email para saber quem atualizar. 
+    const { email, numero, cep, cidade, estado } = req.body;
+
+    if (!email || !numero || !cep || !cidade || !estado) {
+        return res.status(400).json({ mensagem: 'Todos os Campos são Obrigatórios!'});
+    }
+
+    try {
+        const result = await db.query(
+            'UPDATE usuarios SET numero = $1, cep = $2, cidade = $3, estado = $4 WHERE email = $5 RETURNING id, nome_exibicao',
+            [numero, cep, cidade, estado, email]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(400).json({ mensagem: 'Usuário não Encontrado para Atualizar.'});
+        }
+
+        res.status(200).json({ mensagem: 'Perfil Completo com Sucesso!', user: result.rows[0] });
+
+    } catch (error) {
+        console.error('Erro ao Completar Perfil', error);
+        res.status(500).json({ mensagem: 'Erro Interno do Servidor.'});
+    }
+});
 
 
 // Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
-    console.log('AGORA estpa pronto para receber POSTs em http://localhost:3000/login');
+    console.log('AGORA está pronto para receber POSTs em http://localhost:3000/login');
 });
