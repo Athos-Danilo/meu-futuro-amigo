@@ -7,6 +7,17 @@ const cors = require('cors');  // O porteiro que libera o acesso do front-end.
 const bcrypt = require('bcryptjs');  // Criptografador de senhas.
 const db = require('./db');  // O conector do banco de dados.
 const multer = require('multer'); // Cara responsavel por fazer o upload da imagem do perfil.
+const nodemailer = require('nodemailer'); // Responsável por enviar os e-mails.
+
+
+// Envio do Email.
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 
 // Onde ele vai guardar e com qual nome ele salvará as imagens.
@@ -133,6 +144,23 @@ app.post('/completar-perfil', upload.single('foto_perfil'), async (req, res) => 
     } catch (error) {
         console.error('Erro ao Completar Perfil', error);
         res.status(500).json({ mensagem: 'Erro Interno do Servidor.'});
+    }
+});
+
+
+// ROTA DE TESTE DE E-MAIL (TEMPORÁRIA)
+app.get('/teste-email', async (req, res) => {
+    try {
+        await transporter.sendMail({
+            from: '"Meu Futuro Amigo" <' + process.env.EMAIL_USER + '>',
+            to: process.env.EMAIL_USER, // Manda para você mesmo!
+            subject: 'Teste do Sistema de E-mail',
+            text: 'Se você recebeu isso, o Nodemailer está funcionando! 🚀'
+        });
+        res.send('E-mail de teste enviado com sucesso! Verifique sua caixa de entrada.');
+    } catch (error) {
+        console.error('Erro ao enviar e-mail:', error);
+        res.status(500).send('Erro ao enviar e-mail: ' + error.message);
     }
 });
 

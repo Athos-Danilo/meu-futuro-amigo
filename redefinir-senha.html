@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha | Meu Futuro Amigo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/redefinir-senha.css">
+</head>
+<body>
+
+    <main class="Redefinir-Container">
+
+        <section class="Painel-Informações">
+
+            <img class="Logo" src="img/Logo (Branco).png" alt="Logo Meu Futuro Amigo">
+            <h1>Conectando Corações e Patas</h1>
+            <h2>Código de Verificação</h2>
+            <h3>Enviamos um código para o seu e-mail. <br>Por favor, digite-o abaixo.</h3>
+
+        </section>
+
+        <section id="etapa-verificacao" class="Verificação-Código">
+
+            <form id="form-codigo" novalidate>
+
+                <div class="Dados-Usuário">
+                    <label for="codigo-verificacao">Código</label>
+                    <input type="text" id="codigo-verificacao" name="codigo" placeholder="Ex: 123456" required maxlength="6">
+                </div>
+
+                <button type="submit" class="Botão-Verificar">Verificar Código</button>
+
+            </form>
+
+        </section>
+
+
+        <section id="etapa-nova-senha" class="Nova-Senha" style="display: none">
+
+            <form id="form-nova-senha" novalidate>
+                
+                <div class="Dados-Usuário">
+                    <label for="nova-senha">Nova Senha</label>
+                    <input type="password" id="nova-senha" name="nova_senha" placeholder="Digite sua nova senha" required>
+                    <img src="img/olho-fechado.png" alt="Mostrar Senha" class="icone-olho" id="olho-fechado">
+                </div>
+
+                <div class="Dados-Usuário">
+                    <label for="confirmar-nova-senha">Confirmar Nova Senha</label>
+                    <input type="password" id="confirmar-nova-senha" name="confirmar_senha" placeholder="Digite novamente" required>
+                    <img src="img/olho-fechado.png" alt="Mostrar Senha" class="icone-olho" id="olho-fechado-confirmar">
+                </div>
+
+                <button type="submit" class="Botão-Salvar">Salvar Nova Senha</button>
+
+            </form>
+
+        </section>
+
+        <p class="mensagem-erro" id="mensagemFeedback" style="display: none; margin-bottom: 20px;"></p>
+
+        <p class="Reenviar" id="link-reenviar-container">Não recebeu o e-mail? <a href="#" id="btn-reenviar">Reenviar Código</a></p>
+
+    </main>
+
+    <script src="js/redefinir-senha.js"></script>
+</body>
+</html>

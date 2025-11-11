@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci Minha Senha | Meu Futuro Amigo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/esqueci-minha-senha.css">
+</head>
+<body>
+    <main class="Retângulo-Container">
+
+        <section class="Painel-Informações">
+
+            <img class="Logo" src="img/Logo (Branco).png" alt="Logo Meu Futuro Amigo">
+            <h1>Conectando Corações e Patas</h1>
+            <h2>Esqueceu sua Senha?</h2>
+            <h3>Informe o e-mail cadastrado e enviaremos um código para redefinir sua senha.</h3>
+
+        </section>
+
+        <section class="Formulário">
+
+            <form action="#" method="POST" novalidate>
+
+                <div class="Senha-Cadastrada">
+                    <label for="email">E-mail Cadastrado</label>
+                    <input type="text" id="email-cadastrado" name="email-cadastrado" placeholder="Digite seu E-mail" required>
+                </div>
+
+                <button type="submit" class="Botão-Enviar-Código">Enviar Código</button>
+
+            </form>
+
+            <p class="Mensagem-de-Erro" id="mensagemErro"></p>
+            
+            <p class="tenho-conta" >Lembrou a Senha? <a href="entrar.html">Fazer Login</a> </p>
+
+        </section>
+
+    </main>
+    <script src="js/esqueci-minha-senha.js"></script>    
+</body>
+</html>
