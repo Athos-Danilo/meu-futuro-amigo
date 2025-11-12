@@ -148,7 +148,7 @@ form {
     font-size: 1.5rem;
     letter-spacing: 0.5em;
     font-weight: 700;
-    color: var(--cor-verde);
+    color: var(--cor-preto);
 }
 
 /*----- Padrão básico para os botões -----*/
@@ -165,7 +165,7 @@ button {
 
 /*---------- Botão 1 ----------*/
 .Botão-Verificar {
-    background-color: var(--cor-cinza-botao);
+    background-color: #ff0000c6;
     color: var(--cor-preto);
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -176,7 +176,7 @@ button {
 }
 
 .Botão-Verificar:hover {
-    background-color: #222;
+    background-color: #ff0000;
     color: var(--cor-branco);
 }
 
@@ -244,6 +244,8 @@ button:active {
     font-weight: 600;
     border: 2px solid rgba(0, 0, 0, 0.1);
     display: none;
+    margin-top: 25px; 
+    margin-bottom: 20px;
 }
 
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
@@ -251,6 +253,21 @@ button:active {
 @media (min-width: 900px) {
     .Redefinir-Container {
         max-width: 600px;
+    }
+
+    .Logo {
+        width: 250px;
+    }
+
+    .Painel-Informações h1 {
+        font-size: 1rem;
+        margin-top: -25px;
+        letter-spacing: 0.025em;
+    }
+
+    .Painel-Informações h2 {
+        font-size: 2.3rem;
+        margin-bottom: 8px;
     }
 
     #form-codigo {

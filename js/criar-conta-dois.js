@@ -119,8 +119,9 @@ form.addEventListener('submit', async (event) => {
 
         if (response.ok) {
                 console.log('Perfil Atualizado:', data.user);
-                alert('Parabéns! Seu Cadastro foi Concluído com Sucesso! Faça o Login.');
                 window.location.href = 'entrar.html';
+                alert('Parabéns! Seu Cadastro foi Concluído com Sucesso! Faça o Login.');
+                
         } else { 
             mensagemErro.textContent = data.mensagem;
             mensagemErro.style.display = 'block';

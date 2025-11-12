@@ -165,8 +165,132 @@ app.get('/teste-email', async (req, res) => {
 });
 
 
+// Esqueci minha senha.
+app.post('/esqueci-senha', async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ mensagem : 'O E-mail é obrigatório.'})
+    }
+
+    try {
+        // Verificar se o emil está no banco de dados.
+        const userResult = await db.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+
+        if (userResult.rows.length === 0) {
+            console.log(`Tentativa de mudança de senha para o E-mail não cadastrado: ${email}`);
+            return res.status(200).json({ mensagem: 'Se este E-mail estiver cadastrado, um código de redefinição foi enviado.'});
+        }
+
+        // Gerar código aleatório de 6 digitos.
+        const token = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log(`Gerando token ${token} para ${email}`);
+
+        // Salva o Token no banco de dados, mas antes apaga o antigo se houver.
+        await db.query('DELETE FROM reset_tokens WHERE email = $1', [email]);
+        await db.query('INSERT INTO reset_tokens (email, token) VALUES ($1, $2)', [email, token]);
+
+        // Enviando o Token para o E-mail.
+        const mailOptions = {
+            from: `"Meu Futuro Amigo" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject: 'Seu Código de Redefinição de Senha',
+            text: `Olá! Você solicitou a redefinição da sua senha. Seu Código é: ${token}`,
+            html: `
+                <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                    <h2 style="color: #6B8E23;">Redefinição de Senha - Meu Futuro Amigo</h2>
+                    <p>Olá!</p>
+                    <p>Recebemos uma solicitação para redefinir a senha da sua conta. Use o código de 6 dígitos abaixo para criar uma nova senha:</p>
+                    <h3 style="background: #f0f0f0; padding: 10px 15px; border-radius: 8px; text-align: center; letter-spacing: 3px; font-size: 24px;">
+                        ${token}
+                    </h3>
+                    <p>Este código expira em 1 hora.</p>
+                    <p>Se você não solicitou isso, pode ignorar este e-mail com segurança.</p>
+                    <hr>
+                    <p style="font-size: 0.9em; color: #777;">Equipe Meu Futuro Amigo</p>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ mensagem: ' Se este E-mail estiver cadastrado um código de redefinição foi enviado.'});
+
+    } catch (error) {
+        console.error('Erro na rota /esqueci-senha', error);
+        res.status(500).json({ mensagem: 'Erro interno do Servidor.'})
+    }
+
+});
+
+// Verificação do Token.
+app.post('/verificar-token', async (req, res) => {
+    const { email, token } = req.body;
+
+    if (!email || !token) {
+        return res.status(400).json({ mensagem: 'E-mail e código são obrigatórios.' });
+    }
+
+    try {
+        const result = await db.query(
+            "SELECT * FROM reset_tokens WHERE email = $1 AND token = $2 AND criado_em > now() - INTERVAL '1 hour'",
+            [email, token]
+        );
+
+
+        if (result.rows.length > 0) {
+            res.status(200).json({ mensagem: 'Código verificado com sucesso!' });
+        } else {
+            res.status(400).json({ mensagem: 'Código inválido ou expirado. Tente novamente.' });
+        }
+
+    } catch (error) {
+        console.error('Erro ao verificar token:', error);
+        res.status(500).json({ mensagem: 'Erro interno do servidor.' });
+    }
+});
+
+// Redefinir Senha.
+app.post('/redefinir-senha', async (req, res) => {
+    const { email, token, novaSenha } = req.body;
+
+    if (!email || !token || !novaSenha) {
+        return res.status(400).json({ mensagem: 'E-mail, código e nova senha são obrigatórios.' });
+    }
+
+    try {
+
+        const tokenResult = await db.query(
+            "SELECT * FROM reset_tokens WHERE email = $1 AND token = $2 AND criado_em > now() - INTERVAL '1 hour'",
+            [email, token]
+        );
+
+
+        if (tokenResult.rows.length === 0) {
+            return res.status(400).json({ mensagem: 'Código inválido ou expirado. Solicite um novo.' });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const senhaHash = await bcrypt.hash(novaSenha, salt);
+
+        await db.query(
+            'UPDATE usuarios SET senha = $1 WHERE email = $2',
+            [senhaHash, email]
+        );
+
+        await db.query('DELETE FROM reset_tokens WHERE email = $1', [email]);
+
+        // 6. SUCESSO!
+        res.status(200).json({ mensagem: 'Senha redefinida com sucesso!' });
+
+    } catch (error) {
+        console.error('Erro ao redefinir senha:', error);
+        res.status(500).json({ mensagem: 'Erro interno do servidor.' });
+    }
+});
+
 // Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
-    console.log('Agora está pronto para receber POSTs em /login, /cadastro e /completar-perfil');
+    console.log('Agora está pronto para receber POSTs em /login, /cadastro, /completar-perfil e /esqueci-senha');
 });
