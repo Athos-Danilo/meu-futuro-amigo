@@ -110,7 +110,7 @@ form.addEventListener('submit', async (event) => {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/completar-perfil', {
+        const response = await fetch('/completar-perfil', {
             method: 'POST',
             body: formData
         });

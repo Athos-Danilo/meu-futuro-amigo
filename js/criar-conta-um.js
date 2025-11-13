@@ -65,7 +65,7 @@ form.addEventListener('submit', async (event) => {
 
     // Eviando o formulário através do 'fetch'.
     try {
-        const response = await fetch('http://localhost:3000/cadastro', {
+        const response = await fetch('/cadastro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({

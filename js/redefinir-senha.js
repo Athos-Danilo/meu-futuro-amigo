@@ -36,7 +36,7 @@ formCodigo.addEventListener('submit', async (event) => {
     btnVerificar.textContent = 'Verificando...';
 
     try {
-        const response = await fetch('http://localhost:3000/verificar-token', {
+        const response = await fetch('/verificar-token', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -107,7 +107,7 @@ formNovaSenha.addEventListener('submit', async (event) => {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/redefinir-senha', {
+        const response = await fetch('/redefinir-senha', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -160,7 +160,7 @@ if (btnReenviar) {
         btnReenviar.style.pointerEvents = 'none'; 
 
         try {
-            await fetch('http://localhost:3000/esqueci-senha', {
+            await fetch('/esqueci-senha', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: emailUsuario })

@@ -3,12 +3,18 @@ require('dotenv').config();
 
 // Importando as ferramentas.
 const express = require('express');  // O framework do servidor.
+const path = require('path');
 const cors = require('cors');  // O porteiro que libera o acesso do front-end.
 const bcrypt = require('bcryptjs');  // Criptografador de senhas.
 const db = require('./db');  // O conector do banco de dados.
 const multer = require('multer'); // Cara responsavel por fazer o upload da imagem do perfil.
 const nodemailer = require('nodemailer'); // Responsável por enviar os e-mails.
 
+// Criando nossa aplicação Express e onde ele irá rodar.
+const app = express();
+const PORT = 3000;
+
+app.use(express.static(path.join(__dirname, '..')));
 
 // Envio do Email.
 const transporter = nodemailer.createTransport({
@@ -33,10 +39,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage});
 
 
-// Criando nossa aplicação Express e onde ele irá rodar.
-const app = express();
-const PORT = 3000;
-
 // Comando para o servidor transformar um texto JSON em um objeto JavaScript (o 'req.body').
 app.use(express.json());
 app.use(cors());
@@ -46,9 +48,9 @@ app.use('/uploads', express.static('uploads'));
 
 
 // Rota de Teste para verificar se o servidor está funcionando.
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     res.send('O servidor BACK_END está funcionando!');
-});
+}); */
 
 
 // Rota de Login.

@@ -22,7 +22,7 @@ form.addEventListener('submit', async (event) => {
 
     // Fazer o fetch para o back-end.
     try {
-    const response = await fetch('http://localhost:3000/esqueci-senha', {
+    const response = await fetch('/esqueci-senha', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email })
