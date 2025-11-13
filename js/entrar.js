@@ -7,11 +7,11 @@ const inputSenha = document.getElementById('senha');
 senhaIcone.addEventListener('click', () => {
     if (inputSenha.type === 'password') {
         inputSenha.type = 'text';
-        senhaIcone.src = 'img/olho-aberto.png';
+        senhaIcone.src = '../img/olho-aberto.png';
         senhaIcone.alt = 'Esconder Senha';
     } else {
         inputSenha.type = 'password';
-        senhaIcone.src = 'img/olho-fechado.png';
+        senhaIcone.src = '../img/olho-fechado.png';
         senhaIcone.alt = 'Mostrar Senha';
     }
 });

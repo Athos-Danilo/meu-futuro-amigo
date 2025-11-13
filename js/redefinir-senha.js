@@ -138,14 +138,18 @@ formNovaSenha.addEventListener('submit', async (event) => {
 
 
 // Ícones do olho.
-document.getElementById('olho-fechado').addEventListener('click', () => {
+document.getElementById('toggleNovaSenha').addEventListener('click', (e) => { 
     const type = novaSenhaInput.type === 'password' ? 'text' : 'password';
     novaSenhaInput.type = type;
+    e.target.src = type === 'text' ? '../img/olho-aberto.png' : '../img/olho-fechado.png';
 });
-document.getElementById('olho-fechado-confirmar').addEventListener('click', () => {
+
+document.getElementById('toggleConfirmarNovaSenha').addEventListener('click', (e) => {
     const type = confirmarNovaSenhaInput.type === 'password' ? 'text' : 'password';
     confirmarNovaSenhaInput.type = type;
+    e.target.src = type === 'text' ? '../img/olho-aberto.png' : '../img/olho-fechado.png';
 });
+
 
 // Reenviar o Código.
 const btnReenviar = document.getElementById('btn-reenviar');

@@ -16,11 +16,11 @@ const mensagemErro = document.getElementById('mensagemErro');
 function alterarVisibilidade(input, icone) {
     if (input.type === 'password') {
         input.type = 'text';
-        icone.src = 'img/olho-aberto.png';
+        icone.src = '../img/olho-aberto.png';
         icone.alt = 'Esconder Senha';
     } else {
         input.type = 'password';
-        icone.src = 'img/olho-fechado.png';
+        icone.src = '../img/olho-fechado.png';
         icone.alt = 'Mostrar Senha';
     }
 }
