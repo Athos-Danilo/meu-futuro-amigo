@@ -66,7 +66,7 @@ form.addEventListener('submit', async (Event) => {
     // Se o 'fetch' falhar, captura o erro e exibe no console.
     }catch (error) {
         console.error('Erro de rede:', error);
-        mensagemErro.textContent = 'Não foi possível conectar ao servidor. Tente mais tarde.';
+        mensagemErro.innerHTML = 'Não foi possível conectar ao servidor. <br> Tente mais tarde.';
         mensagemErro.style.display = 'block';
     }
 });
