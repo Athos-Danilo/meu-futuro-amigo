@@ -225,15 +225,11 @@ button:active {
     bottom: 11px;
     width: 22px;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+
 }
 
-.icone-olho:hover {
-    opacity: 1;
-}
 
-.Mensagem-de-Erro {
+.mensagem-erro {
     display: none;
     width: auto;
     max-width: 100%;

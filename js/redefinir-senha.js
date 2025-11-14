@@ -17,6 +17,8 @@ const novaSenhaInput = document.getElementById('nova-senha');
 const confirmarNovaSenhaInput = document.getElementById('confirmar-nova-senha');
 const mensagemFeedback = document.getElementById('mensagemFeedback');
 const linkReenviarContainer = document.getElementById('link-reenviar-container');
+const iconeNovaSenha = document.getElementById('olho-fechado');
+const iconeConfirmarSenha = document.getElementById('olho-fechado-confirmar');
 
 // Verificar código enviado pelo email.
 formCodigo.addEventListener('submit', async (event) => {
@@ -55,8 +57,7 @@ formCodigo.addEventListener('submit', async (event) => {
 
             codigoInput.disabled = true;
             btnVerificar.textContent = 'Código Verificado';
-            btnVerificar.style.backgroundColor = '#6B8E23';
-            btnVerificar.style.border = 'none';
+            btnVerificar.style.backgroundColor = '#97ce27ff';
             
             if(linkReenviarContainer) linkReenviarContainer.style.display = 'none';
 
@@ -82,6 +83,19 @@ formCodigo.addEventListener('submit', async (event) => {
     }
 });
 
+
+//Função para alterar a visibilidade da senha.
+function alterarVisibilidade(input, icone) {
+    if (input.type === 'password') {
+        input.type = 'text';
+        icone.src = '../img/olho-aberto.png';
+        icone.alt = 'Esconder Senha';
+    } else {
+        input.type = 'password';
+        icone.src = '../img/olho-fechado.png';
+        icone.alt = 'Mostrar Senha';
+    }
+}
 
 // Salvar nova Senha.
 formNovaSenha.addEventListener('submit', async (event) => {
@@ -138,16 +152,12 @@ formNovaSenha.addEventListener('submit', async (event) => {
 
 
 // Ícones do olho.
-document.getElementById('toggleNovaSenha').addEventListener('click', (e) => { 
-    const type = novaSenhaInput.type === 'password' ? 'text' : 'password';
-    novaSenhaInput.type = type;
-    e.target.src = type === 'text' ? '../img/olho-aberto.png' : '../img/olho-fechado.png';
+iconeNovaSenha.addEventListener('click', () => {
+    alterarVisibilidade(novaSenhaInput, iconeNovaSenha);
 });
 
-document.getElementById('toggleConfirmarNovaSenha').addEventListener('click', (e) => {
-    const type = confirmarNovaSenhaInput.type === 'password' ? 'text' : 'password';
-    confirmarNovaSenhaInput.type = type;
-    e.target.src = type === 'text' ? '../img/olho-aberto.png' : '../img/olho-fechado.png';
+iconeConfirmarSenha.addEventListener('click', () => {
+    alterarVisibilidade(confirmarNovaSenhaInput, iconeConfirmarSenha);
 });
 
 
