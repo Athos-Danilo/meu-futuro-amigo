@@ -57,7 +57,7 @@ body::before {
     border-radius: 25px;
     box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
     max-width: 370px;
-    width: 90%;
+    width: 85%;
 }
 
 /*----- A Imagem está desativada para telas pequenas -----*/
@@ -175,7 +175,7 @@ form {
 .ícone-olho-fechado {
     position: absolute;
     right: 15px;
-    bottom: 15px;
+    bottom: 12px;
     width: 20px;
     cursor: pointer;
     opacity: 0.7;
@@ -252,6 +252,15 @@ form {
     .tenho-conta a {
         font-size: 1.20rem;
     }
+
+    .ícone-olho-fechado {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    width: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+}
 
 }
 
