@@ -59,7 +59,7 @@ body::before {
     border-radius: 25px;
     box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.25);
     max-width: 370px;
-    width: 90%;
+    width: 85%;
 }
 
 /* ---------------------------------------- Seção do Formulário (Mobile) ---------------------------------------- */
@@ -195,10 +195,10 @@ form {
 
 .legenda-final {
     color: var(--cor-branco);
-    text-align: center;
+    text-align: justify;
     margin-top: 15px;
     font-weight: 400;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
