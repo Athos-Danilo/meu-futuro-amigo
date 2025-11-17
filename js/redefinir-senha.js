@@ -37,6 +37,7 @@ formCodigo.addEventListener('submit', async (event) => {
     btnVerificar.disabled = true;
     btnVerificar.textContent = 'Verificando...';
 
+    // Compara o código digitado pelo usuário se é igual ao que foi gerado e salvo no banco de dados.
     try {
         const response = await fetch('/verificar-token', {
             method: 'POST',
@@ -54,7 +55,7 @@ formCodigo.addEventListener('submit', async (event) => {
             mensagemFeedback.className = 'mensagem-erro mensagem-sucesso'; // Verde
             mensagemFeedback.style.display = 'block';
 
-
+            // Mudar a aparência e conteúdo do botão 'verificar código'.
             codigoInput.disabled = true;
             btnVerificar.disabled = true;
             btnVerificar.textContent = 'Código Verificado';
@@ -63,6 +64,7 @@ formCodigo.addEventListener('submit', async (event) => {
             
             if(linkReenviarContainer) linkReenviarContainer.style.display = 'none';
 
+            // Aguarda um segundo e depois leva o foco do usuário a digitar a nova senha.
             setTimeout(() => {
                 mensagemFeedback.style.display = 'none';
                 etapaNovaSenha.style.display = 'block';

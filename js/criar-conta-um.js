@@ -55,12 +55,14 @@ form.addEventListener('submit', async (event) => {
         mensagemErro.textContent = 'As Senhas Não são Iguais. Tente Novamente!';
         mensagemErro.style.display = 'block';
 
+        // Apaga o que foi preenchido e coloca o foco no input da senha.
         senhaInput.value = '';
         confirmarSenhaInput.value = '';
         senhaInput.focus();
 
         return; 
     }
+
     console.log('Formulário validado! Pronto para Enviar.')
 
     // Eviando o formulário através do 'fetch'.
@@ -80,7 +82,7 @@ form.addEventListener('submit', async (event) => {
         if (response.ok) {
             console.log('Usuário Criado:', data.user);
 
-            // Redirecionando o usuário para a parte dois do cadastro.
+            // Redirecionando o usuário para a parte dois do cadastro O Email dele é passado pela Url.
             window.location.href = `criar-conta-dois.html?email=${encodeURIComponent(email)}`;
 
         } else {

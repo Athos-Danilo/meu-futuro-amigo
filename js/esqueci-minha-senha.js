@@ -17,6 +17,7 @@ form.addEventListener('submit', async (event) => {
         return; 
     }
 
+    // Modificando o conteúdo do botão 'enviar código'.
     botaoSubmit.disabled = true;
     botaoSubmit.textContent = 'Enviando...';
 

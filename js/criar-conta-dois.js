@@ -29,6 +29,7 @@ btnSelecionarFoto.addEventListener('click', () => {
     inputFotoPerfil.click();
 });
 
+// Selecionar e mostrar o preview da foto de perfil.
 inputFotoPerfil.addEventListener('change', (event) => {
     const arquivo = event.target.files[0];
 
@@ -47,7 +48,7 @@ inputFotoPerfil.addEventListener('change', (event) => {
 });
 
 
-// Busca altomática de cep, usando a API ViaCEP.
+// Sigla e nomes dos estados. Para fazer a troca de sigla para o nome inteiro.
 const estadosBrasileiros = {
     'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas', 'BA': 'Bahia',
     'CE': 'Ceará', 'DF': 'Distrito Federal', 'ES': 'Espírito Santo', 'GO': 'Goiás',
@@ -58,6 +59,7 @@ const estadosBrasileiros = {
     'SE': 'Sergipe', 'TO': 'Tocantins'
 };
 
+// Busca altomática de cep, usando a API ViaCEP.
 cepInput.addEventListener('input', async (event) => {
     const apenasNumeros = event.target.value.replace(/\D/g, '');
 
@@ -96,7 +98,7 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault();
     mensagemErro.style.display = 'none';
 
-    // É preciso usar o 'FormData' para enviar arquivos e textos para o servidor.
+    // É preciso usar o 'FormData' para enviar arquivos (foto de perfil) e textos para o servidor.
     const formData = new FormData();
 
     formData.append('email', emailUsuario);
