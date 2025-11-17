@@ -56,8 +56,10 @@ formCodigo.addEventListener('submit', async (event) => {
 
 
             codigoInput.disabled = true;
+            btnVerificar.disabled = true;
             btnVerificar.textContent = 'Código Verificado';
             btnVerificar.style.backgroundColor = '#97ce27ff';
+            btnVerificar.style.color = 'var(--cor-preto)';
             
             if(linkReenviarContainer) linkReenviarContainer.style.display = 'none';
 

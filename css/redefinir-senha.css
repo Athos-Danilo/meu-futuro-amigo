@@ -52,7 +52,7 @@ body::before {
 
 .Redefinir-Container {
     background-color: var(--cor-verde);
-    width: 90%;
+    width: 85%;
     max-width: 400px;
     padding: 40px 30px;
     border-radius: 25px;
@@ -93,7 +93,7 @@ body::before {
 
 .Painel-Informações h3 {
     color: var(--cor-branco);
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 0.02em;
     font-weight: 400;
     line-height: 20px;
@@ -175,7 +175,7 @@ button {
     justify-content: center;
 }
 
-.Botão-Verificar:hover {
+.Botão-Verificar:not(:disabled):hover {
     background-color: #ff0000;
     color: var(--cor-branco);
 }
@@ -205,7 +205,7 @@ button:active {
     text-align: center;
     margin-top: 25px;
     color: var(--cor-branco);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
 }
 
 .Reenviar a {
@@ -213,6 +213,7 @@ button:active {
     font-weight: 600;
     letter-spacing: 0.02em;
     text-decoration: none;
+    font-size: 1.1rem;
 }
 
 .Reenviar a:hover {
