@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------- Variáveis do Projeto ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* -------------------------------------------- Base feita para Telas Pequenas (Mobile First) -------------------------------------------- */
+body {
+    font-family: var(--fonte-textos);
+    background-color: var(--cor-branco); 
+}
+
+/* ---------------------------------------- Cabeçalho / Barra Verde ---------------------------------------- */
+.Header {
+    background-color: var(--cor-verde);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px; 
+    position: relative;
+    width: 100%;
+    padding-left: 5px; 
+    padding-right: 10px; 
+}
+
+/* ----- Logo ----- */ 
+.Logo-Container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.Logo-Link {
+    display: block;
+    height: 55px; 
+}
+
+.Logo-Img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ---------------------------------------- Menu Hamburguer (Celulares) ---------------------------------------- */
+.Hamburger {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-right: 10px;
+    z-index: 20;
+}
+
+.Hamburger .linha {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--cor-branco);
+    transition: all 0.3s ease-in-out;
+}
+
+/* ----- Animação do X para o Menu Lateral ----- */
+.Hamburger.active .linha:nth-child(2) { opacity: 0; }
+.Hamburger.active .linha:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.Hamburger.active .linha:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ----- Navegação do Menu Lateral ----- */
+.Navegação-Menu {
+    position: absolute;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    background-color: var(--cor-verde);
+    flex-direction: column;
+    align-items: center;
+    transition: 0.4s;
+    z-index: 15;
+    border-top: 1.5px solid rgba(255,255,255,0.2);
+}
+
+.Navegação-Menu.active { left: 0; }
+
+.Navegação-Menu ul {
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    padding: 0 0;
+}
+
+.Navegação-Menu ul li { 
+    margin: 15px 0; 
+}
+
+.Navegação-Menu a {
+    color: var(--cor-branco);
+    text-decoration: none;
+    font-family: var(--fonte-cabeçalho);
+    font-size: 1.3rem;
+    transition: color 0.2s ease;
+}
+
+.Entrar-Mobile {
+    text-transform: uppercase; 
+    letter-spacing: 0.03em;
+    text-decoration: underline;
+    text-decoration-color: var(--cor-laranja);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 4px;
+ 
+}
+
+/* ----- Esconde a Barra verde para Telas Pequenas ----- */
+.Login-Container { display: none; } 
+
+
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
+@media (min-width: 900px) {
+    .Entrar-Mobile {
+        display: none;
+    }
+
+    .Header {
+        justify-content: flex-start;
+        padding-right: 45px; 
+    }
+
+    .Logo-Container {
+        width: fit-content; 
+        padding-right: 50px; 
+        position: relative; 
+        z-index: 10;
+        background: none; 
+    }
+
+    /* ----- Linha na diagonal cortando a barra verde ----- */
+    .Logo-Container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 15px;
+        width: 10px;
+        background-color: var(--cor-verde-escuro);
+        transform: skewX(-35deg); 
+    }
+    
+    .Logo-Link {
+        height: 60px; 
+    }
+
+    /* ----- Esconde o Menu Hamburguer ----- */
+    .Hamburger { display: none; }
+
+    /* ----- Menu Horizontal ----- */
+    .Navegação-Menu {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin-left: 35px; 
+    }
+
+    .Navegação-Menu ul {
+        display: flex;
+        gap: 45px; 
+        padding: 0;
+    }
+
+    .Navegação-Menu ul li { margin: 0; }
+    
+    .Navegação-Menu a {
+        font-size: 22px; 
+        color: var(--cor-branco);
+        font-family: var(--fonte-cabeçalho);
+    }
+
+    .Navegação-Menu a:hover {
+        color: var(--cor-marrom); 
+    }
+
+    /* ----- Botão Entrar ----- */
+    .Login-Container {
+        display: block;
+        margin-left: auto; 
+    }
+
+    .Botão-Entrar {
+        font-family: var(--fonte-cabeçalho);
+        font-size: 25px; 
+        background-color: var(--cor-laranja);
+        color: var(--cor-branco);
+        padding: 5px 25px; 
+        border-radius: 25px; 
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: inline-block; 
+    }
+
+    .Botão-Entrar:hover {
+        background-color: var(--cor-marrom); 
+        color: var(--cor-branco);
+        transform: scale(1.1); 
+    }
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+@media (min-width: 1400px) {
+    .Header {
+        height: 80px; 
+    }
+
+    .Logo-Link {
+        height: 75px;
+    }
+    
+    .Logo-Container {
+        padding-right: 50px;
+    }
+    
+    .Logo-Container::after {
+        right: 25px;
+    }
+    
+    .Botão-Entrar {
+        padding: 10px 25px;
+    }
+}
