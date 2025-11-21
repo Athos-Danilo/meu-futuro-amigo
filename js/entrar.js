@@ -57,6 +57,12 @@ form.addEventListener('submit', async (Event) => {
         if (response.ok) {
             console.log('Sucesso!', data.mensagem);
             alert('Login (simulado) com sucesso!');
+
+            // SALVAR NO NAVEGADOR PARA O HEADER SABER!
+            localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
+
+            window.location.href = 'minha-conta.html'
+            
         } else {
             console.log('Erro do servidor', data.mensagem);
             mensagemErro.textContent = data.mensagem;

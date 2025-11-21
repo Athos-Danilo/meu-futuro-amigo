@@ -1,0 +1,412 @@
+/* ==========================================================================
+   1. RESET E VARIÁVEIS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+body {
+    font-family: var(--fonte-textos);
+    background-color: var(--cor-branco); 
+}
+
+/* ==========================================================================
+   2. HEADER - VERSÃO MOBILE (PADRÃO / MOBILE FIRST)
+   (Aqui definimos como ele parece em telas pequenas)
+   ========================================================================== */
+
+/* A Barra Verde */
+.Header {
+    background-color: var(--cor-verde);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px; 
+    position: relative;
+    width: 100%;
+    padding-left: 5px; 
+    padding-right: 10px; 
+    z-index: 50; /* Garante que o header fique acima de tudo */
+}
+
+/* Logo */
+.Logo-Container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.Logo-Link {
+    display: block;
+    height: 55px; 
+}
+
+.Logo-Img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Menu Hamburguer (VISÍVEL NO MOBILE) */
+.Hamburger {
+    display: block; /* <--- Aparece no celular */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-right: 10px;
+    z-index: 20;
+}
+
+.Hamburger .linha {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--cor-branco);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação do X */
+.Hamburger.active .linha:nth-child(2) { opacity: 0; }
+.Hamburger.active .linha:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.Hamburger.active .linha:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Navegação (Escondida/Gaveta no Mobile) */
+.Navegação-Menu {
+    position: absolute;
+    top: 70px;
+    left: -100%; /* Escondido na esquerda */
+    width: 100%;
+    background-color: var(--cor-verde);
+    display: flex; /* Necessário para flex-direction funcionar */
+    flex-direction: column;
+    align-items: center;
+    transition: 0.4s;
+    z-index: 15;
+    border-top: 1.5px solid rgba(255,255,255,0.2);
+}
+
+.Navegação-Menu.active { left: 0; } /* Aparece quando ativo */
+
+.Navegação-Menu ul {
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+}
+
+.Navegação-Menu ul li { margin: 15px 0; }
+
+.Navegação-Menu a {
+    color: var(--cor-branco);
+    text-decoration: none;
+    font-family: var(--fonte-cabeçalho);
+    font-size: 1.3rem;
+    transition: color 0.2s ease;
+}
+
+/* Link "Entrar" dentro do Menu (Só Mobile) */
+.Entrar-Mobile {
+    display: block; /* Visível no mobile */
+    text-transform: uppercase; 
+    letter-spacing: 0.03em;
+    text-decoration: underline;
+    text-decoration-color: var(--cor-laranja);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 4px;
+}
+
+/* Área do Usuário / Botão Entrar Desktop (ESCONDIDO NO MOBILE) */
+.User-Area {
+    display: none; /* <--- Importante! Esconde a área desktop no celular */
+}
+.Login-Container { display: none; } /* Garantia extra */
+
+
+/* ==========================================================================
+   3. MODAL / POP-UP (ESTILO VERDE NOVO)
+   ========================================================================== */
+.Pop-up-Entrar {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.Pop-up-Entrar.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.Entrar-Container {
+    background-color: var(--cor-verde);
+    border-radius: 10px 0px 5px 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 341px;
+    min-height: 326px;
+    padding: 30px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Pop-up-Fechar {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.Pop-up-Fechar:hover { 
+    color: var(--cor-preto); 
+}
+
+/* Tipografia e Botões do Modal */
+.Entrar-Container h2 {
+    font-family: var(--fonte-textos);
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--cor-branco);
+    text-align: center;
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+}
+
+.Entrar-Container p {
+    font-family: var(--fonte-textos);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 0.02em;
+}
+
+.Secao-Login, .Secao-Cadastro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-modal {
+    width: 135px;
+    height: 43px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: var(--cor-amarelo);
+    font-family: var(--fonte-textos);
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-modal:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.Divisor-Ou {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.Linha {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.1);
+    top: 50%;
+}
+
+.Badge-Ou {
+    background-color: var(--cor-verde); 
+    padding: 0 10px;
+    z-index: 2;
+    color: var(--cor-branco);
+    font-family: var(--fonte-textos);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   4. MEDIA QUERY - DESKTOP (Telas acima de 900px)
+   (Aqui mudamos tudo para o layout horizontal)
+   ========================================================================== */
+@media (min-width: 900px) {
+
+    .Header {
+        justify-content: flex-start; /* Alinha itens à esquerda */
+        padding-right: 45px; 
+    }
+
+    /* Logo com detalhe diagonal */
+    .Logo-Container {
+        width: fit-content; 
+        padding-right: 50px; 
+        position: relative; 
+        z-index: 10;
+        background: none; 
+    }
+
+    .Logo-Container::after {
+        content: '';
+        position: absolute;
+        top: 0; bottom: 0; right: 15px; width: 10px;
+        background-color: var(--cor-verde-escuro);
+        transform: skewX(-35deg); 
+    }
+    
+    .Logo-Link { height: 60px; }
+
+    /* --- MUDANÇA CRÍTICA: ESCONDE O HAMBURGUER --- */
+    .Hamburger {
+        display: none; /* <--- SEU PROBLEMA É RESOLVIDO AQUI */
+    }
+
+    /* --- MUDANÇA CRÍTICA: MENU HORIZONTAL --- */
+    .Navegação-Menu {
+        position: static; /* Remove position: absolute */
+        display: flex;
+        flex-direction: row; /* Alinha itens lado a lado */
+        width: auto;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin-left: 35px; 
+        
+        /* Empurra o botão "Entrar" para a direita */
+        flex-grow: 1;
+        justify-content: flex-start;
+    }
+
+    .Navegação-Menu ul {
+        display: flex;
+        gap: 45px; 
+        padding: 0;
+    }
+
+    .Navegação-Menu ul li { margin: 0; }
+
+    /* Esconde o link "Entrar" de dentro do menu (pois temos o botão dedicado) */
+    .Entrar-Mobile {
+        display: none;
+    }
+    
+    .Navegação-Menu a {
+        font-size: 22px; 
+        color: var(--cor-branco);
+    }
+
+    .Navegação-Menu a:hover { color: var(--cor-marrom); }
+
+    /* --- ÁREA DO USUÁRIO / BOTÃO ENTRAR (AGORA VISÍVEL) --- */
+    .User-Area {
+        display: block; /* Aparece no desktop */
+        position: relative; /* Para ancorar o pop-up */
+    }
+
+    .Login-Container {
+        display: block;
+    }
+
+    .Botão-Entrar {
+        font-family: var(--fonte-cabeçalho);
+        font-size: 25px; 
+        background-color: var(--cor-laranja);
+        color: var(--cor-branco);
+        padding: 5px 25px; 
+        border-radius: 25px; 
+        text-decoration: none;
+        transition: all 0.2s ease;
+        display: flex; /* Flex para centralizar texto */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Botão-Entrar:hover {
+        background-color: var(--cor-marrom); 
+        transform: scale(1.1); 
+    }
+
+    /* --- MODAL COMO POPOVER --- */
+    .Pop-up-Entrar {
+        background-color: transparent;
+        position: absolute;
+        top: 11px; /* Embaixo do botão */
+        right: 5px;  /* Alinhado à direita */
+        left: auto;
+        width: 341px;
+        height: auto;
+        display: block; /* Remove flexbox de centralização */
+        padding-top: 0;
+    }
+    
+    .Entrar-Container {
+        background-color: var(--cor-verde);
+        margin-top: 0;
+        box-shadow: 0 0 5px rgba(0,0,0,0.25);
+    }
+    
+}
+
+/* Ajuste Extra para Telas Muito Grandes */
+@media (min-width: 1400px) {
+    .Header { height: 80px; }
+    .Logo-Link { height: 75px; }
+    .Logo-Container { padding-right: 50px; }
+    .Logo-Container::after { right: 25px; }
+    .Botão-Entrar { padding: 10px 25px; }
+}
