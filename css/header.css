@@ -400,6 +400,135 @@ body {
         box-shadow: 0 0 5px rgba(0,0,0,0.25);
     }
     
+    /* ==========================================================================
+   ESTILO DO PERFIL (CÁPSULA / PILL)
+   ========================================================================== */
+
+    .User-Pill {
+        /* Dimensões fixas do Figma */
+        width: 221px;
+        height: 52px;
+        
+        /* Cor e Borda */
+        background-color: var(--cor-verde);
+        border-radius: 5px 25px 25px 5px; /* 5px na esq, 25px na dir */
+        
+        /* Sombra Interna (Inset) */
+        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
+        
+        /* Layout Flex para alinhar foto e texto */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Começa da esquerda */
+        
+        cursor: pointer;
+        position: relative; /* Para o dropdown se posicionar depois */
+        transition: transform 0.2s ease;
+    }
+
+    .User-Pill:hover {
+        transform: scale(1.02); /* Um leve efeito ao passar o mouse */
+    }
+
+    .User-Avatar {
+        width: 52px;
+        height: 52px;
+        
+        /* A foto precisa ter o mesmo arredondamento do container no lado esquerdo */
+        border-radius: 5px; 
+        
+        object-fit: cover; /* Garante que a foto não estique */
+        
+    }
+
+    .User-Name {
+        font-family: var(--fonte-textos); 
+        font-weight: 700;
+        font-size: 1.8rem; /* Ajuste conforme necessário */
+        letter-spacing: 0.02em;
+        color: var(--cor-branco);
+        
+        margin-left: 25px; /* O Gap que você pediu */
+        
+        /* Prevenção para nomes muito longos não quebrarem o layout */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 130px; 
+    }
+
+        /* ... Código anterior da .User-Pill ... */
+
+    /* Container do Dropdown */
+    .User-Dropdown {
+        /* Posição e Tamanho */
+        position: absolute;
+        top: 100%;       /* Cola na parte de baixo da User-Pill */
+        left: 0;         /* Alinha à esquerda da User-Pill */
+        margin-top: 8px; /* O espaço de 8px solicitado */
+        
+        width: 221px;
+        height: 136px;
+        
+        /* Estilo Visual */
+        background-color: var(--cor-verde);
+        border-radius: 5px 25px 25px 25px; /* 5 esq-sup, 25 nos outros */
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+        
+        /* Comportamento de Aparecer/Sumir */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px); /* Efeito de deslizar levemente */
+        transition: all 0.3s ease;
+        z-index: 100; /* Garante que fique em cima do conteúdo da página */
+        
+        /* Alinhamento do Conteúdo Interno */
+        display: flex;
+        flex-direction: column; /* Um item embaixo do outro */
+        justify-content: center; /* Centraliza o bloco de textos verticalmente */
+        padding-left: 17px; /* Alinhamento à esquerda solicitado */
+        padding-right: 10px; /* Margem de segurança na direita */
+        list-style: none; /* Remove bolinhas da lista */
+    }
+
+    /* Efeito Hover: Quando passar o mouse na PILL, mostra o DROPDOWN */
+    .User-Pill:hover .User-Dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    /* Estilo dos Links e Botão Sair */
+    .User-Dropdown li {
+        margin-bottom: 0; /* O espaçamento é definido pelo line-height */
+    }
+
+    .User-Dropdown a, 
+    .User-Dropdown .link-logout {
+        font-family: 'Afacad', sans-serif; /* Fonte Afacad */
+        font-size: 1.25rem; /* 20px (considerando base 16px) */
+        line-height: 30px;  /* Altura de linha solicitada */
+        color: var(--cor-branco);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        display: block;
+        
+        /* Resetando estilo de botão para parecer link */
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        width: 100%;
+        text-align: left;
+    }
+
+    /* Hover nos textos (Muda para Marrom) */
+    .User-Dropdown a:hover, 
+    .User-Dropdown .link-logout:hover {
+        color: var(--cor-marrom);
+        font-weight: 600;
+    }
+
 }
 
 /* Ajuste Extra para Telas Muito Grandes */

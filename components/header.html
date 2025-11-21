@@ -27,10 +27,18 @@
             <a href="#" class="Botão-Entrar js-open-modal">Entrar</a>
         </div>
 
-        <div id="user-profile-container" style="display: none; align-items: center; gap: 10px; cursor: pointer;">
-            <span id="header-user-name" style="color: white; font-family: 'Acme'; font-size: 1.2rem;">Usuário</span>
-            <img src="/img/ícone perfil.png" alt="Perfil" id="header-user-avatar" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; object-fit: cover;">
-            <button id="btn-logout" style="margin-left: 10px; font-size: 0.8rem; padding: 5px; background: #444; color: white; border: none; border-radius: 5px; cursor: pointer;">Sair</button>
+        <div id="user-profile-container" class="User-Pill" style="display: none;">
+
+            <img src="../img/Perfil.png" alt="Perfil" id="header-user-avatar" class="User-Avatar">
+            <span id="header-user-name" class="User-Name">Usuário</span>
+
+            <ul class="User-Dropdown">
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Minhas Adoções</a></li>
+                <li><a href="#">Minhas Divulgações</a></li>
+                <li><button id="btn-logout" class="link-logout">Sair</button></li>
+            </ul>
+
         </div>
 
     </div> 
@@ -57,7 +65,7 @@
                 <p>Junte-se à nossa comunidade de Heróis</p>
                 <button class="btn-modal btn-criar-conta">Criar Conta</button>
             </div>
-            
+
         </div>
 
     </div>
