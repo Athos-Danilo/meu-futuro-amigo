@@ -108,7 +108,10 @@ function verificarLoginUsuario() {
     const containerVisitante = document.getElementById('btn-login-container');
     const containerUsuario = document.getElementById('user-profile-container');
     const nomeDisplay = document.getElementById('header-user-name');
+    const avatarDisplay = document.getElementById('header-user-avatar');
     const btnLogout = document.getElementById('btn-logout');
+
+    const caminhoPadrao = '/img/Perfil.png';
 
     if (usuarioSalvo) {
         // ESTÁ LOGADO!
@@ -118,10 +121,30 @@ function verificarLoginUsuario() {
         if(containerUsuario) containerUsuario.style.display = 'flex';
         if(nomeDisplay) nomeDisplay.textContent = usuario.nome_exibicao;
         
+        if (avatarDisplay) {
+                if (usuario.foto_perfil) {
+                    // Tenta usar o caminho da foto, garantindo que ele comece com '/' se não tiver
+                    let fotoUrl = usuario.foto_perfil.startsWith('/') ? usuario.foto_perfil : '/' + usuario.foto_perfil;
+                    
+                    // 1. Tenta carregar a foto do usuário
+                    avatarDisplay.src = fotoUrl;
+
+                    // 2. Adiciona um fallback: Se a imagem dinâmica falhar (404), carrega a padrão.
+                    avatarDisplay.onerror = () => {
+                        avatarDisplay.src = caminhoPadrao;
+                        avatarDisplay.onerror = null; // Previne loop infinito de erro
+                    };
+                    
+                } else {
+                    // Se o usuário.foto_perfil for nulo/vazio, usa o caminho padrão
+                    avatarDisplay.src = caminhoPadrao;
+                }
+            }
+        
         if (btnLogout) {
             btnLogout.addEventListener('click', () => {
                 localStorage.removeItem('usuarioLogado'); 
-                window.location.reload(); 
+                window.location.href = '../index.html'; 
             });
         }
     } else {

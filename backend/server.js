@@ -70,12 +70,23 @@ app.post('/login', async (req, res) => {
 
         const senhaCorreta = await bcrypt.compare(senha, user.senha);
 
+        // Pega a foto do Perfil do usuário e coloca no componente das opções.
         if (senhaCorreta) {
+            let caminhoFoto = user.foto_perfil;
+            if (caminhoFoto) {
+                caminhoFoto = caminhoFoto.replace(/\\/g, '/');
+
+                if (!caminhoFoto.startsWith('/')) {
+                    caminhoFoto = '/' + caminhoFoto;
+                }
+            }
+
             res.status(200).json({ mensagem: 'Login Realizado com Sucesso!',
                 user: {
                     id: user.id,
                     nome_exibicao: user.nome_exibicao,
-                    email: user.email
+                    email: user.email,
+                    foto_perfil: caminhoFoto
                 }
             });
         } else {
@@ -125,7 +136,15 @@ app.post('/completar-perfil', upload.single('foto_perfil'), async (req, res) => 
     // Precisa do email para saber quem atualizar. 
     const { email, numero, cep, cidade, estado } = req.body;
 
-    const foto_perfil = req.file ? req.file.path : null;
+    let caminhoParaSalvar = null;
+
+    if (req.file) {
+        // Pega o caminho, corrige as barras e garante que começa com '/'
+        caminhoParaSalvar = req.file.path.replace(/\\/g, '/');
+        if (!caminhoParaSalvar.startsWith('/')) {
+            caminhoParaSalvar = '/' + caminhoParaSalvar;
+        }
+    }
 
     if (!email || !numero || !cep || !cidade || !estado) {
         return res.status(400).json({ mensagem: 'Todos os Campos são Obrigatórios!'});
