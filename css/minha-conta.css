@@ -1,0 +1,259 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+body {
+    font-family: var(--fonte-textos);
+    background-color: var(--cor-branco); 
+}
+
+.Perfil-Container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* ----- Seção do Perfil ----- */
+.Perfil {
+    width: 100%;
+}
+
+.Card-Laranja {
+    background-color: var(--cor-laranja);
+    border-radius: 20px;
+    margin-top: 60px;
+    padding: 0 20px 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(255, 140, 0, 0.2);
+}
+
+.Foto-Perfil {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.Foto-Perfil img {
+    width: 160px;
+    width: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+    background-color: #ddd;
+    margin-top: -60px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 4px solid var(--cor-branco);
+}
+
+.Info-Usuário {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    color: var(--cor-preto);
+}
+
+.Info-Usuário h2 {
+    font-family: var(--fonte-textos);
+    font-size: 2rem;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.Info-Contato p {
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    margin: 2px 0;
+    font-weight: 500;
+}
+
+.Ações-Sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.Btn-Meus-Dados {
+    background-color: var(--cor-bege);
+    color: var(--cor-preto);
+    font-family: var(--fonte-textos);
+    font-size: 1.2rem;
+    padding: 10px 40px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.2s;
+    width: 80%;
+}
+
+.Btn-Meus-Dados:hover {
+    transform: scale(1.05);
+    background-color: var(--cor-branco);
+}
+
+.Link-Sair {
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    color: var(--cor-preto);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.Link-Sair:hover {
+    color: var(--cor-vermelho);
+}
+
+/* ----- Retângulo Navegação ----- */
+.Retângulo-Navegação {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.Abas-Navegação {
+    background-color: var(--cor-cinza-caixa);
+    border-radius: 15px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.Aba-Item, .Aba-Item-Ativa {
+    border: none;
+    background: none;
+    font-family: var(--fonte-textos);
+    color: #555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.Aba-Item-Ativa {
+    background-color: var(--cor-cinza-marcacao);
+    color: var(--cor-preto);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.Aba-Item:hover {
+    color: var(--cor-laranja);
+}
+
+.Card-Branco {
+    background-color: var(--cor-branco);
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 40px;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.Chamada {
+    text-align: center;
+    max-width: 400px;
+}
+
+.Título {
+    font-family: var(--fonte-textos);
+    color: var(--cor-marrom);
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.Imagem {
+    max-width: 100%;
+    width: 200px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.Btn-Encontrar-Amigo {
+    display: inline-block;
+    background-color: var(--cor-verde);
+    color: var(--cor-branco);
+    font-family: var(--fonte-textos);
+    font-size: 1.3rem;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(107, 142, 35, 0.4);
+}
+
+.Btn-Encontrar-Amigo:hover {
+    background-color: var(--cor-marrom);
+    transform: translateY(-3px);
+}
+
+/* =========================================MEDIA QUERY: DESKTOP (>= 900px) ========================================= */
+
+@media (min-width: 900px) {
+    .Perfil-Container {
+        flex-direction: row; /* Coloca lado a lado */
+        align-items: flex-start; /* Alinha no topo */
+        gap: 50px;
+    }
+
+    .Perfil {
+        width: 300px; /* Largura fixa da sidebar */
+        position: sticky; /* Faz a sidebar acompanhar a rolagem */
+        top: 100px; /* Distância do topo ao rolar */
+        flex-shrink: 0; /* Impede que ela encolha */
+    }
+    
+    .Abas-Navegação {
+        justify-content: center; /* Centraliza as abas no PC */
+        gap: 40px; /* Mais espaço entre elas */
+    }
+
+    .Imagem {
+        width: 250px;
+    }
+    .Btn-Encontrar-Amigo {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
