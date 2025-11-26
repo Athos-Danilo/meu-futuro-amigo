@@ -187,7 +187,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
 .Chamada {
@@ -232,21 +232,41 @@ body {
 
 @media (min-width: 900px) {
     .Perfil-Container {
-        flex-direction: row; /* Coloca lado a lado */
-        align-items: flex-start; /* Alinha no topo */
+        flex-direction: row; 
+        align-items: flex-start; 
         gap: 50px;
     }
 
     .Perfil {
-        width: 300px; /* Largura fixa da sidebar */
-        position: sticky; /* Faz a sidebar acompanhar a rolagem */
-        top: 100px; /* Distância do topo ao rolar */
-        flex-shrink: 0; /* Impede que ela encolha */
+        width: 300px; 
+        position: sticky; 
+        top: 100px; 
+        flex-shrink: 0; 
     }
     
     .Abas-Navegação {
-        justify-content: center; /* Centraliza as abas no PC */
-        gap: 40px; /* Mais espaço entre elas */
+        justify-content: center; 
+        gap: 40px; 
+    }
+
+    .Info-Usuário h2 {
+        font-size: 2.5rem;
+    }
+
+    .Info-Contato p {
+        font-size: 1.4rem;
+    }
+
+    .Btn-Meus-Dados {
+        font-weight: 400;
+    }
+
+    .Link-Sair {
+        font-size: 1.3rem;
+    }
+
+    .Link-Sair:hover {
+        font-weight: 600;
     }
 
     .Imagem {
@@ -255,5 +275,20 @@ body {
     .Btn-Encontrar-Amigo {
         font-size: 1.5rem;
         font-weight: 600;
+    }
+
+    .Aba-Item-Ativa {
+        font-weight: 500;
+    }
+
+    .Chamada .Título {
+        margin-bottom: -15px; 
+        line-height: 1; 
+        position: relative;
+        z-index: 10;
+    }
+
+    .Chamada .Imagem {
+        margin-bottom: -45px; 
     }
 }
