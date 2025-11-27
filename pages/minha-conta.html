@@ -59,6 +59,72 @@
 
         </section>
 
+        <section class="Seção-Meus-Dados" style="display: none;">
+        
+            <div class="Card-Branco Form-Card">
+                <div class="Header-Form">
+                    <h2 class="Título-Form">Meus Dados</h2>
+                    <button class="Btn-Voltar" id="btn-cancelar-edicao">Fechar</button>
+                </div>
+
+                <form id="form-editar-perfil">
+                    
+                    <div class="Upload-Container">
+                        <div class="Preview-Wrapper">
+                            <img src="../img/Perfil.png" id="preview-foto" alt="Preview da Foto">
+                            <label for="input-upload-foto" class="Btn-Trocar-Foto">
+                                📷
+                            </label>
+                        </div>
+                        <p class="Texto-Upload">Toque na câmera para alterar a foto</p>
+                        <input type="file" id="input-upload-foto" name="foto_perfil" accept="image/*" hidden disabled>
+                    </div>
+
+                    <div class="Grid-Form">
+                        <div class="Input-Group Span-2">
+                            <label for="input-nome">Nome Completo</label>
+                            <input type="text" id="input-nome" disabled class="Bloqueado-Permanente">
+                        </div>
+
+                        <div class="Input-Group Span-2">
+                            <label for="input-email">E-mail</label>
+                            <input type="email" id="input-email" disabled class="Bloqueado-Permanente">
+                        </div>
+
+                        <div class="Input-Group">
+                            <label for="input-telefone">WhatsApp / Celular</label>
+                            <input type="tel" id="input-telefone" placeholder="Não informado" disabled>
+                        </div>
+
+                        <div class="Input-Group">
+                            <label for="input-cep">CEP</label>
+                            <input type="text" id="input-cep" placeholder="00000-000" disabled>
+                        </div>
+
+                        <div class="Input-Group">
+                            <label for="input-cidade">Cidade</label>
+                            <input type="text" id="input-cidade" placeholder="Não informado" disabled>
+                        </div>
+
+                        <div class="Input-Group">
+                            <label for="input-estado">Estado (UF)</label>
+                            <select id="input-estado" disabled>
+                                <option value="">Selecione</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="SP">São Paulo</option>
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="Footer-Form">
+                        <button type="button" id="btn-acao-principal" class="Btn-Salvar-Dados">Editar Informações</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </section>
+
     </main>
 
     <script src="../js/header.js"></script>

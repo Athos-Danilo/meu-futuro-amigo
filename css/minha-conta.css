@@ -292,3 +292,229 @@ body {
         margin-bottom: -45px; 
     }
 }
+
+/* =========================================
+   FORMULÁRIO MEUS DADOS
+   ========================================= */
+
+/* Ocupa o mesmo espaço que a navegação ocupava */
+.Seção-Meus-Dados {
+    flex: 1;
+    animation: fadeIn 0.4s ease; /* Efeito suave ao aparecer */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.Form-Card {
+    padding: 40px;
+    display: block; /* Sobrescreve o flex do Card-Branco original para não centralizar tudo */
+}
+
+/* Cabeçalho do Form */
+.Header-Form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.Título-Form {
+    font-family: var(--fonte-textos);
+    color: var(--cor-verde);
+    font-size: 2rem;
+    margin: 0;
+}
+
+.Btn-Voltar {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--fonte-textos);
+    font-size: 1.3rem;
+    color: #666;
+    transition: 0.3s;
+}
+
+.Btn-Voltar:hover {
+    background-color: #f0f0f0;
+    color: var(--cor-preto);
+}
+
+/* Grid dos Inputs */
+.Grid-Form {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 coluna */
+    gap: 20px;
+}
+
+.Input-Group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.Input-Group label {
+    font-family: var(--fonte-textos);
+    color: var(--cor-marrom);
+    font-size: 1rem;
+}
+
+.Input-Group input,
+.Input-Group select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: var(--fonte-textos);
+    font-size: 1rem;
+    background-color: #fafafa;
+    transition: 0.3s;
+}
+
+.Input-Group input:focus,
+.Input-Group select:focus {
+    outline: none;
+    border-color: var(--cor-verde);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.1);
+}
+
+/* Botão Salvar */
+.Footer-Form {
+    margin-top: 30px;
+    text-align: right; /* Botão à direita */
+}
+
+.Btn-Salvar-Dados {
+    background-color: var(--cor-laranja);
+    color: var(--cor-branco);
+    padding: 12px 40px;
+    border: none;
+    border-radius: 30px;
+    font-family: var(--fonte-textos);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.Btn-Salvar-Dados:hover {
+    background-color: var(--cor-marrom);
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVIDADE DESKTOP --- */
+@media (min-width: 900px) {
+    .Grid-Form {
+        grid-template-columns: 1fr 1fr; /* 2 colunas no PC */
+    }
+
+    /* Faz Nome e Email ocuparem a linha inteira */
+    .Span-2 {
+        grid-column: span 2;
+    }
+}
+
+/* --- ESTILOS DO UPLOAD DE FOTO --- */
+.Upload-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.Preview-Wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+#preview-foto {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Redondo */
+    object-fit: cover;
+    border: 4px solid var(--cor-cinza-marcacao);
+    transition: 0.3s;
+}
+
+/* Botão da Câmera (Só aparece ao editar) */
+.Btn-Trocar-Foto {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--cor-laranja);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    
+    /* Começa invisível (Modo Leitura) */
+    opacity: 0; 
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.Texto-Upload {
+    font-size: 0.9rem;
+    color: #888;
+    opacity: 0; /* Começa invisível */
+    transition: 0.3s;
+}
+
+/* --- ESTADOS DO MODO EDIÇÃO --- */
+
+/* Quando a classe .Modo-Edicao é adicionada ao form via JS */
+form.Modo-Edicao .Btn-Trocar-Foto {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1.1);
+}
+
+form.Modo-Edicao .Texto-Upload {
+    opacity: 1;
+}
+
+form.Modo-Edicao #preview-foto {
+    border-color: var(--cor-verde); /* Borda fica verde ao editar */
+}
+
+/* Inputs no Modo Leitura (Parecem texto simples) */
+.Input-Group input:disabled, 
+.Input-Group select:disabled {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #555;
+    padding-left: 0;
+    font-weight: 500;
+}
+
+/* Inputs permanentemente bloqueados (Nome/Email) */
+.Bloqueado-Permanente {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Inputs no Modo Edição (Ficam com cara de input) */
+form.Modo-Edicao .Input-Group input:not(.Bloqueado-Permanente), 
+form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    padding-left: 12px;
+    color: var(--cor-preto);
+}
