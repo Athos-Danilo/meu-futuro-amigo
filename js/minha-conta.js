@@ -10,7 +10,7 @@ function inicializarAbas() {
     const conteudos = {
         "Notificações": {
             titulo: "Não há Notificações",
-            imagem: "../img/ilustração cachorro e gato.png", 
+            imagem: "../img/ilustração cachorro correndo.png", 
             textoBotao: null,
             linkBotao: null
         },
