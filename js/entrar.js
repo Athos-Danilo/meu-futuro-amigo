@@ -56,9 +56,8 @@ form.addEventListener('submit', async (Event) => {
         // Verifica se a resposta do servidor foi um sucesso ou um erro.
         if (response.ok) {
             console.log('Sucesso!', data.mensagem);
-            alert('Login (simulado) com sucesso!');
 
-            // SALVAR NO NAVEGADOR PARA O HEADER SABER!
+            // Salvando os dados do usuário no navegador para ser usado posteriormente se necessário.
             localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
 
             window.location.href = 'minha-conta.html'
