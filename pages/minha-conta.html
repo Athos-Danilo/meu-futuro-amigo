@@ -16,33 +16,25 @@
     <main class="Perfil-Container">
 
         <aside class="Perfil">
-
             <div class="Card-Laranja">
-
                 <div class="Foto-Perfil">
                     <img src="../img/Perfil.png" alt="Foto do Perfil do Usuário">
                 </div>
-
                 <div class="Info-Usuário">
                     <h2 id="nomeUsuario">Nome Usuário</h2>
-
                     <div class="Info-Contato">
                         <p id="cidadeEstado">Cidade - Estado</p>
                         <p id="telefone">(XX) XXXXX-XXXX</p>
                     </div>
                 </div>
-
                 <div class="Ações-Sidebar">
                     <button class="Btn-Meus-Dados">Meus Dados</button>
                     <a href="#" class="Link-Sair" id="btn-sair">Sair</a>
                 </div>
-
             </div>
-
         </aside>
 
         <section class="Retângulo-Navegação">
-
             <nav class="Abas-Navegação">
                 <button class="Aba-Item">Notificações</button>
                 <button class="Aba-Item-Ativa">Minhas Adoções</button>
@@ -56,11 +48,9 @@
                     <a href="#" class="Btn-Encontrar-Amigo">Encontrar um Amigo</a>
                 </div>
             </div>
-
         </section>
 
         <section class="Seção-Meus-Dados" style="display: none;">
-        
             <div class="Card-Branco Form-Card">
                 <div class="Header-Form">
                     <h2 class="Título-Form">Meus Dados</h2>
@@ -69,63 +59,110 @@
 
                 <form id="form-editar-perfil">
                     
-                    <div class="Upload-Container">
-                        <div class="Preview-Wrapper">
-                            <img src="../img/Perfil.png" id="preview-foto" alt="Preview da Foto">
-                            <label for="input-upload-foto" class="Btn-Trocar-Foto">
-                                📷
-                            </label>
-                        </div>
-                        <p class="Texto-Upload">Toque na câmera para alterar a foto</p>
-                        <input type="file" id="input-upload-foto" name="foto_perfil" accept="image/*" hidden disabled>
-                    </div>
+                    <div class="Form-Layout-Flex">
 
-                    <div class="Grid-Form">
-                        <div class="Input-Group Span-2">
-                            <label for="input-nome">Nome Completo</label>
-                            <input type="text" id="input-nome" disabled class="Bloqueado-Permanente">
+                        <div class="Upload-Container Side-Foto-Card">
+                            <div class="Preview-Wrapper">
+                                <img src="../img/Perfil.png" id="preview-foto" alt="Preview da Foto">
+                                <label for="input-upload-foto" class="Btn-Trocar-Foto">
+                                    <img src="../img/camera.png" alt="Altarar Foto">
+                                </label>
+                            </div>
+                            <p class="Texto-Upload">Toque na câmera<br>para alterar</p>
+                            <input type="file" id="input-upload-foto" name="foto_perfil" accept="image/*" hidden disabled>
                         </div>
 
-                        <div class="Input-Group Span-2">
-                            <label for="input-email">E-mail</label>
-                            <input type="email" id="input-email" disabled class="Bloqueado-Permanente">
-                        </div>
+                        <div class="Inputs-Area">
+                            <div class="Grid-Form">
+                                <div class="Input-Group Span-2">
+                                    <label for="input-nome">Nome Completo</label>
+                                    <input type="text" id="input-nome" disabled class="Bloqueado-Permanente">
+                                </div>
 
-                        <div class="Input-Group">
-                            <label for="input-telefone">WhatsApp / Celular</label>
-                            <input type="tel" id="input-telefone" placeholder="Não informado" disabled>
-                        </div>
+                                <div class="Input-Group Span-2">
+                                    <label for="input-email">E-mail</label>
+                                    <input type="email" id="input-email" disabled class="Bloqueado-Permanente">
+                                </div>
 
-                        <div class="Input-Group">
-                            <label for="input-cep">CEP</label>
-                            <input type="text" id="input-cep" placeholder="00000-000" disabled>
-                        </div>
+                                <div class="Input-Group">
+                                    <label for="input-telefone">WhatsApp / Celular</label>
+                                    <input type="tel" id="input-telefone" placeholder="Não informado" disabled>
+                                </div>
 
-                        <div class="Input-Group">
-                            <label for="input-cidade">Cidade</label>
-                            <input type="text" id="input-cidade" placeholder="Não informado" disabled>
-                        </div>
+                                <div class="Input-Group">
+                                    <label for="input-cep">CEP</label>
+                                    <input type="text" id="input-cep" placeholder="00000-000" disabled>
+                                </div>
 
-                        <div class="Input-Group">
-                            <label for="input-estado">Estado (UF)</label>
-                            <select id="input-estado" disabled>
-                                <option value="">Selecione</option>
-                                <option value="PE">Pernambuco</option>
-                                <option value="SP">São Paulo</option>
-                                </select>
-                        </div>
-                    </div>
+                                <div class="Input-Group">
+                                    <label for="input-cidade">Cidade</label>
+                                    <input type="text" id="input-cidade" placeholder="Não informado" disabled>
+                                </div>
 
-                    <div class="Footer-Form">
+                                <div class="Input-Group">
+                                    <label for="input-estado">Estado (UF)</label>
+                                    <select id="input-estado" disabled>
+                                        <option value="">Selecione</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <div class="Footer-Form">
+                        <button type="button" id="btn-abrir-modal-exclusao" class="Btn-Apagar-Conta">Apagar Conta</button>
+
                         <button type="button" id="btn-acao-principal" class="Btn-Salvar-Dados">Editar Informações</button>
                     </div>
 
                 </form>
             </div>
-
         </section>
 
     </main>
+
+    <div class="Modal-Exclusao-Overlay" id="modal-exclusao" style="display: none;">
+        <div class="Modal-Exclusao-Card">
+            <h2 class="Titulo-Perigo">Poxa, já vai?</h2>
+            
+            <img src="../img/ilustração cachorro triste.png" alt="Não vá embora" class="Img-Triste-Modal">
+            
+            <p class="Texto-Apelo">
+                Ao apagar sua conta, você perderá seu histórico de adoções e não poderá mais acompanhar os bichinhos que ajudou. <br>
+                <strong>Tem certeza que quer nos deixar?</strong>
+            </p>
+
+            <div class="Acoes-Modal">
+                <button id="btn-cancelar-exclusao" class="Btn-Ficar">Não! Quero ficar</button>
+                <button id="btn-confirmar-exclusao" class="Btn-Excluir-Definitivo">Sim, apagar tudo</button>
+            </div>
+        </div>
+    </div>
 
     <script src="../js/header.js"></script>
     <script src="../js/minha-conta.js"></script>
