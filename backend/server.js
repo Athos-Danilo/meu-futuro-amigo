@@ -84,9 +84,14 @@ app.post('/login', async (req, res) => {
             res.status(200).json({ mensagem: 'Login Realizado com Sucesso!',
                 user: {
                     id: user.id,
+                    nome_completo: user.nome_completo,
                     nome_exibicao: user.nome_exibicao,
                     email: user.email,
-                    foto_perfil: caminhoFoto
+                    foto_perfil: caminhoFoto,
+                    numero: user.numero,
+                    cep: user.cep,
+                    cidade: user.cidade,
+                    estado: user.estado
                 }
             });
         } else {
@@ -131,39 +136,67 @@ app.post('/cadastro', async (req, res) => {
 });
 
 
-// Rota da 2ª Parte do Cadastro.
+// Rota da 2ª Parte do Cadastro (Editar Perfil)
 app.post('/completar-perfil', upload.single('foto_perfil'), async (req, res) => {
-    // Precisa do email para saber quem atualizar. 
+    // 1. Pegamos os dados de texto
     const { email, numero, cep, cidade, estado } = req.body;
 
-    let caminhoParaSalvar = null;
-
-    if (req.file) {
-        // Pega o caminho, corrige as barras e garante que começa com '/'
-        caminhoParaSalvar = req.file.path.replace(/\\/g, '/');
-        if (!caminhoParaSalvar.startsWith('/')) {
-            caminhoParaSalvar = '/' + caminhoParaSalvar;
-        }
-    }
-
+    // Validação básica
     if (!email || !numero || !cep || !cidade || !estado) {
         return res.status(400).json({ mensagem: 'Todos os Campos são Obrigatórios!'});
     }
 
     try {
-        const result = await db.query(
-            'UPDATE usuarios SET numero = $1, cep = $2, cidade = $3, estado = $4, foto_perfil = $5 WHERE email = $6 RETURNING id, nome_exibicao, foto_perfil',
-            [numero, cep, cidade, estado, foto_perfil, email]
-        );
+        let result;
 
-        if (result.rows.length === 0) {
-            return res.status(400).json({ mensagem: 'Usuário não Encontrado para Atualizar.'});
+        // CENÁRIO A: O usuário enviou uma FOTO NOVA (req.file existe)
+        if (req.file) {
+            // Tratamento do caminho da imagem
+            let caminhoParaSalvar = req.file.path.replace(/\\/g, '/');
+            
+            // Garante que começa com / para o navegador achar a pasta uploads
+            if (!caminhoParaSalvar.startsWith('/')) {
+                caminhoParaSalvar = '/' + caminhoParaSalvar;
+            }
+
+            // ATENÇÃO AQUI: Usamos a variável 'caminhoParaSalvar' dentro do array []
+            result = await db.query(
+                'UPDATE usuarios SET numero = $1, cep = $2, cidade = $3, estado = $4, foto_perfil = $5 WHERE email = $6 RETURNING id, nome_exibicao, foto_perfil, email, numero, cep, cidade, estado',
+                [numero, cep, cidade, estado, caminhoParaSalvar, email] 
+            );
+        } 
+        
+        // CENÁRIO B: O usuário NÃO enviou foto (Só quer mudar texto)
+        else {
+            // ATENÇÃO AQUI: Removemos qualquer menção a foto_perfil ou caminhoParaSalvar
+            result = await db.query(
+                'UPDATE usuarios SET numero = $1, cep = $2, cidade = $3, estado = $4 WHERE email = $5 RETURNING id, nome_exibicao, foto_perfil, email, numero, cep, cidade, estado',
+                [numero, cep, cidade, estado, email]
+            );
         }
 
-        res.status(200).json({ mensagem: 'Perfil Completo com Sucesso!', user: result.rows[0] });
+        // Verifica se achou o usuário pelo email
+        if (result.rows.length === 0) {
+            return res.status(404).json({ mensagem: 'Usuário não encontrado.'});
+        }
+
+        // Processa o caminho da foto para devolver certinho pro front-end
+        let usuarioAtualizado = result.rows[0];
+        
+        if (usuarioAtualizado.foto_perfil) {
+            usuarioAtualizado.foto_perfil = usuarioAtualizado.foto_perfil.replace(/\\/g, '/');
+            if (!usuarioAtualizado.foto_perfil.startsWith('/')) {
+                usuarioAtualizado.foto_perfil = '/' + usuarioAtualizado.foto_perfil;
+            }
+        }
+
+        res.status(200).json({ 
+            mensagem: 'Perfil atualizado com Sucesso!', 
+            user: usuarioAtualizado 
+        });
 
     } catch (error) {
-        console.error('Erro ao Completar Perfil', error);
+        console.error('Erro ao Completar Perfil:', error);
         res.status(500).json({ mensagem: 'Erro Interno do Servidor.'});
     }
 });
@@ -307,6 +340,34 @@ app.post('/redefinir-senha', async (req, res) => {
     } catch (error) {
         console.error('Erro ao redefinir senha:', error);
         res.status(500).json({ mensagem: 'Erro interno do servidor.' });
+    }
+});
+
+// Rota para Excluir Conta
+app.delete('/deletar-conta', async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ mensagem: 'E-mail é obrigatório para exclusão.' });
+    }
+
+    try {
+        // 1. Opcional: Apagar tokens de reset de senha associados (limpeza)
+        await db.query('DELETE FROM reset_tokens WHERE email = $1', [email]);
+
+        // 2. Apagar o usuário
+        const result = await db.query('DELETE FROM usuarios WHERE email = $1 RETURNING *', [email]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
+        }
+
+        // 3. Sucesso
+        res.status(200).json({ mensagem: 'Conta excluída com sucesso. Sentiremos sua falta!' });
+
+    } catch (error) {
+        console.error('Erro ao deletar conta:', error);
+        res.status(500).json({ mensagem: 'Erro interno ao tentar excluir a conta.' });
     }
 });
 

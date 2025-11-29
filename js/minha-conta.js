@@ -264,8 +264,8 @@ async function salvarDados() {
 
 function inicializarModalExclusao() {
     const btnAbrir = document.getElementById('btn-abrir-modal-exclusao');
-    const btnCancelar = document.getElementById('btn-cancelar-exclusao'); // Botão "Não, quero ficar"
-    const btnConfirmar = document.getElementById('btn-confirmar-exclusao'); // Botão "Sim, apagar"
+    const btnCancelar = document.getElementById('btn-cancelar-exclusao');
+    const btnConfirmar = document.getElementById('btn-confirmar-exclusao'); // O botão vermelho
     const modal = document.getElementById('modal-exclusao');
 
     // Abrir Modal
@@ -275,32 +275,63 @@ function inicializarModalExclusao() {
         });
     }
 
-    // Fechar Modal (Clicou em Ficar)
+    // Fechar Modal (Cancelar)
     if (btnCancelar) {
         btnCancelar.addEventListener('click', () => {
             modal.style.display = 'none';
         });
     }
 
-    // Fechar Modal (Clicou fora)
+    // Fechar Clicando Fora
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
     });
 
-    // Ação de Excluir (Futuramente ligaremos ao servidor)
+    // --- AÇÃO REAL DE EXCLUIR ---
     if (btnConfirmar) {
         btnConfirmar.addEventListener('click', async () => {
-            // AQUI ENTRARÁ A LÓGICA DE APAGAR NO BANCO DE DADOS
-            // Por enquanto, apenas um alerta visual
-            const confirmacaoFinal = confirm("Tem certeza absoluta? Essa ação não pode ser desfeita.");
-            
-            if (confirmacaoFinal) {
-                // Simular exclusão e logout
-                alert("Sua conta foi apagada. Sentiremos sua falta!");
-                localStorage.removeItem('usuarioLogado');
-                window.location.href = '/index.html';
+            // 1. Pega o e-mail do usuário logado (segurança para saber quem apagar)
+            const usuarioSalvo = localStorage.getItem('usuarioLogado');
+            if (!usuarioSalvo) return;
+            const { email } = JSON.parse(usuarioSalvo);
+
+            // Feedback visual no botão
+            const textoOriginal = btnConfirmar.textContent;
+            btnConfirmar.textContent = "Apagando...";
+            btnConfirmar.disabled = true;
+
+            try {
+                // 2. Chama o servidor
+                const response = await fetch('http://localhost:3000/deletar-conta', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const resultado = await response.json();
+
+                if (response.ok) {
+                    alert("Sua conta foi excluída com sucesso. Esperamos te ver de volta um dia! 🐶");
+                    
+                    // 3. Limpa tudo e manda pra home
+                    localStorage.removeItem('usuarioLogado');
+                    window.location.href = '/index.html';
+                } else {
+                    alert("Erro: " + resultado.mensagem);
+                    // Restaura o botão se der erro
+                    btnConfirmar.textContent = textoOriginal;
+                    btnConfirmar.disabled = false;
+                }
+
+            } catch (error) {
+                console.error("Erro:", error);
+                alert("Erro de conexão com o servidor.");
+                btnConfirmar.textContent = textoOriginal;
+                btnConfirmar.disabled = false;
             }
         });
     }
