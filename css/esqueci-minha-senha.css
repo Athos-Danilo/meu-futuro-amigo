@@ -199,13 +199,13 @@ form {
     margin-right: auto;
     color: var(--cor-preto);
     background-color: var(--cor-cinza);
-    box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 0px 2px 2px rgba(0, 0, 0, 0.3);
     padding: 12px 15px;
     border-radius: 15px;
     text-align: center;
     font-size: 18px;
     margin-top: 35px;
-     margin-bottom: 20px;
+    margin-bottom: 20px;
     font-weight: 400;
 }
 
@@ -292,5 +292,7 @@ form {
         margin-top: 0;
         margin-bottom: 0;
         width: 100%;
+        padding: 12px;
+        box-shadow: inset 0px 0px 2px 2px rgba(0, 0, 0, 0.4);
     }
 }

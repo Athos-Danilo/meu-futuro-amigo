@@ -199,7 +199,7 @@ form {
     margin-right: auto;
     color: var(--cor-preto);
     background-color: var(--cor-cinza);
-    box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px 0px 2px 2px rgba(0, 0, 0, 0.3);
     padding: 10px 15px; 
     border-radius: 15px;
     text-align: center;

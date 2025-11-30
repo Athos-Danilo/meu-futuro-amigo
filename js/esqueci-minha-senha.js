@@ -9,6 +9,7 @@ form.addEventListener('submit', async (event) => {
     event.preventDefault();
     mensagemErro.style.display = 'none';
 
+    // Pega o valor do input e remove espaços desnecessários.
     const email = emailInput.value.trim();
 
     if (email === '') {
@@ -21,7 +22,7 @@ form.addEventListener('submit', async (event) => {
     botaoSubmit.disabled = true;
     botaoSubmit.textContent = 'Enviando...';
 
-    // Fazer o fetch para o back-end.
+    // Fazer o fetch para o back-end enviando o e-mail em JSON.
     try {
     const response = await fetch('/esqueci-senha', {
         method: 'POST',
@@ -29,15 +30,18 @@ form.addEventListener('submit', async (event) => {
         body: JSON.stringify({ email: email })
     });
 
+    // Converte a resposta JSON do servidor para objeto.
     const data = await response.json();
 
     console.log('Resposta do servidor:', data.mensagem);
     
+    // Sucesso: notifica o usuário e redireciona para a página de redefinição,
     alert('Código enviado! Verifique seu e-mail e digite o código.');
     window.location.href = `redefinir-senha.html?email=${encodeURIComponent(email)}`;
 
 
     } catch (error) {
+        // Em caso de erro de rede ou exceção, mostra mensagem e reativa o botão.
         console.error('Erro de rede:', error);
         mensagemErro.textContent = 'Erro de conexão. Tente mais tarde.';
         mensagemErro.style.display = 'block';
