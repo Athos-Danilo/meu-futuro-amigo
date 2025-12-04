@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+/* ---------------------------------------- Variáveis da Tela ---------------------------------------- */
 :root {
     --cor-marrom: #8B4513;
     --cor-bege: #F5DEB3;
@@ -18,23 +18,20 @@
     --cor-cinza-input: #f0f0f0;
     --cor-cinza-escuro: #3d3d3d;
     --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
 
     --fonte-cabeçalho: 'Acme', sans-serif;
     --fonte-titulos: 'Anton', sans-serif;
     --fonte-textos: 'Afacad', sans-serif;
 }
 
+/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
 body {
     font-family: var(--fonte-textos);
     background-color: var(--cor-branco); 
 }
 
-/* ==========================================================================
-   2. HEADER - VERSÃO MOBILE (PADRÃO / MOBILE FIRST)
-   (Aqui definimos como ele parece em telas pequenas)
-   ========================================================================== */
-
-/* A Barra Verde */
 .Header {
     background-color: var(--cor-verde);
     display: flex;
@@ -45,10 +42,10 @@ body {
     width: 100%;
     padding-left: 5px; 
     padding-right: 10px; 
-    z-index: 50; /* Garante que o header fique acima de tudo */
+    z-index: 50; 
 }
 
-/* Logo */
+/*----- Logo -----*/
 .Logo-Container {
     height: 100%;
     display: flex;
@@ -67,9 +64,9 @@ body {
     object-fit: contain;
 }
 
-/* Menu Hamburguer (VISÍVEL NO MOBILE) */
+/*-------------------- Menu Hamburguer --------------------*/
 .Hamburger {
-    display: block; /* <--- Aparece no celular */
+    display: block; 
     background: none;
     border: none;
     cursor: pointer;
@@ -86,19 +83,19 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* Animação do X */
+/*-------------------- Animação do Hamburguer --------------------*/
 .Hamburger.active .linha:nth-child(2) { opacity: 0; }
 .Hamburger.active .linha:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 .Hamburger.active .linha:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-/* Navegação (Escondida/Gaveta no Mobile) */
-.Navegação-Menu {
+/*-------------------- Navegação Mobile --------------------*/
+.Navegacao-Menu {
     position: absolute;
     top: 70px;
-    left: -100%; /* Escondido na esquerda */
+    left: -100%; 
     width: 100%;
     background-color: var(--cor-verde);
-    display: flex; /* Necessário para flex-direction funcionar */
+    display: flex; 
     flex-direction: column;
     align-items: center;
     transition: 0.4s;
@@ -106,18 +103,18 @@ body {
     border-top: 1.5px solid rgba(255,255,255,0.2);
 }
 
-.Navegação-Menu.active { left: 0; } /* Aparece quando ativo */
+.Navegacao-Menu.active { left: 0; }
 
-.Navegação-Menu ul {
+.Navegacao-Menu ul {
     list-style: none;
     width: 100%;
     text-align: center;
     padding: 0;
 }
 
-.Navegação-Menu ul li { margin: 15px 0; }
+.Navegacao-Menu ul li { margin: 15px 0; }
 
-.Navegação-Menu a {
+.Navegacao-Menu a {
     color: var(--cor-branco);
     text-decoration: none;
     font-family: var(--fonte-cabeçalho);
@@ -125,9 +122,9 @@ body {
     transition: color 0.2s ease;
 }
 
-/* Link "Entrar" dentro do Menu (Só Mobile) */
-.Entrar-Mobile {
-    display: block; /* Visível no mobile */
+/*-------------------- Link Entrar do Mobile --------------------*/
+.Entrar {
+    display: block; 
     text-transform: uppercase; 
     letter-spacing: 0.03em;
     text-decoration: underline;
@@ -136,16 +133,14 @@ body {
     text-decoration-thickness: 4px;
 }
 
-/* Área do Usuário / Botão Entrar Desktop (ESCONDIDO NO MOBILE) */
-.User-Area {
-    display: none; /* <--- Importante! Esconde a área desktop no celular */
+/*-------------------- Área do Usuário Desktop (Escondida no Mobile) --------------------*/
+.Area-Usuario {
+    display: none; 
 }
-.Login-Container { display: none; } /* Garantia extra */
+.Login-Container { display: none; }
 
 
-/* ==========================================================================
-   3. MODAL / POP-UP (ESTILO VERDE NOVO)
-   ========================================================================== */
+/*-------------------- Pop-up do Login --------------------*/
 .Pop-up-Entrar {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -192,11 +187,8 @@ body {
     transition: color 0.2s ease;
 }
 
-.Pop-up-Fechar:hover { 
-    color: var(--cor-preto); 
-}
+.Pop-up-Fechar:hover { color: var(--cor-preto); }
 
-/* Tipografia e Botões do Modal */
 .Entrar-Container h2 {
     font-family: var(--fonte-textos);
     font-weight: 700;
@@ -278,18 +270,14 @@ body {
     font-size: 1.2rem;
 }
 
-/* ==========================================================================
-   4. MEDIA QUERY - DESKTOP (Telas acima de 900px)
-   (Aqui mudamos tudo para o layout horizontal)
-   ========================================================================== */
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
 
     .Header {
-        justify-content: flex-start; /* Alinha itens à esquerda */
+        justify-content: flex-start; 
         padding-right: 45px; 
     }
 
-    /* Logo com detalhe diagonal */
     .Logo-Container {
         width: fit-content; 
         padding-right: 50px; 
@@ -308,56 +296,47 @@ body {
     
     .Logo-Link { height: 60px; }
 
-    /* --- MUDANÇA CRÍTICA: ESCONDE O HAMBURGUER --- */
-    .Hamburger {
-        display: none; /* <--- SEU PROBLEMA É RESOLVIDO AQUI */
-    }
+    .Hamburger { display: none; }
 
-    /* --- MUDANÇA CRÍTICA: MENU HORIZONTAL --- */
-    .Navegação-Menu {
-        position: static; /* Remove position: absolute */
+    /*---------------- Menu Horizontal ----------------*/
+    .Navegacao-Menu {
+        position: static; 
         display: flex;
-        flex-direction: row; /* Alinha itens lado a lado */
+        flex-direction: row; 
         width: auto;
         background-color: transparent;
         border: none;
         padding: 0;
         margin-left: 35px; 
-        
-        /* Empurra o botão "Entrar" para a direita */
         flex-grow: 1;
         justify-content: flex-start;
     }
 
-    .Navegação-Menu ul {
+    .Navegacao-Menu ul {
         display: flex;
         gap: 45px; 
         padding: 0;
     }
 
-    .Navegação-Menu ul li { margin: 0; }
+    .Navegacao-Menu ul li { margin: 0; }
 
-    /* Esconde o link "Entrar" de dentro do menu (pois temos o botão dedicado) */
-    .Entrar-Mobile {
-        display: none;
-    }
+    /*---- Esconde o link "Entrar" do menu no Desktop ----*/
+    .Entrar { display: none; }
     
-    .Navegação-Menu a {
+    .Navegacao-Menu a {
         font-size: 22px; 
         color: var(--cor-branco);
     }
 
-    .Navegação-Menu a:hover { color: var(--cor-marrom); }
+    .Navegacao-Menu a:hover { color: var(--cor-marrom); }
 
-    /* --- ÁREA DO USUÁRIO / BOTÃO ENTRAR (AGORA VISÍVEL) --- */
-    .User-Area {
-        display: block; /* Aparece no desktop */
-        position: relative; /* Para ancorar o pop-up */
+    /*---- Área do Usuário Desktop ----*/
+    .Area-Usuario {
+        display: block; 
+        position: relative; 
     }
 
-    .Login-Container {
-        display: block;
-    }
+    .Login-Container { display: block; }
 
     .Botão-Entrar {
         font-family: var(--fonte-cabeçalho);
@@ -368,7 +347,7 @@ body {
         border-radius: 25px; 
         text-decoration: none;
         transition: all 0.2s ease;
-        display: flex; /* Flex para centralizar texto */
+        display: flex; 
         align-items: center;
         justify-content: center;
     }
@@ -378,16 +357,16 @@ body {
         transform: scale(1.1); 
     }
 
-    /* --- MODAL COMO POPOVER --- */
+    /* Modal Posicionado como Popover */
     .Pop-up-Entrar {
         background-color: transparent;
         position: absolute;
-        top: 11px; /* Embaixo do botão */
-        right: 5px;  /* Alinhado à direita */
+        top: 11px; 
+        right: 5px;  
         left: auto;
         width: 341px;
         height: auto;
-        display: block; /* Remove flexbox de centralização */
+        display: block; 
         padding-top: 0;
     }
     
@@ -397,120 +376,84 @@ body {
         box-shadow: 0 0 5px rgba(0,0,0,0.25);
     }
     
-    /* ==========================================================================
-   ESTILO DO PERFIL (CÁPSULA / PILL)
-   ========================================================================== */
-
-    .User-Pill {
-        /* Dimensões fixas do Figma */
+    /* ---------------- Opções do Usuário ----------------*/
+    .retangulo-usuario {
         width: 221px;
         height: 52px;
-        
-        /* Cor e Borda */
         background-color: var(--cor-verde);
-        border-radius: 5px 25px 25px 5px; /* 5px na esq, 25px na dir */
-        
-        /* Sombra Interna (Inset) */
+        border-radius: 5px 25px 25px 5px; 
         box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
-        
-        /* Layout Flex para alinhar foto e texto */
         display: flex;
         align-items: center;
-        justify-content: flex-start; /* Começa da esquerda */
-        
+        justify-content: flex-start; 
         cursor: pointer;
-        position: relative; /* Para o dropdown se posicionar depois */
+        position: relative; 
         transition: transform 0.2s ease;
     }
 
-    .User-Pill:hover {
-        transform: scale(1.02); /* Um leve efeito ao passar o mouse */
-    }
+    .retangulo-usuario:hover { transform: scale(1.02); }
 
-    .User-Avatar {
+    .avatar-usuario {
         width: 52px;
         height: 52px;
-        
-        /* A foto precisa ter o mesmo arredondamento do container no lado esquerdo */
         border-radius: 5px; 
-        
-        object-fit: cover; /* Garante que a foto não estique */
-        
+        object-fit: cover; 
     }
 
     .User-Name {
         font-family: var(--fonte-textos); 
         font-weight: 700;
-        font-size: 1.8rem; /* Ajuste conforme necessário */
+        font-size: 1.8rem; 
         letter-spacing: 0.02em;
         color: var(--cor-branco);
-        
-        margin-left: 25px; /* O Gap que você pediu */
-        
-        /* Prevenção para nomes muito longos não quebrarem o layout */
+        margin-left: 25px; 
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 130px; 
     }
 
-        /* ... Código anterior da .User-Pill ... */
-
-    /* Container do Dropdown */
-    .User-Dropdown {
-        /* Posição e Tamanho */
+    .opcoes {
         position: absolute;
-        top: 100%;       /* Cola na parte de baixo da User-Pill */
-        left: 0;         /* Alinha à esquerda da User-Pill */
-        margin-top: 8px; /* O espaço de 8px solicitado */
-        
+        top: 100%;       
+        left: 0;         
+        margin-top: 8px; 
         width: 221px;
         height: 136px;
-        
-        /* Estilo Visual */
         background-color: var(--cor-verde);
-        border-radius: 5px 25px 25px 25px; /* 5 esq-sup, 25 nos outros */
+        border-radius: 5px 25px 25px 25px; 
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-        
-        /* Comportamento de Aparecer/Sumir */
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-10px); /* Efeito de deslizar levemente */
+        transform: translateY(-10px); 
         transition: all 0.3s ease;
-        z-index: 100; /* Garante que fique em cima do conteúdo da página */
-        
-        /* Alinhamento do Conteúdo Interno */
+        z-index: 100; 
         display: flex;
-        flex-direction: column; /* Um item embaixo do outro */
-        justify-content: center; /* Centraliza o bloco de textos verticalmente */
-        padding-left: 17px; /* Alinhamento à esquerda solicitado */
-        padding-right: 10px; /* Margem de segurança na direita */
-        list-style: none; /* Remove bolinhas da lista */
+        flex-direction: column; 
+        justify-content: center; 
+        padding-left: 17px; 
+        padding-right: 10px; 
+        list-style: none; 
     }
 
-    /* Efeito Hover: Quando passar o mouse na PILL, mostra o DROPDOWN */
-    .User-Pill:hover .User-Dropdown {
+    .retangulo-usuario:hover .opcoes {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
 
-    /* Estilo dos Links e Botão Sair */
-    .User-Dropdown li {
-        margin-bottom: 0; /* O espaçamento é definido pelo line-height */
-    }
+    .opcoes li { margin-bottom: 0; }
 
-    .User-Dropdown a, 
-    .User-Dropdown .link-logout {
-        font-family: 'Afacad', sans-serif; /* Fonte Afacad */
-        font-size: 1.25rem; /* 20px (considerando base 16px) */
-        line-height: 30px;  /* Altura de linha solicitada */
+    .opcoes a, 
+    .opcoes .link-sair {
+        font-family: 'Afacad', sans-serif; 
+        font-size: 1.25rem; 
+        line-height: 30px;  
         color: var(--cor-branco);
         text-decoration: none;
         transition: color 0.2s ease;
         display: block;
         
-        /* Resetando estilo de botão para parecer link */
         background: none;
         border: none;
         cursor: pointer;
@@ -519,20 +462,32 @@ body {
         text-align: left;
     }
 
-    /* Hover nos textos (Muda para Marrom) */
-    .User-Dropdown a:hover, 
-    .User-Dropdown .link-logout:hover {
+    .opcoes a:hover, 
+    .opcoes .link-sair:hover {
         color: var(--cor-marrom);
         font-weight: 600;
     }
-
 }
 
-/* Ajuste Extra para Telas Muito Grandes */
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
 @media (min-width: 1400px) {
-    .Header { height: 80px; }
-    .Logo-Link { height: 75px; }
-    .Logo-Container { padding-right: 50px; }
-    .Logo-Container::after { right: 25px; }
-    .Botão-Entrar { padding: 10px 25px; }
+    .Header { 
+        height: 80px;
+    }
+
+    .Logo-Link {
+        height: 75px; 
+    }
+
+    .Logo-Container { 
+        padding-right: 50px;
+    }
+
+    .Logo-Container::after {
+        right: 25px;
+    }
+    
+    .Botão-Entrar { 
+        padding: 10px 25px;
+    }
 }
