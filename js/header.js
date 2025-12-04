@@ -86,14 +86,15 @@ function inicializarLogicaHeader() {
     destacarLinkAtivo();
 }
 
+// Verificar se o usuário está conectado.
 function verificarLoginUsuario() {
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     const containerVisitante = document.getElementById('btn-login-container');
-    const containerUsuario = document.getElementById('areaUsuario'); // Novo ID
+    const containerUsuario = document.getElementById('areaUsuario');
     const nomeDisplay = document.getElementById('header-user-name');
-    const avatarDisplay = document.getElementById('avatar'); // Novo ID
-    const btnLogout = document.getElementById('btn-sair'); // Novo ID
-
+    const avatarDisplay = document.getElementById('avatar');
+    const btnLogout = document.getElementById('btn-sair');
+    const linkLoginMobile = document.getElementById('link-login-mobile');
     const caminhoPadrao = '/img/Perfil.png';
 
     if (usuarioSalvo) {
@@ -105,25 +106,32 @@ function verificarLoginUsuario() {
             if(containerUsuario) containerUsuario.style.display = 'flex';
             if(nomeDisplay) nomeDisplay.textContent = usuario.nome_exibicao || "Usuário";
             
-            // Carregar a foto do perfil do usuário.
+            // Carregar a foto do perfil do usuário, ou carreg o avatar padrão.
             if (avatarDisplay) {
                 if (usuario.foto_perfil) {
-                    // Tenta usar o caminho da foto, garantindo que ele comece com '/' se não tiver
                     let fotoUrl = usuario.foto_perfil.startsWith('/') ? usuario.foto_perfil : '/' + usuario.foto_perfil;
-                    
                     avatarDisplay.src = fotoUrl;
-
-                    // Se o usuário não definiu uma imagem carrega a padrão.
                     avatarDisplay.onerror = () => {
                         avatarDisplay.src = caminhoPadrao;
-                        avatarDisplay.onerror = null; 
+                        avatarDisplay.onerror = null;
                     };
-                    
                 } else {
                     avatarDisplay.src = caminhoPadrao;
                 }
             }
+
+            // Lógica do link no header para mobile.
+            if (linkLoginMobile) {
+                // Muda o texto 'Entrar' para o nome do usuário.
+                linkLoginMobile.textContent = usuario.nome_exibicao;
+                
+                linkLoginMobile.href = '/pages/minha-conta.html';
+                linkLoginMobile.classList.remove('js-open-modal');
+                const novoLink = linkLoginMobile.cloneNode(true);
+                linkLoginMobile.parentNode.replaceChild(novoLink, linkLoginMobile);
+            }
             
+            // Sair.
             if (btnLogout) {
                 btnLogout.addEventListener('click', () => {
                     localStorage.removeItem('usuarioLogado'); 
@@ -132,7 +140,6 @@ function verificarLoginUsuario() {
             }
         } catch (e) {
             console.error("Erro ao processar usuário logado:", e);
-            // Em caso de erro no JSON, reseta o estado.
             localStorage.removeItem('usuarioLogado');
             if(containerVisitante) containerVisitante.style.display = 'block';
             if(containerUsuario) containerUsuario.style.display = 'none';
@@ -141,6 +148,13 @@ function verificarLoginUsuario() {
         // Não está logado.
         if(containerVisitante) containerVisitante.style.display = 'block';
         if(containerUsuario) containerUsuario.style.display = 'none';
+        
+        // Se não estiver logado, garante que o link mobile seja "Entrar".
+        if (linkLoginMobile) {
+            linkLoginMobile.textContent = "Entrar";
+            linkLoginMobile.href = "#";
+            linkLoginMobile.classList.add('js-open-modal');
+        }
     }
 }
 
