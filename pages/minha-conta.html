@@ -13,7 +13,7 @@
 <body>
     <div id="Cabeçalho"></div>
 
-    <main class="Perfil-Container">
+    <main class="Conta-Container">
 
         <aside class="Perfil">
             <div class="Card-Laranja">
@@ -52,17 +52,17 @@
 
         <section class="Seção-Meus-Dados" style="display: none;">
             <div class="Card-Branco Form-Card">
-                <div class="Header-Form">
-                    <h2 class="Título-Form">Meus Dados</h2>
+                <div class="Header-Meus-Dados">
+                    <h2 class="Título">Meus Dados</h2>
                     <button class="Btn-Voltar" id="btn-cancelar-edicao">Fechar</button>
                 </div>
 
-                <form id="form-editar-perfil">
+                <form id="editar-perfil">
                     
-                    <div class="Form-Layout-Flex">
+                    <div class="Form-editar-perfil">
 
-                        <div class="Upload-Container Side-Foto-Card">
-                            <div class="Preview-Wrapper">
+                        <div class="Carregar-Foto">
+                            <div class="Preview">
                                 <img src="../img/Perfil.png" id="preview-foto" alt="Preview da Foto">
                                 <label for="input-upload-foto" class="Btn-Trocar-Foto">
                                     <img src="../img/camera.png" alt="Altarar Foto">
@@ -72,14 +72,14 @@
                             <input type="file" id="input-upload-foto" name="foto_perfil" accept="image/*" hidden disabled>
                         </div>
 
-                        <div class="Inputs-Area">
+                        <div class="Area-Inputs">
                             <div class="Grid-Form">
-                                <div class="Input-Group Span-2">
+                                <div class="Input-Group-Bloqueado">
                                     <label for="input-nome">Nome Completo</label>
                                     <input type="text" id="input-nome" disabled class="Bloqueado-Permanente">
                                 </div>
 
-                                <div class="Input-Group Span-2">
+                                <div class="Input-Group-Bloqueado">
                                     <label for="input-email">E-mail</label>
                                     <input type="email" id="input-email" disabled class="Bloqueado-Permanente">
                                 </div>
@@ -134,7 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <div class="Footer-Form">
+                    </div> <div class="Footer">
                         <button type="button" id="btn-abrir-modal-exclusao" class="Btn-Apagar-Conta">Apagar Conta</button>
 
                         <button type="button" id="btn-acao-principal" class="Btn-Salvar-Dados">Editar Informações</button>

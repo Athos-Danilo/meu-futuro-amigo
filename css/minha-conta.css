@@ -28,10 +28,8 @@ body {
     background-color: var(--cor-branco); 
 }
 
-/* =========================================
-   2. LAYOUT GERAL
-   ========================================= */
-.Perfil-Container {
+/*-------------------- Layout Geral --------------------*/
+.Conta-Container {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
@@ -41,14 +39,11 @@ body {
     min-height: 80vh; 
 }
 
-/* CLASSE UTILITÁRIA PARA ESCONDER ELEMENTOS (Sidebar e Nav) */
 .Escondido {
     display: none !important;
 }
 
-/* =========================================
-   3. SIDEBAR (CARD LARANJA)
-   ========================================= */
+/*-------------------- Layout do Perfil do Usuário --------------------*/
 .Perfil { width: 100%; }
 
 .Card-Laranja {
@@ -132,10 +127,8 @@ body {
 
 .Link-Sair:hover { color: var(--cor-vermelho); }
 
-/* =========================================
-   4. NAVEGAÇÃO (DIREITA)
-   ========================================= */
 
+/*-------------------- Navegação do Histórico do Usuário --------------------*/
 .Retângulo-Navegação { 
     flex: 1; 
     display: flex; 
@@ -178,6 +171,7 @@ body {
     color: var(--cor-laranja); 
 }
 
+/*-------------------- Painel Histórico --------------------*/
 .Card-Branco {
     background-color: var(--cor-branco);
     border: 1px solid #eee; 
@@ -233,10 +227,7 @@ body {
     transform: translateY(-3px); 
 }
 
-
-/* =========================================
-   5. SEÇÃO MEUS DADOS (FORMULÁRIO)
-   ========================================= */
+/* ---------------------------------------- Seção Meus Dados ---------------------------------------- */   
 .Seção-Meus-Dados {
     width: 100%;
     /* Começa escondido (O JS vai trocar para flex) */
@@ -261,11 +252,10 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: 40px;
-    /* Sobrescreve o display flex do Card-Branco original */
     display: block; 
 }
 
-.Header-Form {
+.Form-Card .Header-Meus-Dados {
     display: flex; 
     justify-content: space-between; 
     align-items: center;
@@ -274,7 +264,8 @@ body {
     padding-bottom: 15px;
 }
 
-.Título-Form { 
+
+.Form-Card .Título { 
     font-family: var(--fonte-textos); 
     color: var(--cor-verde); 
     font-size: 2rem; 
@@ -298,15 +289,16 @@ body {
     color: var(--cor-preto); 
 }
 
-/* --- NOVO LAYOUT FOTO LATERAL --- */
-.Form-Layout-Flex {
+
+.Form-editar-perfil {
     display: flex;
     flex-direction: column;
     gap: 30px;
     margin-bottom: 20px;
 }
 
-.Upload-Container.Side-Foto-Card {
+
+.Carregar-Foto {
     display: flex; 
     flex-direction: column; 
     align-items: center;
@@ -314,7 +306,7 @@ body {
     border-bottom: 1px dashed #ddd;
 }
 
-.Preview-Wrapper {
+.Preview {
     position: relative; 
     width: 140px; 
     height: 140px; 
@@ -362,7 +354,7 @@ body {
     transition: 0.3s;
 }
 
-/* Modos de Edição */
+/*-------------------- Modos de Edição --------------------*/
 form.Modo-Edicao .Btn-Trocar-Foto { 
     opacity: 1; 
     pointer-events: all; 
@@ -377,7 +369,7 @@ form.Modo-Edicao #preview-foto {
     border-color: var(--cor-verde); 
 }
 
-.Inputs-Area { 
+.Area-Inputs { 
     width: 100%; 
 }
 
@@ -387,19 +379,20 @@ form.Modo-Edicao #preview-foto {
     gap: 20px; 
 }
 
-.Input-Group { 
+.Input-Group, .Input-Group-Bloqueado { 
     display: flex; 
     flex-direction: column; 
     gap: 8px; 
 }
 
-.Input-Group label { 
+.Input-Group label, .Input-Group-Bloqueado label { 
     font-family: var(--fonte-textos); 
     color: var(--cor-marrom); 
     font-size: 1rem; 
 }
 
-.Input-Group input, .Input-Group select {
+.Input-Group input, .Input-Group select, 
+.Input-Group-Bloqueado input {
     padding: 12px; 
     border: 1px solid #ddd; 
     border-radius: 10px;
@@ -409,7 +402,8 @@ form.Modo-Edicao #preview-foto {
     transition: 0.3s;
 }
 
-.Input-Group input:focus, .Input-Group select:focus {
+.Input-Group input:focus, .Input-Group select:focus,
+.Input-Group-Bloqueado input:focus {
     outline: none; 
     border-color: var(--cor-verde); 
     background-color: #fff;
@@ -421,7 +415,8 @@ form.Modo-Edicao #preview-foto {
     cursor: not-allowed; 
 }
 
-.Input-Group input:disabled, .Input-Group select:disabled {
+.Input-Group input:disabled, .Input-Group select:disabled,
+.Input-Group-Bloqueado input:disabled {
     background-color: transparent; 
     border: 1px solid transparent;
     color: #555; 
@@ -437,9 +432,13 @@ form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
     color: var(--cor-preto);
 }
 
-.Footer-Form { 
+.Footer { 
     margin-top: 30px; 
     text-align: right; 
+    display: flex;
+    justify-content: flex-end; /* Alinha tudo à direita */
+    align-items: center;
+    gap: 15px; /* Espaço entre os botões */
 }
 
 .Btn-Salvar-Dados {
@@ -461,11 +460,9 @@ form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
 }
 
 
-/* =========================================
-   6. RESPONSIVIDADE DESKTOP
-   ========================================= */
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
-    .Perfil-Container {
+    .Conta-Container {
         flex-direction: row; 
         align-items: flex-start; 
         gap: 50px;
@@ -483,13 +480,13 @@ form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
         gap: 40px; }
 
     /* LAYOUT FORMULÁRIO PC (FOTO LADO A LADO) */
-    .Form-Layout-Flex {
+    .Form-editar-perfil {
         flex-direction: row; 
         align-items: flex-start; 
         gap: 50px;
     }
 
-    .Upload-Container.Side-Foto-Card {
+    .Carregar-Foto {
         width: 200px; 
         flex-shrink: 0;
         border-bottom: none; 
@@ -504,19 +501,11 @@ form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
         grid-template-columns: 1fr 1fr; 
     }
 
-    .Span-2 { 
+    .Input-Group-Bloqueado { 
         grid-column: span 2; 
     }
 }
 
-/* --- BOTÃO APAGAR CONTA (NO FORMULÁRIO) --- */
-.Footer-Form {
-    display: flex;
-    justify-content: flex-end; /* Alinha tudo à direita */
-    align-items: center;
-    gap: 15px; /* Espaço entre os botões */
-    margin-top: 30px;
-}
 
 .Btn-Apagar-Conta {
     background: none;
@@ -530,19 +519,17 @@ form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
 }
 
 .Btn-Apagar-Conta:hover {
-    color: var(--cor-vermelho); /* Fica vermelho ao passar o mouse */
+    color: var(--cor-vermelho); 
     font-weight: bold;
 }
 
-/* =========================================
-   MODAL DE EXCLUSÃO (POP-UP)
-   ========================================= */
+/*---------------- Opção: Apagar Conta ----------------*/
 .Modal-Exclusao-Overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro */
-    z-index: 2000; /* Fica na frente de tudo */
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 2000; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -592,7 +579,6 @@ form.Modo-Edicao .Input-Group select:not(.Bloqueado-Permanente) {
     margin-bottom: 30px;
 }
 
-/* Botões do Modal */
 .Acoes-Modal {
     display: flex;
     justify-content: center;

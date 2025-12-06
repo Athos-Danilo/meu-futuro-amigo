@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Inicializa tudo quando o DOM estiver pronto.
+document.addEventListener('DOMContentLoaded', () => {  
     carregarDadosUsuario();
     inicializarAbas();
     inicializarBotoesAcao();
     inicializarModalExclusao();
 });
 
+// Faz as alterações das Abas do histórico do usuário.
 function inicializarAbas() {
     const conteudos = {
         "Notificações": {
@@ -29,12 +31,14 @@ function inicializarAbas() {
     const imagemEl = document.querySelector('.Chamada .Imagem');
     const botaoEl = document.querySelector('.Chamada a');
 
+    // Ao clicar em uma aba, atualiza o visual e conteúdo do card.
     botoesAba.forEach(botao => {
         botao.addEventListener('click', () => {
             const nomeAba = botao.textContent.trim();
             const dados = conteudos[nomeAba];
 
             if (dados) {
+                // Marca a aba ativa.
                 botoesAba.forEach(b => b.className = 'Aba-Item');
                 botao.className = 'Aba-Item-Ativa';
                 
@@ -58,6 +62,7 @@ function inicializarAbas() {
     });
 }
 
+// Carrega os dados do usuário no LocalStorage e faz o preenchimento com as informações dele.
 function carregarDadosUsuario() {
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     if (!usuarioSalvo) {
@@ -65,7 +70,6 @@ function carregarDadosUsuario() {
         return;
     }
     const usuario = JSON.parse(usuarioSalvo);
-
     const nomeEl = document.getElementById('nomeUsuario');
     const localEl = document.getElementById('cidadeEstado');
     const telefoneEl = document.getElementById('telefone');
@@ -83,6 +87,8 @@ function carregarDadosUsuario() {
     if (fotoEl && usuario.foto_perfil) fotoEl.src = usuario.foto_perfil;
 
     const btnSair = document.getElementById('btn-sair');
+
+    // Remove usuário do localStorage e redireciona para a tela inicial.
     if (btnSair) {
         btnSair.addEventListener('click', (e) => {
             e.preventDefault();
@@ -92,25 +98,21 @@ function carregarDadosUsuario() {
     }
 }
 
-// --- AQUI ESTÁ A LÓGICA QUE ESCONDE O CARD LARANJA ---
+// Modo de edição dos dados do usuário.
 function inicializarBotoesAcao() {
     const btnMeusDados = document.querySelector('.Btn-Meus-Dados');
     const btnFechar = document.getElementById('btn-cancelar-edicao');
     const btnAcaoPrincipal = document.getElementById('btn-acao-principal');
-    
-    // Seletores (Usando as suas classes PascalCase)
-    const sidebar = document.querySelector('.Perfil'); // A barra laranja
-    const secaoNavegacao = document.querySelector('.Retângulo-Navegação'); // O painel do cachorro
-    const secaoFormulario = document.querySelector('.Seção-Meus-Dados'); // O formulário
+    const sidebar = document.querySelector('.Perfil'); 
+    const secaoNavegacao = document.querySelector('.Retângulo-Navegação'); 
+    const secaoFormulario = document.querySelector('.Seção-Meus-Dados'); 
 
-    // 1. CLIQUE EM "MEUS DADOS"
+    // Esconde a sidbar e o card do perfil.
     if (btnMeusDados) {
         btnMeusDados.addEventListener('click', () => {
-            // Adiciona a classe Escondido (que tem display: none !important)
             if (sidebar) sidebar.classList.add('Escondido');
             if (secaoNavegacao) secaoNavegacao.classList.add('Escondido');
             
-            // Mostra o formulário centralizado
             secaoFormulario.style.display = 'flex';
             
             desativarModoEdicao();
@@ -119,18 +121,17 @@ function inicializarBotoesAcao() {
         });
     }
 
-    // 2. CLIQUE EM "FECHAR"
+    // Volta para o início da página meus dados. 
     if (btnFechar) {
         btnFechar.addEventListener('click', (e) => {
             e.preventDefault();
             secaoFormulario.style.display = 'none';
-            // Remove a classe para tudo voltar a aparecer
             if (sidebar) sidebar.classList.remove('Escondido');
             if (secaoNavegacao) secaoNavegacao.classList.remove('Escondido');
         });
     }
 
-    // 3. CLIQUE EM EDITAR / SALVAR
+    // Ativa a edição das informações do usuário, e salva as alterações.
     if (btnAcaoPrincipal) {
         btnAcaoPrincipal.addEventListener('click', (e) => {
             e.preventDefault();
@@ -142,7 +143,7 @@ function inicializarBotoesAcao() {
         });
     }
 
-    // Preview da Foto
+    // Mostrar imagem selecionada antes do upload.
     const inputFoto = document.getElementById('input-upload-foto');
     const imgPreview = document.getElementById('preview-foto');
     if (inputFoto) {
@@ -158,8 +159,9 @@ function inicializarBotoesAcao() {
     }
 }
 
+// Libera o usuário a preencher ou alterar suas infomações.
 function ativarModoEdicao() {
-    const form = document.getElementById('form-editar-perfil');
+    const form = document.getElementById('editar-perfil');
     const btnAcao = document.getElementById('btn-acao-principal');
     const inputs = form.querySelectorAll('input, select');
 
@@ -173,8 +175,9 @@ function ativarModoEdicao() {
     btnAcao.textContent = 'Salvar Alterações';
 }
 
+// Sai do modo de edição.
 function desativarModoEdicao() {
-    const form = document.getElementById('form-editar-perfil');
+    const form = document.getElementById('editar-perfil');
     const btnAcao = document.getElementById('btn-acao-principal');
     const inputs = form.querySelectorAll('input, select');
 
@@ -183,6 +186,7 @@ function desativarModoEdicao() {
     btnAcao.textContent = 'Editar Informações';
 }
 
+//Preenche o formulário com os dados do usuário armazenados em localStorage.
 function preencherFormularioComDadosAtuais() {
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     if (!usuarioSalvo) return;
@@ -200,6 +204,7 @@ function preencherFormularioComDadosAtuais() {
     else imgPreview.src = '../img/Perfil.png';
 }
 
+// Envia os dados do formulário para o servidor.
 async function salvarDados() {
     const btnSalvar = document.getElementById('btn-acao-principal');
     btnSalvar.textContent = "Salvando...";
@@ -237,6 +242,7 @@ async function salvarDados() {
             const usuarioAntigo = JSON.parse(localStorage.getItem('usuarioLogado'));
             const usuarioNovo = { ...usuarioAntigo, ...resultado.user };
             
+            // Ajusta caminho da foto para funcionar no cliente (normaliza barras)
             if (resultado.user.foto_perfil) {
                  let foto = resultado.user.foto_perfil.replace(/\\/g, '/');
                  if(!foto.startsWith('/')) foto = '/' + foto;
@@ -262,48 +268,46 @@ async function salvarDados() {
     }
 }
 
+// Inicializa o modal e todo o processo de exclusão da conta.
 function inicializarModalExclusao() {
     const btnAbrir = document.getElementById('btn-abrir-modal-exclusao');
     const btnCancelar = document.getElementById('btn-cancelar-exclusao');
     const btnConfirmar = document.getElementById('btn-confirmar-exclusao'); // O botão vermelho
     const modal = document.getElementById('modal-exclusao');
 
-    // Abrir Modal
+    // Abrir Modal.
     if (btnAbrir) {
         btnAbrir.addEventListener('click', () => {
             modal.style.display = 'flex';
         });
     }
 
-    // Fechar Modal (Cancelar)
+    // Fechar Modal.
     if (btnCancelar) {
         btnCancelar.addEventListener('click', () => {
             modal.style.display = 'none';
         });
     }
 
-    // Fechar Clicando Fora
+    // Fechar Clicando Fora da área.
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
     });
 
-    // --- AÇÃO REAL DE EXCLUIR ---
+    // Excluir conta.
     if (btnConfirmar) {
         btnConfirmar.addEventListener('click', async () => {
-            // 1. Pega o e-mail do usuário logado (segurança para saber quem apagar)
             const usuarioSalvo = localStorage.getItem('usuarioLogado');
             if (!usuarioSalvo) return;
             const { email } = JSON.parse(usuarioSalvo);
 
-            // Feedback visual no botão
             const textoOriginal = btnConfirmar.textContent;
             btnConfirmar.textContent = "Apagando...";
             btnConfirmar.disabled = true;
 
             try {
-                // 2. Chama o servidor
                 const response = await fetch('http://localhost:3000/deletar-conta', {
                     method: 'DELETE',
                     headers: {
@@ -315,14 +319,11 @@ function inicializarModalExclusao() {
                 const resultado = await response.json();
 
                 if (response.ok) {
-                    alert("Sua conta foi excluída com sucesso. Esperamos te ver de volta um dia! 🐶");
-                    
-                    // 3. Limpa tudo e manda pra home
+                    alert("Sua conta foi excluída com sucesso. Esperamos te ver de volta um dia!");
                     localStorage.removeItem('usuarioLogado');
                     window.location.href = '/index.html';
                 } else {
                     alert("Erro: " + resultado.mensagem);
-                    // Restaura o botão se der erro
                     btnConfirmar.textContent = textoOriginal;
                     btnConfirmar.disabled = false;
                 }
