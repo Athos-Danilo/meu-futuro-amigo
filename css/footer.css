@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ---------------------------------------- Variáveis da Tela ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
