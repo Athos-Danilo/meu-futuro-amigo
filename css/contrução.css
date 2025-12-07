@@ -52,4 +52,9 @@ body.Página-em-construção {
     color: black; 
     font-size: 20px;
     text-decoration: none;
+    transition: transform 0.7s ease;
+}
+
+.link-voltar-home:hover {
+    transform: scale(1.5);
 }

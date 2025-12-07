@@ -25,3 +25,184 @@
     --fonte-titulos: 'Anton', sans-serif;
     --fonte-textos: 'Afacad', sans-serif;
 }
+
+/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+.footer {
+    background-color: var(--cor-verde);
+    color: var(--cor-branco);
+    padding: 40px 20px 20px;
+    font-family: var(--fonte-textos);
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+}
+
+/*-------------------- Logo e Slogan --------------------*/
+.logo-slogan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.slogan {
+    font-family: var(--fonte-textos);
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+/*-------------------- Redes Sociais --------------------*/
+.redes-sociais {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.redes-sociais img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.redes-sociais a:hover img {
+    transform: scale(1.2);
+}
+
+/*-------------------- Navegação e Contato --------------------*/
+.navegacao h3, .contato h3 {
+    font-family: var(--fonte-textos);
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: var(--cor-amarelo);
+    letter-spacing: 1px;
+}
+
+.navegacao ul {
+    list-style: none;
+    padding: 0;
+}
+
+.navegacao li {
+    margin-bottom: 10px;
+}
+
+.navegacao a {
+    color: var(--cor-branco);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.navegacao a:hover {
+    color: var(--cor-bege);
+    text-decoration: underline;
+}
+
+.contato p {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.email {
+    font-weight: bold;
+    word-break: break-all;
+}
+
+/*-------------------- Direitos Reservados --------------------*/
+.direitos {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(87, 87, 87, 0.3);
+    text-align: center;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
+@media (min-width: 900px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: center;
+        padding: 0 40px;
+    }
+
+    .logo-slogan-redes-sociais {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 300px;
+    }
+
+    .logo-slogan {
+        align-items: center;
+    }
+
+    .footer-logo {
+        margin-left: -10px;
+    }
+
+    .redes-sociais {
+        justify-content: center;
+    }
+
+    .direitos {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+@media (min-width: 1400px) {
+    .footer {
+        padding: 60px 0 30px;
+    }
+    
+    .footer-logo {
+        width: 400px;
+        height: auto;
+    }
+    .footer-container {
+        padding: 0; 
+    }
+
+    .slogan {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .redes-sociais img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .navegacao h3, .contato h3 {
+        font-size: 1.8rem;
+    }
+
+    .navegacao a, .contato p {
+        font-size: 1.2rem;
+    }
+}
