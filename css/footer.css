@@ -55,28 +55,29 @@
 }
 
 .footer-logo {
-    width: 180px;
+    width: 210px;
     height: auto;
     margin-bottom: 10px;
 }
 
 .slogan {
     font-family: var(--fonte-textos);
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 400;
     letter-spacing: 1px;
+    margin-top: -12px;
 }
 
 /*-------------------- Redes Sociais --------------------*/
 .redes-sociais {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .redes-sociais img {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     object-fit: contain;
     transition: transform 0.3s ease;
 }
@@ -111,8 +112,7 @@
 }
 
 .navegacao a:hover {
-    color: var(--cor-bege);
-    text-decoration: underline;
+    color: var(--cor-marrom);
 }
 
 .contato p {
@@ -122,8 +122,7 @@
 }
 
 .email {
-    font-weight: bold;
-    word-break: break-all;
+    font-weight: 400;
 }
 
 /*-------------------- Direitos Reservados --------------------*/
@@ -159,8 +158,16 @@
         align-items: center;
     }
 
+    .slogan {
+        margin-top: -17px;
+    }
+
     .footer-logo {
         margin-left: -10px;
+    }
+
+    .navegacao a {
+        font-weight: 500;
     }
 
     .redes-sociais {

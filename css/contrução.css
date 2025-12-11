@@ -49,12 +49,12 @@ body.Página-em-construção {
 
 .link-voltar-home {
     margin-top: 200px;
-    color: black; 
+    color: var(--cor-branco); 
     font-size: 20px;
     text-decoration: none;
-    transition: transform 0.7s ease;
+    transition: color 0.3s ease;
 }
 
 .link-voltar-home:hover {
-    transform: scale(1.5);
+    color: black;
 }
