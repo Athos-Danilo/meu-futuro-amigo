@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ---------------------------------------- Variáveis da Tela ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+.primeira-secao {
+    padding: 15px;
+}
+
+.nossa-historia {
+    background-color: rgba(139, 69, 19, 0.95);
+    color: var(--cor-branco);
+    padding: 40px 20px; 
+    border-radius: 20px;
+    border: 4px solid var(--cor-bege);
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(34, 34, 34, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; 
+    overflow: hidden;   
+}
+
+.nossa-historia img {
+    display: none;
+}
+
+.box-banner {
+    width: 100%;
+}
+
+.nossa-historia h1 {
+    font-family: var(--fonte-cabeçalho);
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: none;
+    border: none;
+}
+
+.nossa-historia p {
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    background: none;
+    border: none;
+}
+
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
+@media (min-width: 900px) {
+    .primeira-secao {
+        padding: 0;
+        margin-bottom: 60px;
+    }
+
+    .nossa-historia {
+        background-color: transparent; 
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        height: 500px;
+        align-items: flex-start; 
+        padding-left: 8%; 
+    }
+
+    .nossa-historia img {
+        display: block;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    .box-banner {
+        background-color: rgba(139, 69, 19, 0.95); 
+        color: var(--cor-branco);
+        border: 4px solid var(--cor-bege);
+        border-radius: 20px;
+        padding: 30px 50px;
+        width: fit-content;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    
+    .nossa-historia h1 {
+        font-size: 3.5rem;
+    }
+    
+    .nossa-historia p {
+        font-size: 1.3rem;
+    }
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+@media (min-width: 1400px) {}
