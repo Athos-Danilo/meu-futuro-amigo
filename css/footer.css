@@ -184,7 +184,7 @@
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
 @media (min-width: 1400px) {
     .footer {
-        padding: 60px 0 30px;
+        padding: 20px 0 30px;
     }
     
     .footer-logo {
