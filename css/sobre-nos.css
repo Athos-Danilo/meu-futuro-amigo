@@ -114,6 +114,71 @@
     opacity: 0.25;
 }
 
+/* ---------- Seção Nossos Valores ---------- */
+.secao-valores {
+    padding: 0 20px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.cabecalho-valores {
+    margin-bottom: 30px;
+}
+
+.titulo-valores {
+    font-size: var(--fonte-titulos);
+    font-size: 2.2rem;
+    color: var(--cor-marrom);
+    margin-bottom: -5px;
+}
+
+.subtitulo-valores {
+    font-family: var(--fonte-textos);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cor-preto);
+}
+
+.grid-valores {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card-valor {
+    background-color: var(--cor-bege);
+    padding: 30px 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+    transition: transform 0.3s ease; 
+}
+
+.icone-valor img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.card-valor h4 {
+    font-family: var(--fonte-textos);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cor-preto);
+}
+
+.card-valor p {
+    font-family: var(--fonte-textos);
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--cor-preto);
+    text-align: justify;
+}
 
 
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
@@ -195,6 +260,35 @@
         width: 100%;
         margin: 30px 0;
     }
+
+    /* ---------- Seção Nossos Valores ---------- */
+    .secao-valores {
+        padding: 0px 40px;
+    }
+
+    .cabecalho-valores {
+    margin-bottom: 30px;
+    }
+
+    .grid-valores {
+        flex-direction: row; 
+        justify-content: center;
+        gap: 40px; 
+    }
+
+    .card-valor {
+        flex: 1; 
+        padding: 40px 30px; 
+    }
+
+    .card-valor:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 5px 10px rgba(139, 69, 19, 0.3);
+    }
+    
+    .titulo-valores {
+        font-size: 3rem;
+    }
     
 }
 
@@ -232,5 +326,33 @@
     .texto p {
     font-size: 1.4rem;
     line-height: 1.5;
+    }
+
+    /* ---------- Seção Nossos Valores ---------- */
+    .secao-valores {
+        margin-bottom: 80px;
+    }
+    .cabecalho-valores {
+    margin-bottom: 30px;
+    }
+
+    .grid-valores {
+    gap: 30px;
+    }
+
+    .titulo-valores {
+        font-size: 3.5rem;
+    }
+
+    .subtitulo-valores {
+        font-size: 2rem;
+    }
+    
+    .card-valor h4 {
+        font-size: 1.6rem;
+    }
+    
+    .card-valor p {
+        font-size: 1.2rem;
     }
 }
