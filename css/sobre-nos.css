@@ -27,18 +27,19 @@
 }
 
 /* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+
+/* ---------- Seção do Títilo, Subtítulo e Foto do Cachorro ---------- */
 .primeira-secao {
     padding: 15px;
+    margin-bottom: 20px;
 }
 
 .nossa-historia {
-    background-color: rgba(139, 69, 19, 0.95);
+    background-color: var(--cor-marrom);
     color: var(--cor-branco);
-    padding: 40px 20px; 
-    border-radius: 20px;
-    border: 4px solid var(--cor-bege);
+    padding: 20px 10px; 
+    border-radius: 20px 2px;
     text-align: center;
-    box-shadow: 0 5px 10px rgba(34, 34, 34, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,25 +58,71 @@
 
 .nossa-historia h1 {
     font-family: var(--fonte-cabeçalho);
-    font-size: 2.4rem;
-    font-weight: 700;
-    margin-bottom: 5px;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
     background: none;
     border: none;
 }
 
 .nossa-historia p {
     font-family: var(--fonte-textos);
-    font-size: 1.1rem;
+    font-size: 1rem;
     background: none;
     border: none;
 }
 
+/* ---------- Seção do Conteúdo de Texto ---------- */
+.secao-conteudo {
+    padding: 0 20px;
+    max-width: 1300px;
+    margin: 0 auto 0 auto;
+}
+
+.container-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.titulo h2 {
+    font-family: var(--fonte-textos);
+    font-size: 1.5rem;
+    color: var(--cor-preto);
+    border-left: 4px solid var(--cor-laranja);
+    padding-left: 7px;
+}
+
+.texto p {
+    font-family: var(--fonte-textos);
+    font-size: 1.15rem;
+    line-height: 1.3;
+    text-align: justify;
+}
+
+.destaque-marrom {
+    color: var(--cor-marrom);
+    font-weight: 550;
+}
+
+.imagem-respiro {
+    width: 200%;
+    height: auto;
+    display: block;
+    margin: 20px 0;
+    opacity: 0.25;
+}
+
+
+
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
+
+/* ---------- Seção do Títilo, Subtítulo e Foto do Cachorro ---------- */
 @media (min-width: 900px) {
     .primeira-secao {
         padding: 0;
-        margin-bottom: 60px;
+        margin-bottom: 30px;
     }
 
     .nossa-historia {
@@ -99,15 +146,68 @@
     }
 
     .box-banner {
-        background-color: rgba(139, 69, 19, 0.95); 
+        background-color: rgba(139, 69, 19, 0.9); 
         color: var(--cor-branco);
         border: 4px solid var(--cor-bege);
-        border-radius: 20px;
-        padding: 30px 50px;
+        border-radius: 20px 0px;
+        padding: 15px 30px;
         width: fit-content;
         max-width: 600px;
         text-align: center;
         box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    
+    .nossa-historia h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nossa-historia p {
+        font-size: 1.3rem;
+    }
+
+    /* ---------- Seção do Conteúdo de Texto ---------- */
+    .secao-conteudo {
+    padding: 0 40px;
+    }
+    .container-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 60px;
+        align-items: start;
+    }
+
+    .titulo h2 {
+        font-size: 2rem;
+        text-align: right;
+        border-left: none;
+        padding-left: 0;
+        border-right: 5px solid var(--cor-laranja);
+        padding-right: 20px;
+        line-height: 1.1;
+    }
+
+    .texto p {
+    font-size: 1.2rem;
+    line-height: 1.35;
+    }
+
+    .imagem-respiro {
+        width: 100%;
+        margin: 30px 0;
+    }
+    
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+
+/* ---------- Seção do Títilo, Subtítulo e Foto do Cachorro ---------- */
+@media (min-width: 1400px) {
+    .primeira-secao {
+        margin-bottom: 40px;
+    }
+
+    .box-banner {
+        padding: 30px 50px;
     }
     
     .nossa-historia h1 {
@@ -117,7 +217,20 @@
     .nossa-historia p {
         font-size: 1.3rem;
     }
-}
 
-/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
-@media (min-width: 1400px) {}
+    /* ---------- Seção do Conteúdo de Texto ---------- */
+    .imagem-respiro {
+        margin: 40px 0;
+    }
+
+    .titulo h2 {
+    font-size: 2.2rem;
+    border-right: 7px solid var(--cor-laranja);
+    line-height: 1.1;
+    }
+
+    .texto p {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    }
+}
