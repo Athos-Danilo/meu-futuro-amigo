@@ -72,7 +72,7 @@
 .intro-apoio {
     padding: 0 20px;
     max-width: 1300px;
-    margin: 0 auto 0 auto;
+    margin: 0 auto 30px auto;
 }
 
 .intro-texto {
@@ -112,14 +112,12 @@
 .card-opcao {
     background-color: var(--cor-bege);
     padding: 30px 20px;
-    border-radius: 15px;
+    border-radius: 20px 2px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
 }
 
 .icone-card img {
@@ -153,8 +151,9 @@
     text-decoration: none;
     font-family: var(--fonte-textos);
     font-size: 1.1rem;
+    font-weight: 500;
     transition: background 0.3s, transform 0.2s;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .btn-acao:hover {
@@ -167,7 +166,9 @@
     background-color: var(--cor-bege); 
     padding: 40px 20px;
     text-align: center;
-    margin-bottom: 35; 
+    margin-bottom: 35px; 
+    border-radius: 0px 0px 20px 20px;
+    margin: 0 20px 40px 20px;
 }
 
 .container-divulgacao {
@@ -195,22 +196,20 @@
 .redes-laranja {
     display: flex;
     justify-content: center;
-    gap: 15px; 
+    gap: 10px; 
 }
 
-
 .redes-laranja img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     object-fit: contain;
     padding: 12px; 
-    transition: transform 0.3s ease, background-color 0.3s;
+    transition: transform 0.3s ease;
     cursor: pointer;
 }
 
 .redes-laranja img:hover {
     transform: scale(1.15); 
-    background-color: var(--cor-marrom); 
 }
 
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
@@ -262,6 +261,10 @@
     }
 
     /* ---------- Seção de Introdução ---------- */
+    .intro-apoio {
+    margin: 0 auto 35px auto;
+    }
+    
     .intro-texto h2 {
         font-size: 2.2rem;
         margin-bottom: 20px;
@@ -278,24 +281,31 @@
     }
 
     .grid-cards {
-        flex-direction: row; /* Vira linha (lado a lado) */
+        display: flex;
+        flex-direction: row; 
         justify-content: center;
         gap: 40px;
+        align-items: stretch;
     }
 
     .card-opcao {
         flex: 1; 
-        padding: 40px 30px;
+        padding: 30px 15px;
+        min-height: 450px;
     }
 
-    .card-opcao:hover {
-        transform: translateY(-10px); 
-        box-shadow: 0 10px 20px rgba(139, 69, 19, 0.2);
-    }
 
+    .btn-acao {
+    margin-top: 20px;
+    font-weight: 600;
+    }
+    
     /* ---------- Seção Ajude de Graça ---------- */
     .ajuda-gratis {
-        padding: 60px 40px;
+        padding: 60px 20px;
+        width: calc(100% - 80px);
+        max-width: 1200px;
+        margin: 0 auto 60px auto;
     }
 
     .container-divulgacao h2 {
@@ -304,7 +314,7 @@
 
     .container-divulgacao p {
         font-size: 1.2rem;
-        max-width: 700px; /* Texto mais contido para leitura confortável */
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -314,10 +324,11 @@
     }
 
     .redes-laranja img {
-        width: 60px;
-        height: 60px;
+        width: 90px;
+        height: 90px;
         padding: 14px;
     }
+
 }
 
 
@@ -350,6 +361,11 @@
     }
 
     /* ---------- Seção Opções de Ajuda ---------- */
+    .card-opcao {
+        padding: 40px 25px;
+        min-height: 510px;
+    }
+
     .icone-card img {
         width: 80px;
         height: 80px;
@@ -365,12 +381,17 @@
 
     .btn-acao {
         font-size: 1.2rem;
+        font-weight: 700;
         padding: 15px 30px;
     }
 
     /* ---------- Seção Ajude de Graça ---------- */
     .ajuda-gratis {
-        padding: 80px 40px;
+        padding: 40px 20px;
+    }
+
+    .container-divulgacao {
+        max-width: 100%;
     }
     
     .container-divulgacao h2 {
@@ -379,12 +400,13 @@
 
     .container-divulgacao p {
         font-size: 1.4rem;
-        max-width: 900px;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .redes-laranja img {
-        width: 70px;
-        height: 70px;
-        padding: 16px;
+        width: 100px;
+        height: 100px;
     }
 }
