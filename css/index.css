@@ -194,6 +194,108 @@ body {
     transform: scale(1.05);
 }
 
+/* ---------- Imagem de Respiro ---------- */
+.Imagem.Primeiro-respiro {
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.Imagem.Primeiro-respiro img {
+    width: 200%;
+    height: auto; 
+    object-fit: cover; 
+    object-position: right;
+}
+
+/* ---------- Seção: Por que Adotar ---------- */
+.Seção-por-que-adotar {
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Titulo-por-que-adotar {
+    font-family: var(--fonte-titulos);
+    font-size: 1.8rem; 
+    letter-spacing: 0.04em;
+    color: var(--cor-marrom);
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    height: auto;
+}
+
+.Motivos-para-adotar {
+    display: flex;
+    flex-direction: column; 
+    gap: 30px;
+    width: 100%;
+    align-items: center;
+}
+
+.Primeiro-Motivo, .Segundo-Motivo, .Terceiro-Motivo {
+    background-color: var(--cor-bege);
+    width: 100%;
+    max-width: 400px; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    gap: 5px;
+}
+
+.Primeiro-Motivo img, .Segundo-Motivo img, .Terceiro-Motivo img {
+    width: 100px; 
+    height: auto;
+    object-fit: contain;
+}
+
+.Primeiro-Motivo p, .Segundo-Motivo p, .Terceiro-Motivo p {
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--cor-preto);
+    width: 100%;
+    text-align: justify;
+}
+
+.Texto-destaque-um, .Texto-destaque-dois, .Texto-destaque-tres {
+    font-weight: 700;
+    color: var(--cor-marrom);
+    margin-bottom: 5px;
+}
+
+.Botão.Encontrar-Amigo {
+    background-color: var(--cor-laranja);
+    color: var(--cor-branco);
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-family: var(--fonte-titulos);
+    font-size: 1.3rem;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    margin-top: 40px;
+    text-align: center;
+    transition: transform 0.2s, background-color 0.2s;
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Botão.Encontrar-Amigo:hover {
+    background-color: var(--cor-marrom);
+    transform: scale(1.05);
+}
+
+
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
     /* ---------- Seção Banners ---------- */
@@ -233,7 +335,7 @@ body {
         padding: 10px 30px; 
     }
 
-    /* ---------- Seção: O que Você Deseja Fazer? ---------- */
+    /* ---------- Seção: O Que Você Deseja Fazer? ---------- */
     .Seção.o-que-fazer {
         padding: 30px 40px;
     }
@@ -258,6 +360,43 @@ body {
     .Botão.quero-adotar, .Botão.quero-divulgar {
         width: fit-content; 
         margin-top: auto; 
+    }
+
+    /* ---------- Imagem Respiro ---------- */
+    .Imagem.Primeiro-respiro img {
+        width: 140%;
+        object-position: right;
+    }
+    
+    /* ---------- Seção: Por que Adotar ---------- */
+    .Seção-por-que-adotar {
+        padding: 0 40px;
+    }
+
+    .Titulo-por-que-adotar {
+    font-size: 2.5rem; 
+    }
+
+    .Motivos-para-adotar {
+        flex-direction: row; 
+        justify-content: center;
+        flex-wrap: wrap; 
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .Primeiro-Motivo, .Segundo-Motivo, .Terceiro-Motivo {
+        flex: 1; 
+        min-width: 280px; 
+        height: auto; 
+        padding: 30px;
+        align-items: center; 
+    }
+
+    .Primeiro-Motivo img, .Segundo-Motivo img, .Terceiro-Motivo img {
+        width: 120px; 
+        height: auto;
+        object-fit: contain;
     }
 }
 
@@ -372,6 +511,84 @@ body {
         white-space: nowrap;
         margin-top: auto; 
     }
+
+    /* ---------- Imagem Respiro ---------- */
+    .Imagem.Primeiro-respiro {
+        margin: 45px 0;
+    }
+    
+    .Imagem.Primeiro-respiro img {
+        width: 100%;
+        height: auto; 
+    }
+
+    /* ---------- Seção: Por que Adotar ---------- */
+    .Seção-por-que-adotar {
+        max-width: 1733px; 
+        width: 100%;
+        margin: 0 auto 45px auto;
+        padding: 0 40px; 
+    }
+
+    .Titulo-por-que-adotar {
+        font-size: 50px;
+        width: 100%; 
+        margin: 0 0 30px 0;
+        text-align: left; 
+        letter-spacing: 0.03em;
+        padding-left: 20px; 
+    }
+
+    .Motivos-para-adotar {
+        display: flex;
+        justify-content: center; 
+        gap: 50px; 
+        flex-wrap: nowrap; 
+    }
+
+    .Primeiro-Motivo, .Segundo-Motivo, .Terceiro-Motivo {
+        flex: 1; 
+        max-width: 520px; 
+        width: auto;
+        height: 220px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        padding: 0 20px;
+        gap: 15px; 
+        text-align: left;
+    }
+
+    .Primeiro-Motivo img, .Segundo-Motivo img, .Terceiro-Motivo img {
+        width: 140px; 
+        height: auto;
+        flex-shrink: 0; 
+    }
+
+    .Primeiro-Motivo p, .Segundo-Motivo p, .Terceiro-Motivo p {
+        font-size: 20px;
+        line-height: 22px;
+        width: auto; 
+        flex: 1; 
+        text-align: justify;
+    }
+
+    .Texto-destaque-um, .Texto-destaque-dois, .Texto-destaque-tres {
+        display: inline; 
+    }
+
+    .Botão.Encontrar-Amigo {
+        width: fit-content;
+        height: auto;
+        font-size: 30px;
+        padding: 15px 40px;
+        margin-top: 53px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: none;
+        white-space: nowrap;
+    }
 }
 
 
@@ -386,102 +603,6 @@ body {
     /* ---------------------------------------- Seção Banners Slider ---------------------------------------- */
     
 
-
-
-    /* ---------------------------------------- Imagem Primeiro Respiro ---------------------------------------- */
-    .Imagem.Primeiro-respiro {
-        width: 100%;
-        margin-top: 45px;
-        margin-bottom: 45px;
-    }
-
-    .Imagem.Primeiro-respiro img {
-        width: 100%;
-        height: auto;
-    }
-
-    /* ---------------------------------------- Seção Por que Adotar ---------------------------------------- */
-    .Seção-por-que-adotar {
-        width: 1733px;
-        height: 437px;
-        margin: 0 auto 45px auto;
-    }
-
-    .Titulo-por-que-adotar {
-        font-family: var(--fonte-titulos);
-        font-size: 50px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        color: var(--cor-marrom);
-        width: 333px;
-        height: 57px;
-        margin: 0 0 30px 0;
-    }
-
-    .Motivos-para-adotar {
-        display: flex;
-        justify-content: center;
-        gap: 90px;
-    }
-
-    .Primeiro-Motivo, .Segundo-Motivo, .Terceiro-Motivo {
-        width: 520px;
-        height: 220px;
-        background-color: var(--cor-bege);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        padding-left: 19px;
-        padding-right: 19px;
-        gap: 8px;
-    }
-
-    .Primeiro-Motivo img, .Segundo-Motivo img, .Terceiro-Motivo img {
-        width: 139.5px;
-        height: auto;
-        display: block; 
-    }
-
-    .Primeiro-Motivo p, .Segundo-Motivo p, .Terceiro-Motivo p {
-        font-family: var(--fonte-textos);
-        font-size: 20px;
-        line-height: 22px;
-        letter-spacing: 0.02em;
-        font-weight: 400;
-        color: var(--cor-preto);
-        width: 334px;
-        text-align: justify;
-    }
-
-    .Texto-destaque-um, .Texto-destaque-dois, .Texto-destaque-tres {
-        font-weight: 700;
-        color: var(--cor-marrom);
-    }
-
-    .Botão.Encontrar-Amigo {
-        width: 365px;
-        height: 77px;
-        background-color: var(--cor-laranja);
-        border-radius: 10px;
-        font-family: var(--fonte-titulos);
-        font-size: 30px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        color: var(--cor-branco);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 53px;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .Botão.Encontrar-Amigo:hover {
-        background-color: var(--cor-marrom);
-        transform: scale(1.1);
-    }
 
     /* ---------------------------------------- Imagem Segundo Respiro ---------------------------------------- */
     .Imagem.Segundo-respiro {
