@@ -10,4 +10,5 @@ function passarSlide() {
     slides[indiceAtual].classList.add('ativa');
 }
 
-setInterval(passarSlide, 4000);
+// Chama a função "passarSlide" a cada 3,5 segundos.
+setInterval(passarSlide, 3500);
