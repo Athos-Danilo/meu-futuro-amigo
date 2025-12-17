@@ -7,42 +7,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-    <header class="Cabeçalho">
-        <a href="index.html" class="logo">
-            <img src="img/Logo (Branco).png" alt="Logo do Meu Futuro Amigo">
-        </a>
-
-        <nav class="Opções">
-            <ul>
-                <li><a href="adotar.html">Adotar</a></li>
-                <li><a href="finais-felizes.html">Finais Felizes</a></li>
-                <li><a href="como-ajudar.html">Como Ajudar</a></li>
-                <li><a href="sobre-nos.html">Sobre Nós</a></li>
-            </ul>
-        </nav>
-        <a href="pages/entrar.html" class="Botão Entrar">Entrar</a>
-    </header>
+    <div id="Cabeçalho"></div>
 
     <main>
         <section class="Banners">
+            
             <div class="Slider">
-                <div class="Imagens">
-                    <img src="img/banner.jpg" alt="Imagem de um Golden Retriever">
-                    <img src="img/pexels-davidohboy-7516785 copiar.jpg" alt="Gato Olhando pro Alto">
-                    <img src="img/pexels-masoodaslami-19969308 copiar.jpg" alt="Cachorro com a Boca Aberta">
-                    <img src="img/pexels-ingewallu-177809 copiar.jpg" alt="Gato Deitado">
-                    <img src="img/pexels-neil-75310460-8809855 copiar.jpg" alt="Cachorro Sentado">
-                    <img src="img/banner.jpg" alt="Imagem de um Golden Retriever (duplicata)">
-                </div>
+                <img src="img/banner.jpg" alt="Imagem de um Golden Retriever" class="slide-item ativa">
+                <img src="img/pexels-davidohboy-7516785 copiar.jpg" alt="Gato Olhando pro Alto" class="slide-item">
+                <img src="img/pexels-masoodaslami-19969308 copiar.jpg" alt="Cachorro com a Boca Aberta" class="slide-item">
+                <img src="img/pexels-ingewallu-177809 copiar.jpg" alt="Gato Deitado" class="slide-item">
+                <img src="img/pexels-neil-75310460-8809855 copiar.jpg" alt="Cachorro Sentado" class="slide-item">
             </div>
 
             <div class="Mensagem">
                 <h1>A Amizade Verdadeira <br> Não Se Compra</h1>
-                <p>Aqui, você não está apenas navegando em um site; está abrindo a porta para uma das relações mais gratificantes da sua vida. Cada perfil que você visita é uma história única esperando por um final feliz, uma promessa de companheirismo incondicional que só pode ser retribuída com afeto.</p>
-                <a href="adotar.html" class="Botão ver-os-animais">Ver os Animais</a>
+                <p>Aqui, você não está apenas navegando em um site; está abrindo a porta para uma das relações mais gratificantes da sua vida. Cada perfil que você visita é uma história única esperando por um final feliz.</p>
+                <a href="pages/adotar.html" class="Botão ver-os-animais">Ver os Animais</a>
             </div>
 
         </section>
@@ -283,44 +269,9 @@
 
     </main>
 
-    <footer class="Rodapé-Principal"> 
-        
-        <div class="Rodapé-Container">
-            
-            <div class="Rodapé-Coluna Coluna-Logo-Social">
-                <a href="index.html" class="Rodapé-Logo">
-                    <img src="img/Logo (Branco).png" alt="Logo Meu Futuro Amigo">
-                </a>
-                <p class="Slogan">Conectando Corações e Patas</p>
-                <div class="Ícones-Sociais">
-                    <img src="img/facebook branco.png" alt="Logo Facebook">
-                    <img src="img/x.png" alt="Logo X">
-                    <img src="img/instagram branco.png" alt="Logo Instagram">
-                    <img src="img/tik tok.png" alt="Logo TikTok">
-                </div>
-            </div>
-
-            <div class="Rodapé-Coluna Coluna-Navegação">
-                <h3>Navegue</h3>
-                <ul>
-                    <li><a href="adotar.html">Adotar</a></li>
-                    <li><a href="finais-felizes.html">Finais Felizes</a></li>
-                    <li><a href="como-ajudar.html">Como Ajudar</a></li>
-                    <li><a href="sobre-nos.html">Sobre Nós</a></li>
-                </ul>
-            </div>
-
-            <div class="Rodapé-Coluna Coluna-Contato">
-                <h3>Contato</h3>
-                <p>(87) 98199-5299</p> 
-                <p>contato@meufuturoamigo.com.br</p> 
-            </div>
-
-        </div> <div class="Rodapé-Copyright">
-            <p>© 2025 Meu Futuro Amigo. Todos os direitos reservados.</p>
-        </div>
-
-    </footer>
-
+    <div id="footer"></div>
 </body>
+    <script src="../js/footer.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/index.js"></script>
 </html>
