@@ -313,7 +313,7 @@ body {
 .Seção-Processo-de-Adoção {
     width: 100%;
     padding: 0 30px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -330,42 +330,39 @@ body {
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--cor-preto);
-    margin-bottom: 20px; /* Espaço maior por causa das bolinhas flutuantes */
+    margin-bottom: 20px; 
 }
 
 .Passos-Adoção {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Espaço entre os cards */
+    gap: 30px; 
     align-items: center;
 }
 
-/* Estilo unificado para todos os passos no Mobile */
 .Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
     background-color: var(--cor-bege);
     width: 100%;
     max-width: 350px;
     padding: 30px 20px;
     border-radius: 20px 5px;
-    position: relative; /* Para posicionar a bolinha */
+    position: relative; 
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-top: 20px; /* Espaço para a bolinha não cortar */
+    margin-top: 20px; 
 }
 
-/* Bolinhas com Números (Posicionadas no canto superior direito) */
 .Número-Um, .Número-Dois, .Número-Três, .Número-Quatro {
     width: 50px;
     height: 50px;
     background-color: var(--cor-verde);
     border-radius: 50%;
     position: absolute;
-    top: -20px; /* Sai um pouco pra fora do card */
-    right: -10px; /* Fica no canto direito */
-    left: auto; /* Anula o left do desktop original */
-    
+    top: -20px; 
+    right: -10px; 
+    left: auto; 
     font-family: var(--fonte-textos);
     font-size: 1.8rem;
     font-weight: 700;
@@ -375,42 +372,185 @@ body {
     align-items: center;
 }
 
-/* Ícones */
 .Primeiro-Passo img, .Segundo-Passo img, .Terceiro-Passo img, .Quarto-Passo img {
     width: 70px;
     height: 70px;
     object-fit: contain;
     margin-bottom: 20px;
-    position: static; /* Remove absolute do desktop */
+    position: static; 
     transform: none;
 }
 
-/* Títulos dos Passos */
 .Primeiro-Passo h3, .Segundo-Passo h3, .Terceiro-Passo h3, .Quarto-Passo h3 {
     font-family: var(--fonte-textos);
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--cor-preto);
     margin-bottom: 15px;
-    
-    /* Resetando posicionamento do desktop */
     position: static;
     transform: none;
     width: 100%;
     max-width: none;
 }
 
-/* Descrição */
 .Primeiro-Passo p, .Segundo-Passo p, .Terceiro-Passo p, .Quarto-Passo p {
     font-family: var(--fonte-textos);
     font-size: 1rem;
     color: var(--cor-preto);
     width: 100%;
     height: auto;
-    
-    /* Resetando posicionamento do desktop */
     position: static;
     text-align: justify;
+}
+
+/* ---------- Imagem de Respiro 3 ---------- */
+.Imagem.Terceiro-respiro {
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.Imagem.Terceiro-respiro img {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    object-position: center;
+}
+
+/* ---------- Seção: Adotados Recentemente ---------- */
+.Seção-Adotados {
+    width: 100%;
+    padding: 0 15px; 
+    background-color: var(--cor-branco);
+    text-align: center;
+    overflow: hidden;
+}
+
+.Titulo-Adotados-Container {
+    margin-bottom: 30px;
+}
+
+.Titulo-Adotados {
+    font-family: var(--fonte-titulos);
+    font-size: 1.8rem; 
+    letter-spacing: 0.03em;
+    color: var(--cor-marrom);
+}
+
+.Subtitulo-Adotados {
+    font-family: var(--fonte-textos);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cor-preto);
+}
+
+.Grid-Adotados {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px; 
+    margin-bottom: 40px;
+}
+
+.Cartão-Adotado {
+    width: 100%;
+    max-width: 260px; 
+    background-color: var(--cor-laranja); 
+    border-radius: 15px; /* Borda um pouco menor */
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.Cartão-Adotado img {
+    width: 100%;
+    height: 180px; 
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.Nome-animal {
+    width: 100%;
+    padding: 8px 0;
+    font-family: var(--fonte-textos);
+    font-size: 1.6rem; 
+    font-weight: 700;
+    color: var(--cor-preto);
+    text-align: center;
+}
+
+.Detalhes-animal {
+    width: 100%;
+    padding: 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.linha {
+    height: 7px; 
+    width: 100%;
+    background-color: var(--cor-preto);
+    margin: 0 auto 10px auto;
+}
+
+.Detalhes-animal p {
+    padding: 0 15px 20px 15px;
+    font-family: var(--fonte-textos);
+    font-size: 0.95rem; 
+    font-weight: 500;
+    color: var(--cor-branco);
+    line-height: 1.3;
+    text-align: center;
+}
+
+.Texto-Convite-Adotar {
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: justify;
+    color: var(--cor-preto);
+    max-width: 800px;
+    margin: 0 auto 25px auto;
+    padding: 0 10px;
+}
+
+.Botão.mais-finais-felizes {
+    display: inline-block;
+    width: auto;
+    padding: 10px 30px; 
+    background-color: var(--cor-laranja); 
+    border-radius: 10px; 
+    font-family: var(--fonte-titulos); 
+    font-size: 1.3rem; 
+    letter-spacing: 0.03em;
+    color: var(--cor-branco); 
+    text-align: center; 
+    text-decoration: none;
+    transition: all 0.2s ease, background-color 0.2s;
+}
+
+.Botão.mais-finais-felizes:hover {
+    background-color: var(--cor-marrom);
+    transform: scale(1.05);
+} 
+
+/* ---------- Imagem de Respiro 4 ---------- */
+.Imagem.Quarto-respiro {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 14px;
+    margin-top: 20px;
+}
+
+.Imagem.Quarto-respiro img {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    object-position: center;
 }
 
 
@@ -480,7 +620,7 @@ body {
         margin-top: auto; 
     }
 
-    /* ---------- Imagem Respiro ---------- */
+    /* ---------- Imagem Respiro 1 ---------- */
     .Imagem.Primeiro-respiro img {
         height: 245px; 
     }
@@ -524,19 +664,32 @@ body {
     /* ---------- Seção: Processo de Adoção ---------- */
     .Passos-Adoção {
         flex-direction: row;
-        flex-wrap: wrap; /* Permite quebrar linha */
+        flex-wrap: wrap; 
         justify-content: center;
         gap: 50px;
     }
 
     .Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
-        width: 45%; /* Ocupa quase metade da tela */
+        width: 45%; 
         min-width: 240px;
-        min-height: 300px; /* Altura mínima para ficarem parecidos */
+        min-height: 300px; 
+    }
+
+    /* ---------- Imagem de Respiro 3 ---------- */
+    .Imagem.Terceiro-respiro img {
+        height: 245px; 
+    }
+
+    /* ---------- Seção: Adotados Recentemente ---------- */
+    .Cartão-Adotado {
+        max-width: 280px; 
+    }
+
+        /* ---------- Imagem de Respiro 4 ---------- */
+    .Imagem.Quarto-respiro img {
+        height: 245px; 
     }
 }
-
-
 
 
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
@@ -759,32 +912,23 @@ body {
         flex-wrap: nowrap; 
         justify-content: center;
         gap: 45px; 
-        
-        /* AQUI ESTÁ A CORREÇÃO DE HERANÇA: */
-        /* Forçamos 'stretch' para que todos os cartões tenham a mesma altura do maior deles */
         align-items: stretch; 
     }
 
     .Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
         flex: 1; 
         max-width: 386px; 
-        
-        /* AQUI ESTÁ A CORREÇÃO DO VAZAMENTO: */
-        height: auto;       /* Deixa crescer se o texto for grande */
-        min-height: 395px;  /* Mas garante que nunca fique menor que o design original */
-        
+        height: auto;       
+        min-height: 395px;  
         display: flex;
         flex-direction: column;
         align-items: center; 
         text-align: left;
         margin-top: 0;
         position: relative; 
-        
-        /* Adicionei um padding-bottom para garantir que o texto não cole na borda se crescer muito */
         padding-bottom: 30px; 
     }
 
-    /* Bolinhas (Absolute) */
     .Número-Um, .Número-Dois, .Número-Três, .Número-Quatro {
         width: 68px;
         height: 68px;
@@ -795,7 +939,6 @@ body {
         position: absolute; 
     }
 
-    /* Elementos internos estáticos (sem absolute) */
     .Primeiro-Passo img, .Segundo-Passo img, .Terceiro-Passo img, .Quarto-Passo img {
         width: 80px;
         height: 80px;
@@ -820,76 +963,53 @@ body {
         position: static; 
         text-align: justify;
     }
-}
 
-
-
-
-
-
-
-
-@media (min-width: 1400px) {
-
-
-    /* ---------------------------------------- Seção Adotados Recentemente ---------------------------------------- */
-    .Seção-Adotados-Recentemente {
-       width: 1802px;
-       height: 1169px;
-       margin-left: 59px;
-       margin-top: 45px;
-       margin-bottom: 45px;
+    /* ---------- Imagem Respiro 3 ---------- */
+    .Imagem.Terceiro-respiro {
+        margin: 45px 0;
     }
 
-    .Titulo-adotados {
-        font-family: var(--fonte-titulos);
-        font-size: 50px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        color: var(--cor-marrom);
-        text-align: center;
-        margin: 0 auto;
+    .Imagem.Terceiro-respiro img {
+        height: auto;
     }
 
-    .Subtitulo-adotados {
-        font-family: var(--fonte-textos);
-        font-size: 40px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        color: var(--cor-preto);
-        text-align: center;
-        margin: -15px auto 40px auto;
-    }
-
-    .Cartões-Adotados-Container {
+    /* ---------- Seção: Adotados Recentemente ---------- */
+    .Seção-Adotados {
+        max-width: 1802px; 
         width: 100%;
-        height: 824px;
-        margin-bottom: 64px;
-        display: grid;
-        grid-template-columns: repeat(5, 318px);
-        column-gap: 52px;
-        row-gap: 61px;
+        margin: 45px auto;
+        padding: 0 40px; 
+        text-align: left;
+    }
+
+    .Titulo-Adotados {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .Subtitulo-Adotados {
+        font-size: 40px;
+        margin: -15px auto 40px auto;
+        text-align: center;
+    }
+
+    .Grid-Adotados {
+        display: flex;
+        flex-wrap: wrap; 
         justify-content: center;
+        gap: 52px; 
+        width: 100%;
+        margin-bottom: 60px;
     }
 
     .Cartão-Adotado {
         width: 318px;
         height: 379px;
-        background-color: var(--cor-laranja);
+        max-width: none; 
         border-radius: 20px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
-        position: relative;
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
         transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    }
-
-    .Cartão-Adotado img {
-        width: 100%;
-        height: 212px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        display: block;
-        object-fit: cover;
     }
 
     .Cartão-Adotado:hover {
@@ -897,91 +1017,91 @@ body {
         background-color: var(--cor-bege);
         cursor: pointer;
     }
-
-    .linha {
-        height: 10px;
-        width: 100%;
-        background-color: var(--cor-preto);
-        position: absolute;
-        top: 261px;
-        left: 0;
-    }
-
-    .Nome-animal {
-        width: 100%;
-        height: 49px;
-        position: absolute;
-        top: 212px;
-        left: 0;
-        font-family: var(--fonte-textos);
-        font-size: 35px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        color: var(--cor-preto);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .Detalhes-animal p { 
-        font-family: var(--fonte-textos); 
-        font-size: 20px;
-        font-weight: 500;
-        letter-spacing: 0.02em; 
-        color: var(--cor-branco); 
-        line-height: 22px; 
-        text-align: center; 
-        width: 317px;
-        height: 109px; 
-        position: absolute;
-        top: 281px; 
-        left: 50%; 
-        transform: translateX(-50%); 
-    }
-
+    
     .Cartão-Adotado:hover .Detalhes-animal p {
         color: var(--cor-preto);
     }
 
-    .Texto-Convite-Adotar {
-        font-family: var(--fonte-textos);
-        font-size: 30px;
-        font-weight: 700;
-        line-height: 30px;
-        letter-spacing: 0.02em;
-        color: var(--cor-preto);
-        width: 1035px;
-        height: 60px;
+    .Cartão-Adotado img {
+        height: 212px; 
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+        object-fit: cover;
+    }
+
+    .Nome-animal {
+        height: 49px; 
+        font-size: 35px;
+        position: static; 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent; 
+        padding: 0;
+    }
+
+    .linha {
+        height: 10px;
+        width: 100%;
+        position: static; 
+        margin: 0;
+        background-color: var(--cor-preto);
+    }
+
+    .Detalhes-animal {
+        padding: 0;
+        position: static;
+        flex: 1; 
+        display: flex;
+        align-items: center; 
+    }
+
+    .Detalhes-animal p {
+        font-size: 20px;
+        line-height: 22px;
+        width: 100%; 
+        padding: 0 10px; 
+        height: auto; 
+        position: static; 
+        transform: none;
         text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 64px;
-        margin-bottom: 25px;
-        overflow: hidden;
+        color: var(--cor-branco); 
+    }
+
+    .Texto-Convite-Adotar {
+        font-size: 30px;
+        line-height: 1.2;
+        width: 100%; 
+        max-width: 1035px; 
+        height: auto;
+        margin: 64px auto 25px auto;
+        text-align: center;
     }
 
     .Botão.mais-finais-felizes {
-        width: 256px;
-        height: 42px;
-        background-color: var(--cor-laranja); 
-        border-radius: 10px; 
-        font-family: var(--fonte-titulos); 
+        width: fit-content;
+        height: auto;
+        padding: 10px 40px; 
         font-size: 30px;
-        font-weight: 400; 
-        letter-spacing: 0.02em; 
-        color: var(--cor-branco); 
-        text-align: center; 
         line-height: 42px; 
-        display: block; 
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 50px; 
-        text-decoration: none;
-        transition: all 0.2s ease;
+        margin: 0 auto 0 auto;
+        display: block;
+        max-width: none;
+        white-space: nowrap;
     }
-
+    
     .Botão.mais-finais-felizes:hover {
         background-color: var(--cor-marrom); 
         transform: scale(1.1); 
+    }
+
+    /* ---------- Imagem Respiro 4 ---------- */
+    .Imagem.Quarto-respiro {
+        margin: 45px 0;
+    }
+
+    .Imagem.Quarto-respiro img {
+        height: auto;
     }
 }
