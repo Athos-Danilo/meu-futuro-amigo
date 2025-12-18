@@ -194,7 +194,7 @@ body {
     transform: scale(1.05);
 }
 
-/* ---------- Imagem de Respiro ---------- */
+/* ---------- Imagem de Respiro 1 ---------- */
 .Imagem.Primeiro-respiro {
     width: 100%;
     margin: 20px 0;
@@ -202,10 +202,10 @@ body {
 }
 
 .Imagem.Primeiro-respiro img {
-    width: 200%;
-    height: auto; 
+    width: 100%;
+    height: 150px; 
     object-fit: cover; 
-    object-position: right;
+    object-position: left;
 }
 
 /* ---------- Seção: Por que Adotar ---------- */
@@ -295,6 +295,124 @@ body {
     transform: scale(1.05);
 }
 
+/* ---------- Imagem de Respiro 2 ---------- */
+.Imagem.Segundo-respiro {
+    width: 100%;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.Imagem.Segundo-respiro img {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    object-position: center;
+}
+
+/* ---------- Seção: Processo de Adoção ---------- */
+.Seção-Processo-de-Adoção {
+    width: 100%;
+    padding: 0 30px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.Titulo-Processo {
+    font-family: var(--fonte-titulos);
+    font-size: 1.8rem; 
+    letter-spacing: 0.04em;
+    color: var(--cor-marrom);
+    margin-bottom: 5px;
+}
+
+.Subtitulo-Processo {
+    font-family: var(--fonte-textos);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cor-preto);
+    margin-bottom: 20px; /* Espaço maior por causa das bolinhas flutuantes */
+}
+
+.Passos-Adoção {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espaço entre os cards */
+    align-items: center;
+}
+
+/* Estilo unificado para todos os passos no Mobile */
+.Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
+    background-color: var(--cor-bege);
+    width: 100%;
+    max-width: 350px;
+    padding: 30px 20px;
+    border-radius: 20px 5px;
+    position: relative; /* Para posicionar a bolinha */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px; /* Espaço para a bolinha não cortar */
+}
+
+/* Bolinhas com Números (Posicionadas no canto superior direito) */
+.Número-Um, .Número-Dois, .Número-Três, .Número-Quatro {
+    width: 50px;
+    height: 50px;
+    background-color: var(--cor-verde);
+    border-radius: 50%;
+    position: absolute;
+    top: -20px; /* Sai um pouco pra fora do card */
+    right: -10px; /* Fica no canto direito */
+    left: auto; /* Anula o left do desktop original */
+    
+    font-family: var(--fonte-textos);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cor-branco);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ícones */
+.Primeiro-Passo img, .Segundo-Passo img, .Terceiro-Passo img, .Quarto-Passo img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    position: static; /* Remove absolute do desktop */
+    transform: none;
+}
+
+/* Títulos dos Passos */
+.Primeiro-Passo h3, .Segundo-Passo h3, .Terceiro-Passo h3, .Quarto-Passo h3 {
+    font-family: var(--fonte-textos);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cor-preto);
+    margin-bottom: 15px;
+    
+    /* Resetando posicionamento do desktop */
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: none;
+}
+
+/* Descrição */
+.Primeiro-Passo p, .Segundo-Passo p, .Terceiro-Passo p, .Quarto-Passo p {
+    font-family: var(--fonte-textos);
+    font-size: 1rem;
+    color: var(--cor-preto);
+    width: 100%;
+    height: auto;
+    
+    /* Resetando posicionamento do desktop */
+    position: static;
+    text-align: justify;
+}
+
 
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
@@ -364,8 +482,7 @@ body {
 
     /* ---------- Imagem Respiro ---------- */
     .Imagem.Primeiro-respiro img {
-        width: 140%;
-        object-position: right;
+        height: 245px; 
     }
     
     /* ---------- Seção: Por que Adotar ---------- */
@@ -397,6 +514,25 @@ body {
         width: 120px; 
         height: auto;
         object-fit: contain;
+    }
+
+    /* ---------- Imagem de Respiro 2 ---------- */
+    .Imagem.Segundo-respiro img {
+        height: 245px; 
+    }
+
+    /* ---------- Seção: Processo de Adoção ---------- */
+    .Passos-Adoção {
+        flex-direction: row;
+        flex-wrap: wrap; /* Permite quebrar linha */
+        justify-content: center;
+        gap: 50px;
+    }
+
+    .Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
+        width: 45%; /* Ocupa quase metade da tela */
+        min-width: 240px;
+        min-height: 300px; /* Altura mínima para ficarem parecidos */
     }
 }
 
@@ -512,7 +648,7 @@ body {
         margin-top: auto; 
     }
 
-    /* ---------- Imagem Respiro ---------- */
+    /* ---------- Imagem Respiro 1 ---------- */
     .Imagem.Primeiro-respiro {
         margin: 45px 0;
     }
@@ -589,6 +725,101 @@ body {
         max-width: none;
         white-space: nowrap;
     }
+
+    /* ---------- Imagem Respiro 2 ---------- */
+    .Imagem.Segundo-respiro {
+        margin: 45px 0;
+    }
+
+    .Imagem.Segundo-respiro img {
+        height: auto;
+    }
+
+    /* ---------- Seção: Processo de Adoção ---------- */
+    .Seção-Processo-de-Adoção {
+        max-width: 1758px; 
+        width: 100%;
+        margin: 45px auto;
+        padding: 0 40px; 
+    }
+
+    .Titulo-Processo {
+        font-size: 50px;
+        margin-top: 45px;
+    }
+
+    .Subtitulo-Processo {
+        font-size: 40px;
+        margin: -10px auto 60px auto;
+    }
+
+    .Passos-Adoção {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap; 
+        justify-content: center;
+        gap: 45px; 
+        
+        /* AQUI ESTÁ A CORREÇÃO DE HERANÇA: */
+        /* Forçamos 'stretch' para que todos os cartões tenham a mesma altura do maior deles */
+        align-items: stretch; 
+    }
+
+    .Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
+        flex: 1; 
+        max-width: 386px; 
+        
+        /* AQUI ESTÁ A CORREÇÃO DO VAZAMENTO: */
+        height: auto;       /* Deixa crescer se o texto for grande */
+        min-height: 395px;  /* Mas garante que nunca fique menor que o design original */
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        text-align: left;
+        margin-top: 0;
+        position: relative; 
+        
+        /* Adicionei um padding-bottom para garantir que o texto não cole na borda se crescer muito */
+        padding-bottom: 30px; 
+    }
+
+    /* Bolinhas (Absolute) */
+    .Número-Um, .Número-Dois, .Número-Três, .Número-Quatro {
+        width: 68px;
+        height: 68px;
+        font-size: 50px;
+        top: -18px;
+        left: auto; 
+        right: -20px; 
+        position: absolute; 
+    }
+
+    /* Elementos internos estáticos (sem absolute) */
+    .Primeiro-Passo img, .Segundo-Passo img, .Terceiro-Passo img, .Quarto-Passo img {
+        width: 80px;
+        height: 80px;
+        position: static; 
+        transform: none;
+        margin: 60px 0 20px 0; 
+    }
+
+    .Primeiro-Passo h3, .Segundo-Passo h3, .Terceiro-Passo h3, .Quarto-Passo h3 {
+        font-size: 30px;
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
+        margin: 0 0 15px 0;
+    }
+
+    .Primeiro-Passo p, .Segundo-Passo p, .Terceiro-Passo p, .Quarto-Passo p {
+        font-size: 25px;
+        width: 90%; 
+        height: auto;
+        position: static; 
+        text-align: justify;
+    }
 }
 
 
@@ -600,115 +831,6 @@ body {
 
 @media (min-width: 1400px) {
 
-    /* ---------------------------------------- Seção Banners Slider ---------------------------------------- */
-    
-
-
-    /* ---------------------------------------- Imagem Segundo Respiro ---------------------------------------- */
-    .Imagem.Segundo-respiro {
-        width: 100%;
-        margin-top: 45px;
-        margin-bottom: 45px;
-    }
-
-    /* ---------------------------------------- Seção Processo de Adoção ---------------------------------------- */
-    .Seção-Processo-de-Adoção {
-        width: 1758px;
-        margin: 45px auto 45px auto;
-    }
-
-    .Titulo-Processo {
-        font-family: var(--fonte-titulos);
-        font-size: 50px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        color: var(--cor-marrom);
-        margin: 45px auto 0 auto;
-        text-align: center;
-    }
-
-    .Subtitulo-Processo {
-        font-family: var(--fonte-textos);
-        font-size: 40px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        color: var(--cor-preto);
-        margin: -10px auto 40px auto;
-        text-align: center;
-    }
-
-    .Passos-Adoção {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 60px;
-    }
-
-    .Primeiro-Passo, .Segundo-Passo, .Terceiro-Passo, .Quarto-Passo {
-        width: 386px;
-        height: 395px;
-        background-color: var(--cor-bege);
-        border-radius: 20px 5px 5px 20px;
-        position: relative;
-    }
-
-    .Número-Um, .Número-Dois, .Número-Três, .Número-Quatro {
-        width: 68px;
-        height: 68px;
-        background-color: var(--cor-verde);
-        border-radius: 50%;
-        position: absolute;
-        top: -18px;
-        left: 352px;
-        font-family: var(--fonte-textos);
-        font-size: 50px;
-        font-weight: 700;
-        color: var(--cor-branco);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .Primeiro-Passo img, .Segundo-Passo img, .Terceiro-Passo img, .Quarto-Passo img {
-        width: 80px;
-        height: 80px;
-        position: absolute;
-        top: 61px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: block;
-        object-fit: contain;
-    }
-
-    .Primeiro-Passo h3, .Segundo-Passo h3, .Terceiro-Passo h3, .Quarto-Passo h3 {
-        font-family: var(--fonte-textos);
-        font-size: 30px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        color: var(--cor-preto);
-        position: absolute;
-        top: 161px;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 348px;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .Primeiro-Passo p, .Segundo-Passo p, .Terceiro-Passo p, .Quarto-Passo p {
-        font-family: var(--fonte-textos);
-        font-size: 25px;
-        letter-spacing: 0.02em;
-        font-weight: 400;
-        color: var(--cor-preto);
-        height: 131px;
-        width: 313px;
-        position: absolute;
-        top: 206px;
-        left: 37px;
-        text-align: justify;
-    }
 
     /* ---------------------------------------- Seção Adotados Recentemente ---------------------------------------- */
     .Seção-Adotados-Recentemente {
