@@ -3,22 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Em Construção - Meu Futuro Amigo</title> 
+    <title>Adotar | Meu Futuro Amigo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/contrução.css"> 
-
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/adotar.css">
 </head>
-
-    <body class="Página-em-construção"> 
+<body>
+    <div id="Cabeçalho"></div>
     
-        <main class="Container-Construção">
-            <img src="../img/barreira.png" alt="Ícone de Barreira">
-            <h1 class="titulo-construcao">Atraso na Obra!</h1>
-            <p class="subtitulo-construcao">Ainda estamos construindo isso daqui</p>
-            <a href="index.html" class="link-voltar-home">Voltar para a Página Inicial</a>
-        </main>
+    <main>
+        <section class="apresetacao">
+            <h1 class="titulo">Encontre Seu Futuro Amigo</h1>
+            <p class="subtitulo">Use os filtros abaixo para encontrar o companheiro ideal para o seu perfil.</p>
+        </section>
 
-    </body>
+        <section class="area-filtros">
+            <button class="botao-abrir-filtros" onclick="toggleFiltros()">
+                <img src="../img/Ajustes.png" alt="Ícone de Ajustes">Filtrar Animais
+            </button>
+
+            <div class="container-filtros" id="filtros-container">
+                <button class="botao-fechar-filtros" onclick="toggleFiltros()">X</button>
+
+                <div class="grupo-filtro">
+                    <label for="cidade">Localização:</label>
+                    <input list="cidades" id="cidade" name="cidade" placeholder="Digite a cidade...">
+                    <datalist id="cidades"></datalist>
+                </div>
+
+                <div class="grupo-filtro">
+                    <label>Espécie:</label>
+                    <select id="filtro-especie">
+                        <option value="">Selecione...</option>
+                        <option value="Cachorro">Cachorro</option>
+                        <option value="Gato">Gato</option>
+                    </select>
+                </div>
+
+                <div class="grupo-filtro" id="container-raca-cachorro" style="display: none;">
+                    <label for="filtro-raca-cachorro">Raça de Cachorro:</label>
+                    <select id="filtro-raca-cachorro">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+
+                <div class="grupo-filtro" id="container-raca-gato" style="display: none;">
+                    <label for="filtro-raca-gato">Raça de Gato:</label>
+                    <select id="filtro-raca-gato">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+
+                <div class="grupo-filtro">
+                    <label>Porte:</label>
+                    <select id="filtro-porte">
+                        <option value="">Todos</option>
+                        <option value="Pequeno">Pequeno</option>
+                        <option value="Médio">Médio</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                </div>
+
+                <div class="grupo-filtro">
+                    <label>Sexo:</label>
+                    <select id="filtro-sexo">
+                        <option value="">Todos</option>
+                        <option value="Macho">Macho</option>
+                        <option value="Fêmea">Fêmea</option>
+                    </select>
+                </div>
+
+                <div class="grupo-filtro">
+                    <label for="filtro-idade">Idade:</label>
+                    <select id="filtro-idade">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+
+                <div class="grupo-filtro">
+                    <label>Origem:</label>
+                    <select id="filtro-origem">
+                        <option value="">Todas</option>
+                        <option value="Ong">ONG</option>
+                        <option value="Protetor">Protetor Independente</option>
+                    </select>
+                </div>
+
+                <button class="botao-aplicar-filtros" onclick="aplicarFiltros()">Aplicar Filtros</button>
+            </div>
+        </section>
+
+        <section class="Galeria-Animais">
+            <div class="Grid-Animais" id="grid-animais">
+                </div>
+            
+            <div id="mensagem-sem-resultados" style="display: none;">
+                <p>Poxa, nenhum amigo encontrado com essas características. 😢</p>
+                <button onclick="limparFiltros()">Limpar Filtros</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="modal-animal" class="Modal-Fundo" style="display: none;">
+        <div class="Modal-Conteudo">
+            <span class="Fechar-Modal" onclick="fecharModal()">&times;</span>
+            
+            <div class="Modal-Grid">
+                <div class="Modal-Imagem">
+                    <img id="modal-img" src="" alt="Foto do Animal">
+                </div>
+                
+                <div class="Modal-Infos">
+                    <h2 id="modal-nome">Nome do Animal</h2>
+                    <p class="Modal-Resumo" id="modal-resumo">
+                        </p>
+
+                    <div class="Modal-Detalhes-Tecnicos">
+                        <div class="Item-Detalhe">
+                            <strong>Porte:</strong> <span id="modal-porte">-</span>
+                        </div>
+                        <div class="Item-Detalhe">
+                            <strong>Idade:</strong> <span id="modal-idade">-</span>
+                        </div>
+                        <div class="Item-Detalhe">
+                            <strong>Raça:</strong> <span id="modal-raca">-</span>
+                        </div>
+                         <div class="Item-Detalhe">
+                            <strong>Saúde:</strong> <span id="modal-saude">Vacinado/Castrado</span>
+                        </div>
+                    </div>
+
+                    <div class="Modal-Historia">
+                        <h3>Minha História</h3>
+                        <p id="modal-historia">
+                            </p>
+                    </div>
+
+                    <a href="#" id="botao-adotar-whatsapp" class="Botao-Adotar-Modal" target="_blank">
+                        Quero Adotar! 🐾
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+</body>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/adotar.js"></script>
 </html>
