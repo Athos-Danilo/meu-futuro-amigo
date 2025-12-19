@@ -87,7 +87,7 @@
     filter: brightness(0) invert(1); 
 }
 
-/* O Container dos Filtros (No mobile é uma janela fixa escondida) */
+/* ---------- Container dos Filtros ---------- */
 .container-filtros {
     position: fixed;
     top: 0;
@@ -98,11 +98,9 @@
     z-index: 2000; /* Fica na frente de tudo */
     padding: 20px;
     overflow-y: auto; /* Permite rolar */
-    
     /* Animação: Começa escondido lá embaixo */
-    transform: translateY(100%); 
+    transform: translateY(100%);
     transition: transform 0.3s ease-in-out;
-    
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -118,10 +116,11 @@
     align-self: flex-end;
     background: none;
     border: none;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
+    font-weight: 900;
     color: var(--cor-cinza-botao);
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: -15px;
 }
 
 /* Estilo dos Grupos de Filtro (Label + Input) */
@@ -132,16 +131,18 @@
 }
 
 .grupo-filtro label {
-    font-family: var(--fonte-titulos);
-    color: var(--cor-marrom);
-    font-size: 1.1rem;
+    font-family: var(--fonte-textos);
+    color: var(--cor-preto);
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-align: left;
 }
 
 .grupo-filtro select, 
 .grupo-filtro input {
     padding: 12px;
     border: 2px solid var(--cor-cinza-caixa);
-    border-radius: 8px;
+    border-radius: 15px;
     font-family: var(--fonte-textos);
     font-size: 1rem;
     background-color: var(--cor-cinza-input);
@@ -154,9 +155,10 @@
     color: var(--cor-branco);
     border: none;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 50px;
     font-family: var(--fonte-titulos);
     font-size: 1.3rem;
+    letter-spacing: 0.04em;
     margin-top: 20px;
     cursor: pointer;
 }
@@ -383,6 +385,57 @@
         margin: 20px auto 0 auto; 
     }
 
+    .container-filtros {
+        /* 1. Tamanho Controlado (Não ocupa a tela toda) */
+        width: 600px;  /* Largura fixa ideal para leitura */
+        height: auto;  /* Altura se ajusta ao conteúdo */
+        max-height: 85vh; /* Limite para não cortar em telas baixas */
+        box-shadow: 0 0px 7px rgba(0,0,0,0.3); 
+        
+        /* 2. Centralização Absoluta */
+        top: 35%;
+        left: 50%;
+        
+        /* 3. Visual de Cartão */
+        border-radius: 20px; /* Bordas arredondadas */
+        
+        /* 4. Ajuste da Animação para Centralizar */
+        /* Estado Fechado: Centralizado na horizontal (-50%), mas escondido lá embaixo (150%) */
+        transform: translate(-50%, 150%); 
+    }
+
+    .container-filtros.aberto {
+        /* Estado Aberto: Centralizado exato na tela */
+        transform: translate(-50%, -50%);
+    }
+
+    /* Ajuste do botão de fechar para ficar mais discreto no card */
+    .botao-fechar-filtros {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        margin: 0;
+    }
+    
+    /* Grid interno para aproveitar melhor o espaço do tablet (opcional) */
+    /* Isso coloca os inputs em 2 colunas dentro do modal */
+    .container-filtros {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 colunas */
+        gap: 15px 50px; /* Gap vertical e horizontal */
+    }
+    
+    /* O botão fechar e o botão aplicar ocupam a largura total */
+    .botao-fechar-filtros, 
+    .botao-aplicar-filtros {
+        grid-column: 1 / -1; 
+    }
+    
+    /* Acomoda título/label */
+    .grupo-filtro {
+        width: 100%;
+    }
+
     .Grid-Animais {
         grid-template-columns: repeat(3, 1fr); /* 3 colunas */
     }
@@ -402,10 +455,10 @@
 @media (min-width: 1400px) {
     /* ---------- Seção: Cabeçalho ---------- */
     .apresetacao {
-        padding: 40px 50px 60px 50px; /* Mais espaço embaixo */
+        padding: 40px 50px 60px 50px; 
         border-radius: 0; 
         margin-bottom: 50px;
-        text-align: left; /* Garante alinhamento à esquerda */
+        text-align: left; 
     }
 
     .titulo {
@@ -423,14 +476,12 @@
         max-width: 1200px;
     }
 
-
-    /* --- TRANSFORMAÇÃO DOS FILTROS (Gaveta -> Barra Horizontal) --- */
-    
+    /* --- Esconde o botão --- */
     .botao-abrir-filtros {
-        display: none; /* Some botão mobile */
+        display: none; 
     }
 
-    /* CONFIGURAÇÃO DA BARRA DE FILTROS NO DESKTOP */
+    /* ---------- Barra de Filtros ---------- */
     .container-filtros {
         position: static;
         width: 100%;
@@ -455,10 +506,10 @@
         margin-top: 40px; /* Espaço entre subtítulo e filtros */
     }
 
-    .botao-fechar-filtros, 
-    .botao-aplicar-filtros {
-        display: none; 
+    .botao-fechar-filtros {
+        display: none;
     }
+   
     /* NOVO: Ajuste do Grupo individual para ficar lado a lado */
     .grupo-filtro {
         display: flex;
@@ -469,6 +520,7 @@
     
     /* Ajuste do Label para não quebrar linha e tirar a margem antiga */
     .grupo-filtro label {
+        font-family: var(--fonte-textos);
         font-size: 0.9rem;
         margin-bottom: 0; /* Remove margem de baixo pois agora está ao lado */
         white-space: nowrap; /* Impede que "Raça de Cachorro" quebre em 2 linhas */
