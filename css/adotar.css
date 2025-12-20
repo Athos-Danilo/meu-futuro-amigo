@@ -116,9 +116,12 @@
     align-self: flex-end;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 900;
-    color: var(--cor-cinza-botao);
+    color: var(--cor-branco);
+    background-color: var(--cor-verde);
+    padding: 2px 10px;
+    border-radius: 50px;
     cursor: pointer;
     margin-bottom: -15px;
 }
@@ -132,9 +135,9 @@
 
 .grupo-filtro label {
     font-family: var(--fonte-textos);
-    color: var(--cor-preto);
+    color: var(--cor-marrom);
     font-size: 1.3rem;
-    font-weight: 500;
+    font-weight: 600;
     text-align: left;
 }
 
@@ -409,14 +412,29 @@
         transform: translate(-50%, -50%);
     }
 
+
     /* Ajuste do botão de fechar para ficar mais discreto no card */
     .botao-fechar-filtros {
         position: absolute;
-        top: 15px;
-        right: 20px;
+        top: 5px;
+        right: -15px;
         margin: 0;
+        font-size: 1.6rem;
+        transition: background-color 0.2s;
+    }
+
+    .botao-fechar-filtros:hover {
+        background-color: var(--cor-laranja);
     }
     
+    .grupo-filtro label {
+        font-family: var(--fonte-textos);
+        color: var(--cor-marrom);
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-align: left;
+    }
+
     /* Grid interno para aproveitar melhor o espaço do tablet (opcional) */
     /* Isso coloca os inputs em 2 colunas dentro do modal */
     .container-filtros {
@@ -425,12 +443,23 @@
         gap: 15px 50px; /* Gap vertical e horizontal */
     }
     
+
     /* O botão fechar e o botão aplicar ocupam a largura total */
     .botao-fechar-filtros, 
     .botao-aplicar-filtros {
         grid-column: 1 / -1; 
     }
     
+    /* Botão Aplicar (Verde) */
+    .botao-aplicar-filtros {
+        font-size: 1.4rem;
+        transition: background-color 0.3s;
+    }
+
+    .botao-aplicar-filtros:hover {
+        background-color: var(--cor-marrom);
+    }
+
     /* Acomoda título/label */
     .grupo-filtro {
         width: 100%;
