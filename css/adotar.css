@@ -95,10 +95,9 @@
     width: 100%;
     height: 100vh;
     background-color: var(--cor-branco);
-    z-index: 2000; /* Fica na frente de tudo */
+    z-index: 2000; 
     padding: 20px;
-    overflow-y: auto; /* Permite rolar */
-    /* Animação: Começa escondido lá embaixo */
+    overflow-y: auto;
     transform: translateY(100%);
     transition: transform 0.3s ease-in-out;
     display: flex;
@@ -106,12 +105,10 @@
     gap: 20px;
 }
 
-/* Classe que o JS vai adicionar para mostrar a gaveta */
 .container-filtros.aberto {
-    transform: translateY(0); /* Sobe para a tela */
+    transform: translateY(0); 
 }
 
-/* Botão X para fechar */
 .botao-fechar-filtros {
     align-self: flex-end;
     background: none;
@@ -126,7 +123,6 @@
     margin-bottom: -15px;
 }
 
-/* Estilo dos Grupos de Filtro (Label + Input) */
 .grupo-filtro {
     display: flex;
     flex-direction: column;
@@ -149,10 +145,9 @@
     font-family: var(--fonte-textos);
     font-size: 1rem;
     background-color: var(--cor-cinza-input);
-    width: 100%; /* Ocupa largura total no mobile */
+    width: 100%; 
 }
 
-/* Botão Aplicar (Verde) */
 .botao-aplicar-filtros {
     background-color: var(--cor-verde);
     color: var(--cor-branco);
@@ -166,7 +161,11 @@
     cursor: pointer;
 }
 
-/* --- 3. GRID DE ANIMAIS (ONDE OS CARDS VÃO ENTRAR) --- */
+/* ---------- Grid dos Cards  ---------- */
+
+
+
+
 .Galeria-Animais {
     padding: 0 20px 60px 20px;
     max-width: 1400px;
@@ -381,6 +380,13 @@
         margin-bottom: 5;
     }
 
+    /* ---------- Esconde a setinha so select ---------- */
+    select {
+    appearance: none;       /* Padrão moderno */
+    -webkit-appearance: none; /* Safari/Chrome */
+    -moz-appearance: none;    /* Firefox */
+    }
+
     /* ---------- Botão "Filtrar Animais" ---------- */
     .botao-abrir-filtros {
         font-size: 1.4rem;
@@ -388,35 +394,25 @@
         margin: 20px auto 0 auto; 
     }
 
+    /* ---------- Container dos Filtros ---------- */
     .container-filtros {
-        /* 1. Tamanho Controlado (Não ocupa a tela toda) */
-        width: 600px;  /* Largura fixa ideal para leitura */
-        height: auto;  /* Altura se ajusta ao conteúdo */
-        max-height: 85vh; /* Limite para não cortar em telas baixas */
+        width: 600px;  
+        height: auto;  
+        max-height: 90vh; 
         box-shadow: 0 0px 7px rgba(0,0,0,0.3); 
-        
-        /* 2. Centralização Absoluta */
         top: 35%;
         left: 50%;
-        
-        /* 3. Visual de Cartão */
-        border-radius: 20px; /* Bordas arredondadas */
-        
-        /* 4. Ajuste da Animação para Centralizar */
-        /* Estado Fechado: Centralizado na horizontal (-50%), mas escondido lá embaixo (150%) */
-        transform: translate(-50%, 150%); 
+        border-radius: 20px; 
+        transform: translate(-50%, 150vh); 
     }
 
     .container-filtros.aberto {
-        /* Estado Aberto: Centralizado exato na tela */
         transform: translate(-50%, -50%);
     }
 
-
-    /* Ajuste do botão de fechar para ficar mais discreto no card */
     .botao-fechar-filtros {
         position: absolute;
-        top: 5px;
+        top: 10px;
         right: -15px;
         margin: 0;
         font-size: 1.6rem;
@@ -428,12 +424,15 @@
     }
     
     .grupo-filtro label {
-        font-family: var(--fonte-textos);
-        color: var(--cor-marrom);
         font-size: 1.4rem;
         font-weight: 700;
-        text-align: left;
     }
+
+
+    /* ---------- Grid dos Cards  ---------- */
+
+
+
 
     /* Grid interno para aproveitar melhor o espaço do tablet (opcional) */
     /* Isso coloca os inputs em 2 colunas dentro do modal */
@@ -441,6 +440,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr; /* 2 colunas */
         gap: 15px 50px; /* Gap vertical e horizontal */
+        padding: 40px 30px 30px 30px; /* Mais padding interno */
     }
     
 
@@ -482,98 +482,145 @@
 
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
 @media (min-width: 1400px) {
-    /* ---------- Seção: Cabeçalho ---------- */
     .apresetacao {
-        padding: 40px 50px 60px 50px; 
+        padding: 25px 50px 25px 50px; 
         border-radius: 0; 
         margin-bottom: 50px;
-        text-align: left; 
+        text-align: center; 
     }
 
     .titulo {
         font-size: 3rem;
-        text-align: left;
-        font-weight: 400;
-        margin-bottom: 10px;
-        margin-left: 50px;
+        text-align: center;
     }
 
     .subtitulo {
         font-size: 1.6rem;
-        text-align: left;
-        margin: 0 0 0 50px;
+        text-align: center;
+        margin: 0 auto;
         max-width: 1200px;
     }
 
-    /* --- Esconde o botão --- */
-    .botao-abrir-filtros {
-        display: none; 
-    }
+    .botao-abrir-filtros { display: none; }
 
     /* ---------- Barra de Filtros ---------- */
-    .container-filtros {
+    .container-filtros,
+    .container-filtros.aberto { 
         position: static;
         width: 100%;
         height: auto;
         background-color: transparent;
-        transform: none;
+        box-shadow: none;
+        border-radius: 0;
+        transform: none !important; 
         padding: 0;
         overflow: visible;
-        
         display: flex;
         flex-direction: row;
-        
-        /* ALINHAMENTO À ESQUERDA (igual ao título) */
-        justify-content: flex-start; 
-        
-        align-items: center;
-        gap: 20px;
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 15px 20px; 
         max-width: none;
-        
-        /* Margem esquerda para alinhar perfeitamente com o texto */
-        margin-left: 30px; 
-        margin-top: 40px; /* Espaço entre subtítulo e filtros */
+        margin-top: 25px;
+        margin-left: 0;
     }
 
-    .botao-fechar-filtros {
-        display: none;
+    .botao-fechar-filtros { display: none !important; }
+    
+    .botao-aplicar-filtros {
+        display: block !important;
+        width: auto;
+        margin: 0;
+        margin-left: 30px;
+        background-color: var(--cor-bege); 
+        border: 2px solid var(--cor-laranja);
+        color: var(--cor-preto);
+        font-family: var(--fonte-textos);
+        font-size: 1.3rem;
+        font-weight: 700;
+        white-space: nowrap;
+        padding: 0 20px; 
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        height: 40px; 
+        line-height: 36px; 
+    }
+
+    .botao-aplicar-filtros:hover {
+        background-color: var(--cor-marrom);
+        border: 2px solid var(--cor-marrom);
+        color: var(--cor-branco);
+        transform: scale(0.95);
     }
    
-    /* NOVO: Ajuste do Grupo individual para ficar lado a lado */
     .grupo-filtro {
+        width: auto; 
         display: flex;
-        flex-direction: row; /* O Segredo: Label e Input na mesma linha */
-        align-items: center; /* Centraliza o texto verticalmente com o input */
-        gap: 10px; /* Espacinho entre o texto e a caixa */
+        flex-direction: row; 
+        align-items: center; 
+        gap: 8px; 
     }
     
-    /* Ajuste do Label para não quebrar linha e tirar a margem antiga */
     .grupo-filtro label {
         font-family: var(--fonte-textos);
-        font-size: 0.9rem;
-        margin-bottom: 0; /* Remove margem de baixo pois agora está ao lado */
-        white-space: nowrap; /* Impede que "Raça de Cachorro" quebre em 2 linhas */
-        
+        font-size: 1rem; 
+        margin: 0; 
+        white-space: nowrap; 
         color: var(--cor-preto); 
-        font-weight: 700; /* Botei negrito pra destacar mais, opcional */
-        letter-spacing: 0.5px;
+        font-weight: 700; 
     }
 
-    /* O Input/Select mantém o estilo, só garantimos que não estique demais */
     .grupo-filtro select, 
     .grupo-filtro input {
-        width: 160px; 
+        width: 140px; 
         height: 40px;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 10px;
+        padding-right: 25px; 
+        line-height: 38px; 
+        border: 1px solid #ccc;
+        border-radius: 50px;
+        background-color: #E8E8E8; 
+        font-size: 0.95rem; 
+        color: #333;
         cursor: pointer;
-        border: none;
-        border-radius: 8px; /* Adicionei para ficar mais bonitinho */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        text-align: center; 
+        text-align-last: center; 
+    }
+
+    #cidade {
+        width: 200px;
+        padding-right: 15px; 
     }
     
-    /* --- GRID NO DESKTOP --- */
+    #filtro-especie {
+        width: 120px;
+        padding-right: 7px;
+    }
+
+    #filtro-porte {
+        width: 120px;
+    }
+
+    #filtro-sexo {
+        width: 100px;
+        padding-right: 7px;
+    }
+
+    #filtro-idade {
+        width: 135px;
+        padding-right: 5px;
+    }
+
+    #filtro-origem {
+        width: 100px;
+        padding-right: 7px;
+    }
+    
     .Grid-Animais {
-        grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+        grid-template-columns: repeat(4, 1fr); 
         gap: 40px;
     }
-    
 }

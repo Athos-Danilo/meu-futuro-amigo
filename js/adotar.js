@@ -63,7 +63,7 @@ const cidadesPE = [
   "Salgueiro", "Saloá", "Sanharó", "Santa Cruz", "Santa Cruz da Baixa Verde", 
   "Santa Cruz do Capibaribe", "Santa Filomena", "Santa Maria da Boa Vista", 
   "Santa Maria do Cambucá", "Santa Terezinha", "São Benedito do Sul", 
-  "São Bento do Una", "São Caitano", "São João", "São Joaquim do Monte", 
+  "São Bento do Una", "São CaitAno", "São João", "São Joaquim do Monte", 
   "São José da Coroa Grande", "São José do Belmonte", "São José do Egito", 
   "São Lourenço da Mata", "São Vicente Ferrer", "Serra Talhada", "Serrita", 
   "Sertânia", "Sirinhaém", "Solidão", "Surubim", "Tabira", "Tacaimbó", "Terezinha", 
@@ -76,7 +76,7 @@ const racasCachorros = [
   "Labrador Retriever", "Golden Retriever", "Pastor Alemão", "Bulldog",
   "Poodle", "Beagle", "Rottweiler", "Shih Tzu", "Yorkshire Terrier",
   "Boxer", "Dachshund (Teckel)", "Chihuahua", "Border Collie", "SRD (Vira-lata)",
-  "Husky Siberiano", "Doberman", "Maltês", "Akita", "Cocker Spaniel",
+  "Husky SiberiAno", "Doberman", "Maltês", "Akita", "Cocker Spaniel",
   "Pinscher", "Pit Bull"
 ];
 
@@ -88,10 +88,9 @@ const racasGatos = [
 ];
 
 const idades = [
-  "Filhote (0-1 ano)",
-  "1 ano", "2 anos", "3 anos", "4 anos", "5 anos",
-  "6 anos", "7 anos", "8 anos", "9 anos", "10 anos",
-  "11 anos", "12 anos", "13 anos", "14 anos", "15 anos+"
+  "Recém-Nascido", "1 Mês", "2 Meses", "3 Meses", "4 Meses", "5 Meses", "6 Meses", "7 Meses", "8 Meses", "9 Meses", "10 Meses",
+  "11 Meses", "1 Ano", "2 Anos", "3 Anos", "4 Anos", "5 Anos", "6 Anos", "7 Anos", "8 Anos", "9 Anos", "10 Anos", "11 Anos",
+  "12 Anos", "13 Anos", "14 Anos", "15 Anos +"
 ];
 
 const animais = [
