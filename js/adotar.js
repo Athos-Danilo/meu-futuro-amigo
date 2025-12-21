@@ -9,8 +9,6 @@
 function toggleFiltros() {
     const container = document.getElementById('filtros-container');
     container.classList.toggle('aberto');
-    
-    // Trava a rolagem do fundo quando o menu está aberto
     document.body.style.overflow = container.classList.contains('aberto') ? 'hidden' : 'auto';
 }
 
@@ -27,9 +25,46 @@ function preencherSelect(selectId, lista) {
     });
 }
 
-// Função Provisória do Modal (Só para testar o clique)
+// --- LÓGICA DO MODAL (NOVA) ---
+const modalAnimal = document.getElementById('modal-animal');
+
 function abrirModal(nomeAnimal) {
-    alert("Você clicou no " + nomeAnimal + "! (Em breve o modal completo abrirá aqui)");
+    // 1. Acha o animal na lista pelo nome
+    const animal = animais.find(a => a.nome === nomeAnimal);
+    
+    if (!animal) return; // Segurança caso não ache
+
+    // 2. Preenche as informações no HTML do Modal
+    document.getElementById('modal-img').src = animal.foto;
+    document.getElementById('modal-nome').innerText = animal.nome;
+    
+    // Resumo (ex: Cachorro - Beagle)
+    document.getElementById('modal-resumo').innerText = `${animal.especie} - ${animal.raca}`;
+    
+    // Detalhes técnicos
+    document.getElementById('modal-especie').innerText = animal.especie;
+    document.getElementById('modal-sexo').innerText = animal.sexo;
+    document.getElementById('modal-porte').innerText = animal.porte;
+    document.getElementById('modal-idade').innerText = animal.idade;
+    document.getElementById('modal-local').innerText = animal.local;
+    
+    // Como seu array original não tinha Origem/História, coloquei um padrão
+    document.getElementById('modal-origem').innerText = animal.origem || "Não informado";
+    document.getElementById('modal-historia').innerText = animal.historia || `A história de ${animal.nome} está sendo escrita... Venha conhecê-lo para saber mais!`;
+
+    // 3. Mostra o modal
+    modalAnimal.style.display = 'flex';
+}
+
+function fecharModalDetalhes() {
+    modalAnimal.style.display = 'none';
+}
+
+// Fecha se clicar fora da caixinha branca
+window.onclick = function(event) {
+    if (event.target == modalAnimal) {
+        fecharModalDetalhes();
+    }
 }
 
 
@@ -76,7 +111,7 @@ const racasCachorros = [
   "Labrador Retriever", "Golden Retriever", "Pastor Alemão", "Bulldog",
   "Poodle", "Beagle", "Rottweiler", "Shih Tzu", "Yorkshire Terrier",
   "Boxer", "Dachshund (Teckel)", "Chihuahua", "Border Collie", "SRD (Vira-lata)",
-  "Husky SiberiAno", "Doberman", "Maltês", "Akita", "Cocker Spaniel",
+  "Husky Siberiano", "Doberman", "Maltês", "Akita", "Cocker Spaniel",
   "Pinscher", "Pit Bull"
 ];
 
@@ -102,7 +137,9 @@ const animais = [
         raca: "Beagle",
         idade: "3 Meses",
         local: "Garanhuns - PE",
-        foto: "../img/zezinho.jpg"
+        foto: "../img/zezinho.jpg",
+        origem: "Ong",
+        historia: "Encontrado perto do parque, Zezinho adora correr e brincar de bola."
     },
     {
         nome: "Luna",
@@ -112,14 +149,16 @@ const animais = [
         raca: "Bobtail",
         idade: "2 Anos",
         local: "Garanhuns - PE",
-        foto: "../img/luna.jpg"
+        foto: "../img/luna.jpg",
+        origem: "Protetor",
+        historia: "Luna é muito carinhosa e adora dormir no sofá a tarde toda."
     },
     {
         nome: "Simba",
         especie: "Cachorro",
         sexo: "Macho",
         porte: "Médio",
-        raca: "Vira-lata",
+        raca: "SRD (Vira-lata)",
         idade: "6 Meses",
         local: "Lajedo - PE",
         foto: "../img/Simba.jpg"
@@ -139,7 +178,7 @@ const animais = [
         especie: "Cachorro",
         sexo: "Fêmea",
         porte: "Médio",
-        raca: "Vira-lata",
+        raca: "SRD (Vira-lata)",
         idade: "3 Anos",
         local: "Canhotinho - PE",
         foto: "../img/Jujuba.jpg"
@@ -159,7 +198,7 @@ const animais = [
         especie: "Cachorro",
         sexo: "Fêmea",
         porte: "Grande",
-        raca: "Husky",
+        raca: "Husky Siberiano",
         idade: "4 Anos",
         local: "Garanhuns - PE",
         foto: "../img/Bela.jpg"
@@ -169,7 +208,7 @@ const animais = [
         especie: "Cachorro",
         sexo: "Macho",
         porte: "Pequeno",
-        raca: "Vira-lata",
+        raca: "SRD (Vira-lata)",
         idade: "1 Ano",
         local: "Lajedo - PE",
         foto: "../img/Thor.jpg"
@@ -179,7 +218,7 @@ const animais = [
         especie: "Gato",
         sexo: "Fêmea",
         porte: "Pequeno",
-        raca: "Vira-lata",
+        raca: "SRD (Vira-lata)",
         idade: "2 Meses",
         local: "Jupi - PE",
         foto: "../img/Gaia.jpg"
@@ -189,7 +228,7 @@ const animais = [
         especie: "Cachorro",
         sexo: "Macho",
         porte: "Médio",
-        raca: "Vira-lata",
+        raca: "SRD (Vira-lata)",
         idade: "5 Anos",
         local: "Lajedo - PE",
         foto: "../img/Rocky.jpg"
@@ -209,7 +248,7 @@ const animais = [
         especie: "Cachorro",
         sexo: "Macho",
         porte: "Pequeno",
-        raca: "Vira-lata",
+        raca: "SRD (Vira-lata)",
         idade: "3 Anos",
         local: "Jupi - PE",
         foto: "../img/Chico.jpg"
@@ -251,7 +290,64 @@ function carregarAnimais(listaParaMostrar) {
 }
 
 
-/* --- 4. INICIALIZAÇÃO (Roda quando a página carrega) --- */
+/* --- 4. FILTRAGEM (O Cérebro) --- */
+
+function aplicarFiltros() {
+    // 1. Pega os valores dos inputs
+    const cidadeValor = document.getElementById('cidade').value.toLowerCase();
+    const especieValor = document.getElementById('filtro-especie').value;
+    const porteValor = document.getElementById('filtro-porte').value;
+    const sexoValor = document.getElementById('filtro-sexo').value;
+    const idadeValor = document.getElementById('filtro-idade').value;
+    const origemValor = document.getElementById('filtro-origem').value;
+
+    // 2. Verifica qual campo de raça ler (cachorro ou gato)
+    let racaValor = "";
+    if (especieValor === "Cachorro") {
+        racaValor = document.getElementById('filtro-raca-cachorro').value;
+    } else if (especieValor === "Gato") {
+        racaValor = document.getElementById('filtro-raca-gato').value;
+    }
+
+    // 3. Filtra a lista original 'animais'
+    const filtrados = animais.filter(animal => {
+        // Cidade: verifica se o texto digitado está incluso no local do animal
+        const matchCidade = animal.local.toLowerCase().includes(cidadeValor);
+
+        // Inputs: se estiver vazio ou "Todos", aceita qualquer um. Senão, tem que ser igual.
+        const matchEspecie = (especieValor === "" || especieValor === "Selecione...") ? true : animal.especie === especieValor;
+        const matchPorte = (porteValor === "" || porteValor === "Todos") ? true : animal.porte === porteValor;
+        const matchSexo = (sexoValor === "" || sexoValor === "Todos") ? true : animal.sexo === sexoValor;
+        const matchIdade = (idadeValor === "" || idadeValor === "Todas") ? true : animal.idade === idadeValor;
+        const matchOrigem = (origemValor === "" || origemValor === "Todas") ? true : (animal.origem === origemValor);
+        
+        // Raça: só filtra se uma espécie específica foi selecionada e uma raça foi escolhida
+        const matchRaca = (racaValor === "" || racaValor === "Todas") ? true : animal.raca.includes(racaValor);
+
+        return matchCidade && matchEspecie && matchPorte && matchSexo && matchIdade && matchOrigem && matchRaca;
+    });
+
+    // 4. Desenha os cards filtrados
+    carregarAnimais(filtrados);
+    
+    // (Opcional) No mobile, fecha o menu de filtros após aplicar
+    if (window.innerWidth < 1400) {
+        toggleFiltros();
+    }
+}
+
+function limparFiltros() {
+    // Reseta inputs visualmente
+    document.getElementById('cidade').value = '';
+    document.getElementById('filtro-especie').value = '';
+    // ... adicione reset para os outros se precisar
+    
+    // Recarrega lista completa
+    carregarAnimais(animais);
+}
+
+
+/* --- 5. INICIALIZAÇÃO (Roda quando a página carrega) --- */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -278,8 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
         divRacaCachorro.style.display = 'none';
         divRacaGato.style.display = 'none';
 
-        if (valor === 'Cachorro') divRacaCachorro.style.display = 'block';
-        if (valor === 'Gato') divRacaGato.style.display = 'block';
+        if (valor === 'Cachorro') divRacaCachorro.style.display = 'flex'; // Usei flex para manter o estilo
+        if (valor === 'Gato') divRacaGato.style.display = 'flex';
     });
 
     // D) Carregar TODOS os animais inicialmente

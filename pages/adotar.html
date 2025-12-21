@@ -108,7 +108,7 @@
 
     <div id="modal-animal" class="Modal-Fundo" style="display: none;">
         <div class="Modal-Conteudo">
-            <span class="Fechar-Modal" onclick="fecharModal()">&times;</span>
+            <span class="Fechar-Modal" onclick="fecharModalDetalhes()">&times;</span>
             
             <div class="Modal-Grid">
                 <div class="Modal-Imagem">
@@ -116,32 +116,24 @@
                 </div>
                 
                 <div class="Modal-Infos">
-                    <h2 id="modal-nome">Nome do Animal</h2>
-                    <p class="Modal-Resumo" id="modal-resumo">
-                        </p>
-
+                    <h2 id="modal-nome">Nome do Pet</h2>
+                    <p id="modal-resumo" class="Modal-Resumo">Resumo...</p>
+                    
                     <div class="Modal-Detalhes-Tecnicos">
-                        <div class="Item-Detalhe">
-                            <strong>Porte:</strong> <span id="modal-porte">-</span>
-                        </div>
-                        <div class="Item-Detalhe">
-                            <strong>Idade:</strong> <span id="modal-idade">-</span>
-                        </div>
-                        <div class="Item-Detalhe">
-                            <strong>Raça:</strong> <span id="modal-raca">-</span>
-                        </div>
-                         <div class="Item-Detalhe">
-                            <strong>Saúde:</strong> <span id="modal-saude">Vacinado/Castrado</span>
-                        </div>
+                        <div class="Item-Detalhe"><strong>Espécie:</strong> <span id="modal-especie">...</span></div>
+                        <div class="Item-Detalhe"><strong>Sexo:</strong> <span id="modal-sexo">...</span></div>
+                        <div class="Item-Detalhe"><strong>Porte:</strong> <span id="modal-porte">...</span></div>
+                        <div class="Item-Detalhe"><strong>Idade:</strong> <span id="modal-idade">...</span></div>
+                        <div class="Item-Detalhe"><strong>Local:</strong> <span id="modal-local">...</span></div>
+                        <div class="Item-Detalhe"><strong>Origem:</strong> <span id="modal-origem">...</span></div>
                     </div>
 
                     <div class="Modal-Historia">
                         <h3>Minha História</h3>
-                        <p id="modal-historia">
-                            </p>
+                        <p id="modal-historia">Texto da história aqui...</p>
                     </div>
 
-                    <a href="#" id="botao-adotar-whatsapp" class="Botao-Adotar-Modal" target="_blank">
+                    <a href="https://wa.me/550000000000" target="_blank" class="Botão-Adotar-Modal">
                         Quero Adotar! 🐾
                     </a>
                 </div>
