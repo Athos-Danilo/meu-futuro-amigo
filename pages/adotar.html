@@ -102,6 +102,12 @@
                 <p>Não encontramos nenhum peludinho com essas características agora. Que tal ajustar os filtros e tentar novamente?</p>
                 <button onclick="limparFiltros()">Limpar Filtros</button>
             </div>
+
+            <div id="paginacao-container" class="paginacao-container">
+                <button id="btn-ant" onclick="mudarPagina(-1)">❮ Anterior</button>
+                <span id="indicador-paginacao">Página 1</span>
+                <button id="btn-prox" onclick="mudarPagina(1)">Próxima ❯</button>
+            </div>
         </section>
 
     </main>
@@ -134,6 +140,23 @@
                     </div>
 
                     <a href="#" target="_blank" class="Botao-Adotar-Modal"> Quero Adotar!</a>
+
+                    <div class="Modal-Botoes">
+                        <a href="#" target="_blank" class="Botao-Adotar-Modal">
+                            Quero Adotar!
+                        </a>
+
+                        <button id="btn-compartilhar" class="Botao-Compartilhar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                            </svg>
+                            Compartilhar com Amigo
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
