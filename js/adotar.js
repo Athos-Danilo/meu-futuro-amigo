@@ -1,5 +1,6 @@
 /* =======================================================
-   LÓGICA DA PÁGINA QUERO ADOTAR (COMPLETO: PAGINAÇÃO + FANCYBOX)
+   LÓGICA DA PÁGINA QUERO ADOTAR (V5.0 - COMPLETO)
+   Funcionalidades: Paginação + Galeria Fancybox + Status + Saúde + Data
    Arquivo: js/adotar.js
    ======================================================= */
 
@@ -13,7 +14,7 @@ let fotosAtuais = [];
 let indiceFotoAtual = 0;
 
 
-/* --- 1. FUNÇÕES DE INTERFACE --- */
+/* --- 1. FUNÇÕES DE INTERFACE E AUXILIARES --- */
 
 function calcularItensPorPagina() {
     const largura = window.innerWidth;
@@ -52,8 +53,36 @@ function preencherSelect(selectId, lista) {
     });
 }
 
+// --- FUNÇÕES DE DATA E STATUS (NOVAS) ---
+function formatarData(dataISO) {
+    if (!dataISO) return "Recém-chegado";
+    const data = new Date(dataISO);
+    return data.toLocaleDateString('pt-BR'); 
+}
 
-/* --- 2. LÓGICA DO MODAL E GALERIA --- */
+function gerarStatusHTML(interessados) {
+    if (!interessados || interessados === 0) {
+        return `<span class="status-tag status-verde">Disponível ✨</span>`;
+    } else if (interessados < 5) {
+        return `<span class="status-tag status-amarelo">${interessados} na fila ⚠️</span>`;
+    } else {
+        return `<span class="status-tag status-vermelho">Muito Disputado 🔥</span>`;
+    }
+}
+
+function gerarSaudeHTML(saude) {
+    if (!saude) return '';
+    return `
+        <div class="saude-container">
+            <div class="item-saude ${saude.vacinado ? 'ativo' : ''}" title="Vacinado"><span>💉</span> Vacinado</div>
+            <div class="item-saude ${saude.castrado ? 'ativo' : ''}" title="Castrado"><span>✂️</span> Castrado</div>
+            <div class="item-saude ${saude.vermifugado ? 'ativo' : ''}" title="Vermifugado"><span>💊</span> Vermífugo</div>
+        </div>
+    `;
+}
+
+
+/* --- 2. LÓGICA DO MODAL --- */
 const modalAnimal = document.getElementById('modal-animal');
 
 function abrirModal(nomeAnimal) {
@@ -61,35 +90,51 @@ function abrirModal(nomeAnimal) {
     if (!animal) return;
 
     // --- CONFIGURAÇÃO DA GALERIA ---
-    // Detecta se é o formato novo (array) ou antigo (string)
     fotosAtuais = Array.isArray(animal.fotos) ? animal.fotos : [animal.foto];
     indiceFotoAtual = 0; 
     atualizarVisualizacaoGaleria(); 
 
-    // Preenche textos
+    // --- TEXTOS BÁSICOS ---
     document.getElementById('modal-nome').innerText = animal.nome;
     document.getElementById('modal-resumo').innerText = animal.especie; 
-    
-    // Ajuste de Raça
-    const labelEspecie = document.querySelector('#modal-especie').parentElement.querySelector('strong');
-    if(labelEspecie) labelEspecie.innerText = "Raça:";
-    document.getElementById('modal-especie').innerText = animal.raca;
-
-    document.getElementById('modal-sexo').innerText = animal.sexo;
-    document.getElementById('modal-porte').innerText = animal.porte;
-    document.getElementById('modal-idade').innerText = animal.idade;
-    document.getElementById('modal-local').innerText = animal.local;
-    document.getElementById('modal-origem').innerText = animal.origem || "Não informado";
     document.getElementById('modal-historia').innerText = animal.historia || `A história de ${animal.nome} está sendo escrita...`;
 
-    // Botão Adotar (WhatsApp)
+    // --- RECONSTRUÇÃO DA GRADE DE DETALHES (Com Data e Status) ---
+    const gridDetalhes = document.querySelector('.Modal-Detalhes-Tecnicos');
+    const dataFormatada = formatarData(animal.dataAdicao);
+    const textoFila = animal.interessados ? `${animal.interessados} pessoas na fila` : "Ninguém na fila (Seja o primeiro!)";
+
+    gridDetalhes.innerHTML = `
+        <div class="Item-Detalhe"><strong>Raça:</strong> <span>${animal.raca}</span></div>
+        <div class="Item-Detalhe"><strong>Sexo:</strong> <span>${animal.sexo}</span></div>
+        <div class="Item-Detalhe"><strong>Porte:</strong> <span>${animal.porte}</span></div>
+        <div class="Item-Detalhe"><strong>Idade:</strong> <span>${animal.idade}</span></div>
+        <div class="Item-Detalhe"><strong>Local:</strong> <span>${animal.local}</span></div>
+        <div class="Item-Detalhe"><strong>Origem:</strong> <span>${animal.origem || "Ong"}</span></div>
+        
+        <div class="Item-Detalhe"><strong>Desde:</strong> <span>${dataFormatada}</span></div>
+        <div class="Item-Detalhe" style="grid-column: 1 / -1; background-color: #fff3cd; border-color: #ffeeba;">
+            <strong style="color: #856404;">Status:</strong> 
+            <span style="color: #856404;">${textoFila}</span>
+        </div>
+    `;
+
+    // --- ÍCONES DE SAÚDE ---
+    let divSaude = document.getElementById('modal-saude-area');
+    if (!divSaude) {
+        divSaude = document.createElement('div');
+        divSaude.id = 'modal-saude-area';
+        document.getElementById('modal-resumo').after(divSaude);
+    }
+    divSaude.innerHTML = gerarSaudeHTML(animal.saude);
+
+    // --- BOTÕES ---
     const btnAdotar = document.querySelector('.Botao-Adotar-Modal');
     if (btnAdotar) {
-        const msgZap = `Olá! Vi o ${animal.nome} no site e fiquei interessado na adoção.`;
+        const msgZap = `Olá! Vi o ${animal.nome} no site e fiquei interessado na adoção. (Fila: ${animal.interessados || 0})`;
         btnAdotar.href = `https://wa.me/5587999999999?text=${encodeURIComponent(msgZap)}`;
     }
 
-    // Botão Compartilhar
     const btnCompartilhar = document.getElementById('btn-compartilhar');
     if (btnCompartilhar) {
         btnCompartilhar.onclick = null; 
@@ -122,13 +167,10 @@ function atualizarVisualizacaoGaleria() {
     const btnProx = document.querySelector('.seta-galeria.proxima');
 
     imgElement.src = fotosAtuais[indiceFotoAtual];
-
-    // MUDANÇA: Ao clicar, chama o Fancybox em vez do Lightbox manual
     imgElement.onclick = abrirLightboxProfissional;
 
     if (contador) contador.innerText = `${indiceFotoAtual + 1} / ${fotosAtuais.length}`;
 
-    // Só mostra setas se tiver mais de 1 foto
     if (fotosAtuais.length > 1) {
         if(btnAnt) btnAnt.style.display = 'block';
         if(btnProx) btnProx.style.display = 'block';
@@ -147,14 +189,12 @@ function mudarFoto(direcao) {
 
 // --- FUNÇÃO DE ZOOM (FANCYBOX) ---
 function abrirLightboxProfissional() {
-    // Converte nossas fotos para o formato que o Fancybox entende
     const galeriaFancybox = fotosAtuais.map(fotoUrl => {
         return { src: fotoUrl, type: "image" };
     });
 
-    // Inicia o Fancybox
     Fancybox.show(galeriaFancybox, {
-        startIndex: indiceFotoAtual, // Abre na foto certa
+        startIndex: indiceFotoAtual,
         loop: true,
         Toolbar: {
             display: {
@@ -172,14 +212,13 @@ function fecharModalDetalhes() {
 }
 
 window.onclick = function(event) {
-    // Fecha modal clicando fora (apenas Desktop)
     if (event.target == modalAnimal && window.innerWidth >= 900) {
         fecharModalDetalhes();
     }
 }
 
 
-/* --- 3. BANCO DE DADOS (Arrays de Informação Completos) --- */
+/* --- 3. BANCO DE DADOS (ATUALIZADO COM DATA, STATUS E SAÚDE) --- */
 
 const cidadesPE = [
   "Abreu e Lima", "Afogados da Ingazeira", "Afrânio", "Agrestina", "Água Preta",
@@ -240,7 +279,7 @@ const idades = [
 ];
 
 const animais = [
-    // ZEZINHO ATUALIZADO COM 3 FOTOS PARA TESTE
+    // ZEZINHO ATUALIZADO (Exemplo Completo)
     { 
         nome: "Zezinho", 
         especie: "Cachorro", 
@@ -249,31 +288,34 @@ const animais = [
         raca: "Beagle", 
         idade: "3 Meses", 
         local: "Garanhuns - PE", 
-        // Array com múltiplas fotos
         fotos: [
             "../img/zezinho.jpg", 
-            "https://placehold.co/600x400/orange/white?text=Zezinho+Brincando", 
-            "https://placehold.co/600x400/green/white?text=Zezinho+Dormindo"
+            "https://placehold.co/600x400/orange/white?text=Brincando", 
+            "https://placehold.co/600x400/green/white?text=Dormindo"
         ],
         origem: "Ong", 
-        historia: "Encontrado perto do parque, Zezinho adora correr e brincar de bola." 
+        historia: "Encontrado perto do parque, Zezinho adora correr e brincar de bola.",
+        // NOVOS DADOS
+        dataAdicao: "2024-05-20", 
+        interessados: 3, 
+        saude: { vacinado: true, castrado: false, vermifugado: true }
     },
-    // Outros animais (mantidos como estavam, o código adapta automaticamente)
-    { nome: "Luna", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "2 Anos", local: "Garanhuns - PE", foto: "../img/luna.jpg", origem: "Protetor", historia: "Luna é muito carinhosa e adora dormir no sofá a tarde toda." },
-    { nome: "Simba", especie: "Cachorro", sexo: "Macho", porte: "Médio", raca: "SRD (Vira-lata)", idade: "6 Meses", local: "Lajedo - PE", foto: "../img/Simba.jpg" },
-    { nome: "Bob", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "3 Anos", local: "Garanhuns - PE", foto: "../img/Bob.jpg" },
-    { nome: "Jujuba", especie: "Cachorro", sexo: "Fêmea", porte: "Médio", raca: "SRD (Vira-lata)", idade: "3 Anos", local: "Canhotinho - PE", foto: "../img/Jujuba.jpg" },
-    { nome: "Romário", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "Pinscher", idade: "6 Anos", local: "Jupi - PE", foto: "../img/romário.jpg" },
-    { nome: "Bela", especie: "Cachorro", sexo: "Fêmea", porte: "Grande", raca: "Husky Siberiano", idade: "4 Anos", local: "Garanhuns - PE", foto: "../img/Bela.jpg" },
-    { nome: "Thor", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "1 Ano", local: "Lajedo - PE", foto: "../img/Thor.jpg" },
-    { nome: "Gaia", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "2 Meses", local: "Jupi - PE", foto: "../img/Gaia.jpg" },
-    { nome: "Rocky", especie: "Cachorro", sexo: "Macho", porte: "Médio", raca: "SRD (Vira-lata)", idade: "5 Anos", local: "Lajedo - PE", foto: "../img/Rocky.jpg" },
-    { nome: "Silvana", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Siamês", idade: "3 Anos", local: "Garanhuns - PE", foto: "../img/Silvana.jpg" },
-    { nome: "Chico", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "3 Anos", local: "Jupi - PE", foto: "../img/Chico.jpg" }
+    // OUTROS ANIMAIS (Atualizados com dados padrão)
+    { nome: "Luna", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "2 Anos", local: "Garanhuns - PE", foto: "../img/luna.jpg", origem: "Protetor", historia: "Luna é muito carinhosa...", dataAdicao: "2024-01-10", interessados: 0, saude: { vacinado: true, castrado: true, vermifugado: true } },
+    { nome: "Simba", especie: "Cachorro", sexo: "Macho", porte: "Médio", raca: "SRD (Vira-lata)", idade: "6 Meses", local: "Lajedo - PE", foto: "../img/Simba.jpg", dataAdicao: "2024-05-22", interessados: 6, saude: { vacinado: false, castrado: false, vermifugado: true } },
+    { nome: "Bob", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "3 Anos", local: "Garanhuns - PE", foto: "../img/Bob.jpg", dataAdicao: "2023-12-05", interessados: 1 },
+    { nome: "Jujuba", especie: "Cachorro", sexo: "Fêmea", porte: "Médio", raca: "SRD (Vira-lata)", idade: "3 Anos", local: "Canhotinho - PE", foto: "../img/Jujuba.jpg", dataAdicao: "2024-03-15", interessados: 0 },
+    { nome: "Romário", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "Pinscher", idade: "6 Anos", local: "Jupi - PE", foto: "../img/romário.jpg", dataAdicao: "2023-11-20", interessados: 2 },
+    { nome: "Bela", especie: "Cachorro", sexo: "Fêmea", porte: "Grande", raca: "Husky Siberiano", idade: "4 Anos", local: "Garanhuns - PE", foto: "../img/Bela.jpg", dataAdicao: "2024-04-01", interessados: 8, saude: { vacinado: true, castrado: true, vermifugado: true } },
+    { nome: "Thor", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "1 Ano", local: "Lajedo - PE", foto: "../img/Thor.jpg", dataAdicao: "2024-02-15", interessados: 4 },
+    { nome: "Gaia", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "2 Meses", local: "Jupi - PE", foto: "../img/Gaia.jpg", dataAdicao: "2024-05-25", interessados: 1 },
+    { nome: "Rocky", especie: "Cachorro", sexo: "Macho", porte: "Médio", raca: "SRD (Vira-lata)", idade: "5 Anos", local: "Lajedo - PE", foto: "../img/Rocky.jpg", dataAdicao: "2024-01-01", interessados: 0 },
+    { nome: "Silvana", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Siamês", idade: "3 Anos", local: "Garanhuns - PE", foto: "../img/Silvana.jpg", dataAdicao: "2024-03-30", interessados: 5 },
+    { nome: "Chico", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "3 Anos", local: "Jupi - PE", foto: "../img/Chico.jpg", dataAdicao: "2024-04-10", interessados: 2 }
 ];
 
 
-/* --- 4. RENDERIZAÇÃO (Atualizada para suportar 'fotos' ou 'foto') --- */
+/* --- 4. RENDERIZAÇÃO (CARD AGORA MOSTRA STATUS E DATA) --- */
 
 function atualizarListaAnimais(lista) {
     listaAtualDeAnimais = lista; 
@@ -303,16 +345,23 @@ function renderizarPagina() {
     const animaisDaPagina = listaAtualDeAnimais.slice(inicio, fim);
 
     animaisDaPagina.forEach(animal => {
-        // LÓGICA DE CAPA: Se tiver array de fotos, pega a primeira. Se for string, pega ela mesma.
         let fotoCapa = Array.isArray(animal.fotos) ? animal.fotos[0] : animal.foto;
+        
+        // Gera os novos HTMLs
+        const htmlStatus = gerarStatusHTML(animal.interessados);
+        const htmlData = formatarData(animal.dataAdicao);
 
         const cardHTML = `
             <div class="cartao-animal" onclick="abrirModal('${animal.nome}')">
-                <img src="${fotoCapa}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
+                <div style="position: relative;">
+                    ${htmlStatus} <img src="${fotoCapa}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
+                </div>
                 <div class="info-card">
                     <h3>${animal.nome}</h3>
                     <p>${animal.especie} | ${animal.sexo}</p>
                     <p>${animal.local}</p>
+                    
+                    <p class="data-adicao">Adicionado em: ${htmlData}</p>
                 </div>
             </div>
         `;

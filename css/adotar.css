@@ -536,6 +536,64 @@
     z-index: 10000 !important; 
 }
 
+/* ================= NOVOS DETALHES (Status, Data e Saúde) ================= */
+
+/* --- 1. Etiqueta de Status (No Card) --- */
+.status-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 20; /* Fica acima da foto */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--fonte-textos);
+}
+
+.status-verde { background-color: #28a745; } /* Disponível */
+.status-amarelo { background-color: #ffc107; color: #333; } /* Concorrido */
+.status-vermelho { background-color: #dc3545; } /* Muito Disputado */
+
+/* --- 2. Ícones de Saúde (No Modal e Card) --- */
+.saude-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+    justify-content: center;
+}
+
+.item-saude {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cor-cinza-botao);
+    opacity: 0.4; /* Padrão: apagado */
+    filter: grayscale(100%);
+}
+
+.item-saude.ativo {
+    opacity: 1; /* Aceso */
+    filter: none;
+    color: var(--cor-verde-escuro);
+}
+
+.item-saude span { font-size: 1.3rem; }
+
+/* --- 3. Data de Adição (Rodapé do Card) --- */
+.data-adicao {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 10px;
+    font-style: italic;
+}
+
 
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
