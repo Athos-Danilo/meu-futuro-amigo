@@ -1,33 +1,33 @@
 /* =======================================================
-   LÓGICA DA PÁGINA QUERO ADOTAR (COM PAGINAÇÃO RESPONSIVA)
+   LÓGICA DA PÁGINA QUERO ADOTAR (COMPLETO: PAGINAÇÃO + FANCYBOX)
    Arquivo: js/adotar.js
    ======================================================= */
 
-/* --- VARIÁVEIS GLOBAIS DE PAGINAÇÃO --- */
+/* --- VARIÁVEIS GLOBAIS --- */
 let paginaAtual = 1;
-let itensPorPagina = 10; // Começa com 10 (mobile), mas a função abaixo vai corrigir
-let listaAtualDeAnimais = []; // Guarda a lista atual (seja ela completa ou filtrada)
+let itensPorPagina = 10; 
+let listaAtualDeAnimais = []; 
+
+// VARIÁVEIS DA GALERIA
+let fotosAtuais = []; 
+let indiceFotoAtual = 0;
 
 
-/* --- 1. FUNÇÕES DE INTERFACE (Botões, Modais e Redimensionamento) --- */
+/* --- 1. FUNÇÕES DE INTERFACE --- */
 
-// Função que define quantos cards mostrar baseada na largura da tela
 function calcularItensPorPagina() {
     const largura = window.innerWidth;
-    
     if (largura < 900) {
-        itensPorPagina = 10; // Celular
+        itensPorPagina = 10;
     } else if (largura >= 900 && largura < 1400) {
-        itensPorPagina = 18; // Tablet (3 colunas x 6 linhas)
+        itensPorPagina = 18;
     } else {
-        itensPorPagina = 24; // Desktop (4 colunas x 6 linhas)
+        itensPorPagina = 24;
     }
 }
 
-// Escuta quando a pessoa redimensiona a janela para ajustar na hora
 window.addEventListener('resize', () => {
     calcularItensPorPagina();
-    // Se a página atual ficar vazia após redimensionar (ex: estava na pág 5 e agora só tem 3), volta
     const totalPaginas = Math.ceil(listaAtualDeAnimais.length / itensPorPagina);
     if (paginaAtual > totalPaginas && totalPaginas > 0) {
         paginaAtual = 1;
@@ -35,18 +35,15 @@ window.addEventListener('resize', () => {
     renderizarPagina();
 });
 
-// Função para abrir/fechar o menu de filtros no mobile
 function toggleFiltros() {
     const container = document.getElementById('filtros-container');
     container.classList.toggle('aberto');
     document.body.style.overflow = container.classList.contains('aberto') ? 'hidden' : 'auto';
 }
 
-// Função genérica para preencher os <select> com os dados dos arrays
 function preencherSelect(selectId, lista) {
     const select = document.getElementById(selectId);
     if (!select) return; 
-    
     lista.forEach(item => {
         const option = document.createElement("option");
         option.value = item;
@@ -55,17 +52,23 @@ function preencherSelect(selectId, lista) {
     });
 }
 
-/* --- LÓGICA DO MODAL COM COMPARTILHAMENTO --- */
+
+/* --- 2. LÓGICA DO MODAL E GALERIA --- */
 const modalAnimal = document.getElementById('modal-animal');
 
 function abrirModal(nomeAnimal) {
     const animal = animais.find(a => a.nome === nomeAnimal);
     if (!animal) return;
 
-    // --- Preenche os dados visuais (HTML) ---
-    document.getElementById('modal-img').src = animal.foto;
+    // --- CONFIGURAÇÃO DA GALERIA ---
+    // Detecta se é o formato novo (array) ou antigo (string)
+    fotosAtuais = Array.isArray(animal.fotos) ? animal.fotos : [animal.foto];
+    indiceFotoAtual = 0; 
+    atualizarVisualizacaoGaleria(); 
+
+    // Preenche textos
     document.getElementById('modal-nome').innerText = animal.nome;
-    document.getElementById('modal-resumo').innerText = animal.especie; // Só Espécie
+    document.getElementById('modal-resumo').innerText = animal.especie; 
     
     // Ajuste de Raça
     const labelEspecie = document.querySelector('#modal-especie').parentElement.querySelector('strong');
@@ -79,54 +82,104 @@ function abrirModal(nomeAnimal) {
     document.getElementById('modal-origem').innerText = animal.origem || "Não informado";
     document.getElementById('modal-historia').innerText = animal.historia || `A história de ${animal.nome} está sendo escrita...`;
 
-    // --- Configura o Botão do WhatsApp (Adotar) ---
+    // Botão Adotar (WhatsApp)
     const btnAdotar = document.querySelector('.Botao-Adotar-Modal');
     if (btnAdotar) {
         const msgZap = `Olá! Vi o ${animal.nome} no site e fiquei interessado na adoção.`;
         btnAdotar.href = `https://wa.me/5587999999999?text=${encodeURIComponent(msgZap)}`;
     }
 
-    // --- CONFIGURA O NOVO BOTÃO DE COMPARTILHAR ---
+    // Botão Compartilhar
     const btnCompartilhar = document.getElementById('btn-compartilhar');
     if (btnCompartilhar) {
-        // Removemos qualquer evento de clique anterior para não duplicar
         btnCompartilhar.onclick = null; 
-        
         btnCompartilhar.onclick = async () => {
-            // Dados para compartilhar
             const shareData = {
                 title: `Adote o ${animal.nome}! 🐾`,
                 text: `Gente, olha que amor! 💖 Encontrei o ${animal.nome} (${animal.especie} - ${animal.raca}) no site "Meu Futuro Amigo". Ele está em ${animal.local}. Vamos ajudar ele a achar um lar?`,
-                url: window.location.href // Manda o link da página atual
+                url: window.location.href 
             };
-
-            // Verifica se o navegador suporta o compartilhamento nativo (Celular)
             if (navigator.share) {
-                try {
-                    await navigator.share(shareData);
-                } catch (err) {
-                    console.log('Compartilhamento cancelado ou erro:', err);
-                }
+                try { await navigator.share(shareData); } catch (err) { console.log(err); }
             } else {
-                // FALLBACK: Se for PC e não tiver suporte, copia para a área de transferência
                 const textoCompleto = `${shareData.text} \nVeja mais em: ${shareData.url}`;
-                
                 navigator.clipboard.writeText(textoCompleto).then(() => {
-                    alert('Link e texto copiados! 📋\nAgora é só colar no seu WhatsApp, Instagram ou onde quiser!');
-                }).catch(() => {
-                    alert('Não foi possível compartilhar automaticamente.');
+                    alert('Link copiado! 📋');
                 });
             }
         };
     }
 
-    // Abre o Modal e trava o fundo
     modalAnimal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
+// --- FUNÇÕES DA GALERIA NO MODAL ---
+function atualizarVisualizacaoGaleria() {
+    const imgElement = document.getElementById('modal-img');
+    const contador = document.getElementById('contador-fotos');
+    const btnAnt = document.querySelector('.seta-galeria.anterior');
+    const btnProx = document.querySelector('.seta-galeria.proxima');
 
-/* --- 2. BANCO DE DADOS (Arrays de Informação Completos) --- */
+    imgElement.src = fotosAtuais[indiceFotoAtual];
+
+    // MUDANÇA: Ao clicar, chama o Fancybox em vez do Lightbox manual
+    imgElement.onclick = abrirLightboxProfissional;
+
+    if (contador) contador.innerText = `${indiceFotoAtual + 1} / ${fotosAtuais.length}`;
+
+    // Só mostra setas se tiver mais de 1 foto
+    if (fotosAtuais.length > 1) {
+        if(btnAnt) btnAnt.style.display = 'block';
+        if(btnProx) btnProx.style.display = 'block';
+    } else {
+        if(btnAnt) btnAnt.style.display = 'none';
+        if(btnProx) btnProx.style.display = 'none';
+    }
+}
+
+function mudarFoto(direcao) {
+    indiceFotoAtual += direcao;
+    if (indiceFotoAtual < 0) indiceFotoAtual = fotosAtuais.length - 1;
+    else if (indiceFotoAtual >= fotosAtuais.length) indiceFotoAtual = 0;
+    atualizarVisualizacaoGaleria();
+}
+
+// --- FUNÇÃO DE ZOOM (FANCYBOX) ---
+function abrirLightboxProfissional() {
+    // Converte nossas fotos para o formato que o Fancybox entende
+    const galeriaFancybox = fotosAtuais.map(fotoUrl => {
+        return { src: fotoUrl, type: "image" };
+    });
+
+    // Inicia o Fancybox
+    Fancybox.show(galeriaFancybox, {
+        startIndex: indiceFotoAtual, // Abre na foto certa
+        loop: true,
+        Toolbar: {
+            display: {
+                left: ["infobar"],
+                middle: [],
+                right: ["slideshow", "thumbs", "close"],
+            },
+        },
+    });
+}
+
+function fecharModalDetalhes() {
+    modalAnimal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+window.onclick = function(event) {
+    // Fecha modal clicando fora (apenas Desktop)
+    if (event.target == modalAnimal && window.innerWidth >= 900) {
+        fecharModalDetalhes();
+    }
+}
+
+
+/* --- 3. BANCO DE DADOS (Arrays de Informação Completos) --- */
 
 const cidadesPE = [
   "Abreu e Lima", "Afogados da Ingazeira", "Afrânio", "Agrestina", "Água Preta",
@@ -187,7 +240,25 @@ const idades = [
 ];
 
 const animais = [
-    { nome: "Zezinho", especie: "Cachorro", sexo: "Macho", porte: "Médio", raca: "Beagle", idade: "3 Meses", local: "Garanhuns - PE", foto: "../img/zezinho.jpg", origem: "Ong", historia: "Encontrado perto do parque, Zezinho adora correr e brincar de bola." },
+    // ZEZINHO ATUALIZADO COM 3 FOTOS PARA TESTE
+    { 
+        nome: "Zezinho", 
+        especie: "Cachorro", 
+        sexo: "Macho", 
+        porte: "Médio", 
+        raca: "Beagle", 
+        idade: "3 Meses", 
+        local: "Garanhuns - PE", 
+        // Array com múltiplas fotos
+        fotos: [
+            "../img/zezinho.jpg", 
+            "https://placehold.co/600x400/orange/white?text=Zezinho+Brincando", 
+            "https://placehold.co/600x400/green/white?text=Zezinho+Dormindo"
+        ],
+        origem: "Ong", 
+        historia: "Encontrado perto do parque, Zezinho adora correr e brincar de bola." 
+    },
+    // Outros animais (mantidos como estavam, o código adapta automaticamente)
     { nome: "Luna", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "2 Anos", local: "Garanhuns - PE", foto: "../img/luna.jpg", origem: "Protetor", historia: "Luna é muito carinhosa e adora dormir no sofá a tarde toda." },
     { nome: "Simba", especie: "Cachorro", sexo: "Macho", porte: "Médio", raca: "SRD (Vira-lata)", idade: "6 Meses", local: "Lajedo - PE", foto: "../img/Simba.jpg" },
     { nome: "Bob", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "3 Anos", local: "Garanhuns - PE", foto: "../img/Bob.jpg" },
@@ -202,17 +273,15 @@ const animais = [
 ];
 
 
-/* --- 3. RENDERIZAÇÃO COM PAGINAÇÃO INTELIGENTE (Atualizado) --- */
+/* --- 4. RENDERIZAÇÃO (Atualizada para suportar 'fotos' ou 'foto') --- */
 
-// Função chamada quando a página carrega ou quando filtramos
 function atualizarListaAnimais(lista) {
-    listaAtualDeAnimais = lista; // Atualiza a lista global
-    paginaAtual = 1; // Sempre volta para a primeira página ao filtrar
-    calcularItensPorPagina(); // Recalcula o limite baseado na tela
-    renderizarPagina(); // Desenha a tela
+    listaAtualDeAnimais = lista; 
+    paginaAtual = 1; 
+    calcularItensPorPagina(); 
+    renderizarPagina(); 
 }
 
-// Função que desenha APENAS os animais da página atual
 function renderizarPagina() {
     const grid = document.getElementById('grid-animais');
     const msgSemResultados = document.getElementById('mensagem-sem-resultados');
@@ -220,26 +289,26 @@ function renderizarPagina() {
 
     grid.innerHTML = '';
 
-    // Verifica se a lista está vazia
     if (listaAtualDeAnimais.length === 0) {
         msgSemResultados.style.display = 'block';
-        if(paginacaoContainer) paginacaoContainer.style.display = 'none'; // Esconde os botões
+        if(paginacaoContainer) paginacaoContainer.style.display = 'none';
         return;
     } else {
         msgSemResultados.style.display = 'none';
-        if(paginacaoContainer) paginacaoContainer.style.display = 'flex'; // Mostra os botões
+        if(paginacaoContainer) paginacaoContainer.style.display = 'flex';
     }
 
-    // CÁLCULO DA FATIA (SLICE)
     const inicio = (paginaAtual - 1) * itensPorPagina;
     const fim = inicio + itensPorPagina;
     const animaisDaPagina = listaAtualDeAnimais.slice(inicio, fim);
 
-    // Cria os cards (só para os animais desta página)
     animaisDaPagina.forEach(animal => {
+        // LÓGICA DE CAPA: Se tiver array de fotos, pega a primeira. Se for string, pega ela mesma.
+        let fotoCapa = Array.isArray(animal.fotos) ? animal.fotos[0] : animal.foto;
+
         const cardHTML = `
             <div class="cartao-animal" onclick="abrirModal('${animal.nome}')">
-                <img src="${animal.foto}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
+                <img src="${fotoCapa}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
                 <div class="info-card">
                     <h3>${animal.nome}</h3>
                     <p>${animal.especie} | ${animal.sexo}</p>
@@ -253,13 +322,11 @@ function renderizarPagina() {
     atualizarControlesPaginacao();
 }
 
-// Atualiza o texto "Página 1 de X" e habilita/desabilita botões
 function atualizarControlesPaginacao() {
     const btnAnt = document.getElementById('btn-ant');
     const btnProx = document.getElementById('btn-prox');
     const indicador = document.getElementById('indicador-paginacao');
     
-    // Se não tiver os elementos no HTML ainda, evita erro
     if (!btnAnt || !btnProx || !indicador) return;
 
     const totalPaginas = Math.ceil(listaAtualDeAnimais.length / itensPorPagina);
@@ -269,21 +336,17 @@ function atualizarControlesPaginacao() {
     btnProx.disabled = (paginaAtual === totalPaginas || totalPaginas === 0);
 }
 
-// Função chamada pelos botões de Anterior/Próximo
 function mudarPagina(direcao) {
     paginaAtual += direcao;
     renderizarPagina();
-    
-    // Sobe a tela suavemente
     const topoGaleria = document.querySelector('.Galeria-Animais');
     if (topoGaleria) topoGaleria.scrollIntoView({ behavior: 'smooth' });
 }
 
 
-/* --- 4. FILTRAGEM (O Cérebro) --- */
+/* --- 5. FILTRAGEM --- */
 
 function aplicarFiltros() {
-    // 1. Pega os valores
     const cidadeValor = document.getElementById('cidade').value.toLowerCase();
     const especieValor = document.getElementById('filtro-especie').value;
     const porteValor = document.getElementById('filtro-porte').value;
@@ -295,7 +358,6 @@ function aplicarFiltros() {
     if (especieValor === "Cachorro") racaValor = document.getElementById('filtro-raca-cachorro').value;
     else if (especieValor === "Gato") racaValor = document.getElementById('filtro-raca-gato').value;
 
-    // 2. Filtra
     const filtrados = animais.filter(animal => {
         const matchCidade = animal.local.toLowerCase().includes(cidadeValor);
         const matchEspecie = (especieValor === "" || especieValor === "Selecione...") ? true : animal.especie === especieValor;
@@ -308,9 +370,7 @@ function aplicarFiltros() {
         return matchCidade && matchEspecie && matchPorte && matchSexo && matchIdade && matchOrigem && matchRaca;
     });
 
-    // 3. ATUALIZADO: Chama a função que gerencia a lista
     atualizarListaAnimais(filtrados);
-    
     if (window.innerWidth < 1400) toggleFiltros();
 }
 
@@ -321,17 +381,13 @@ function limparFiltros() {
     document.getElementById('filtro-sexo').value = '';
     document.getElementById('filtro-idade').value = '';
     document.getElementById('filtro-origem').value = '';
-    
-    // ATUALIZADO: Reseta para a lista completa
     atualizarListaAnimais(animais);
 }
 
 
-/* --- 5. INICIALIZAÇÃO (Roda quando a página carrega) --- */
+/* --- 6. INICIALIZAÇÃO --- */
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // A) Preencher Cidades
     const datalist = document.getElementById("cidades");
     cidadesPE.forEach(cidade => {
         const option = document.createElement("option");
@@ -339,12 +395,10 @@ document.addEventListener('DOMContentLoaded', () => {
         datalist.appendChild(option);
     });
 
-    // B) Preencher os outros Selects
     preencherSelect("filtro-raca-cachorro", racasCachorros);
     preencherSelect("filtro-raca-gato", racasGatos);
     preencherSelect("filtro-idade", idades);
 
-    // C) Lógica para mostrar/esconder select de raça
     const selectEspecie = document.getElementById('filtro-especie');
     const divRacaCachorro = document.getElementById('container-raca-cachorro');
     const divRacaGato = document.getElementById('container-raca-gato');
@@ -353,12 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const valor = evento.target.value;
         divRacaCachorro.style.display = 'none';
         divRacaGato.style.display = 'none';
-
         if (valor === 'Cachorro') divRacaCachorro.style.display = 'flex';
         if (valor === 'Gato') divRacaGato.style.display = 'flex';
     });
 
-    // D) Calcular limite inicial e carregar
     calcularItensPorPagina();
     atualizarListaAnimais(animais);
 });

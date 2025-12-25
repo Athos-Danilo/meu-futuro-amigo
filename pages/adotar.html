@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/adotar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
 </head>
 <body>
     <div id="Cabeçalho"></div>
@@ -118,7 +119,15 @@
             
             <div class="Modal-Grid">
                 <div class="Modal-Imagem">
-                    <img id="modal-img" src="" alt="Foto do Animal">
+                    <div class="Galeria-Wrapper">
+                        <button class="seta-galeria anterior" onclick="mudarFoto(-1)">❮</button>
+                        
+                        <img id="modal-img" src="" alt="Foto do Animal" onclick="abrirLightbox()">
+                        
+                        <button class="seta-galeria proxima" onclick="mudarFoto(1)">❯</button>
+                        
+                        <span id="contador-fotos">1 / 3</span>
+                    </div>
                 </div>
                 
                 <div class="Modal-Infos">
@@ -138,8 +147,6 @@
                         <h3>Minha História:</h3>
                         <p id="modal-historia">Texto da história aqui...</p>
                     </div>
-
-                    <a href="#" target="_blank" class="Botao-Adotar-Modal"> Quero Adotar!</a>
 
                     <div class="Modal-Botoes">
                         <a href="#" target="_blank" class="Botao-Adotar-Modal">
@@ -163,7 +170,9 @@
     </div>
 
     <div id="footer"></div>
+
 </body>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/footer.js"></script>
     <script src="../js/adotar.js"></script>
