@@ -241,7 +241,7 @@
     letter-spacing: 0.03em;
 }
 
-/* -------- Modal "Lite" (Versão Limpa) -------- */
+/* -------- Modal -------- */
 .Modal-Fundo {
     position: fixed;
     top: 0;
@@ -275,35 +275,40 @@
 
 .Fechar-Modal {
     position: absolute;
-    top: -5px;
-    right: 10px;
-    font-size: 2.5rem; /* Menor que antes */
-    font-weight: 900;
-    color: var(--cor-cinza-botao);
+    top: 15px; 
+    right: 15px; 
+    width: 35px; 
+    height: 35px; 
+    background-color: var(--cor-verde); 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem; 
+    font-weight: 700;
+    color: var(--cor-branco);
     cursor: pointer;
-    line-height: 1;
-    transition: background-color 0.3s ease;
-    z-index: 20;
+    z-index: 100; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.5); 
+    transition: all 0.3s ease; 
 }
 
 .Modal-Grid {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Menor gap */
+    gap: 15px; 
 }
 
-/* Área da Foto */
 .Modal-Imagem img {
     width: 100%;
-    height: 250px; /* Um pouco maior para destacar a foto */
+    height: 250px; 
     object-fit: cover;
     border-radius: 10px;
 }
 
-/* Títulos do Modal */
 .Modal-Infos h2 {
     font-family: var(--fonte-titulos);
-    font-size: 2rem; /* Reduzido de 2.5rem */
+    font-size: 2rem; 
     font-weight: 500;
     letter-spacing: 0.03em;
     color: var(--cor-marrom);
@@ -312,26 +317,25 @@
 }
 
 #modal-nome {
-    /* Mantém compatibilidade caso use ID */
     font-size: 2rem;
 }
 
 .Modal-Resumo {
-    font-size: 1rem; /* Reduzido de 1.2rem */
+    font-size: 1.2rem; 
     color: var(--cor-verde);
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Grid de Detalhes "Lite" */
 .Modal-Detalhes-Tecnicos {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    background-color: #f8f9fa; /* Fundo bem clarinho */
-    padding: 10px;
+    background-color: var(--cor-cinza-input); 
+    padding: 2px;
     border-radius: 8px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .Item-Detalhe {
@@ -342,21 +346,17 @@
 
 .Item-Detalhe strong {
     color: var(--cor-verde-escuro);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    margin-bottom: 2px;
+    font-size: 1rem;
 }
 
-/* Novo Botão "Quero Conhecer" */
 .Botao-Conhecer {
     background-color: var(--cor-laranja);
-    color: white;
+    color: var(--cor-branco);
     width: 100%;
     padding: 12px;
     border-radius: 50px;
     text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-weight: 500;
     text-decoration: none;
     display: block;
     margin-top: 10px;
@@ -368,12 +368,6 @@
     letter-spacing: 0.05em;
 }
 
-.Botao-Conhecer:hover {
-    background-color: #e67e22;
-    transform: scale(1.02);
-}
-
-/* Removemos estilos antigos de botões que não usamos mais no modal */
 .Modal-Botoes {
     margin-top: 10px;
 }
@@ -386,23 +380,23 @@
     align-items: center;
     gap: 20px;
     margin-top: 40px;
-    font-family: var(--fonte-titulos);
+    font-family: var(--fonte-textos);
 }
 
 .paginacao-container button {
     background-color: var(--cor-branco);
     border: 2px solid var(--cor-laranja);
     color: var(--cor-preto);
-    padding: 10px 20px;
-    border-radius: 50px;
+    padding: 10px 17px;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1rem;
     transition: all 0.3s;
 }
 
 .paginacao-container button:hover:not(:disabled) {
     background-color: var(--cor-laranja);
-    color: white;
+    color: var(--cor-branco);
 }
 
 .paginacao-container button:disabled {
@@ -413,6 +407,7 @@
 
 #indicador-paginacao {
     font-size: 1.2rem;
+    font-weight: 500;
     color: var(--cor-marrom);
 }
 
@@ -639,9 +634,16 @@
     .Modal-Imagem { flex: 1; }
     .Modal-Infos { flex: 1; padding-left: 20px; }
     */
+    .Botao-Conhecer:hover {
+        background-color: var(--cor-marrom);
+        transform: scale(1.02);
+    }
 
     .Fechar-Modal:hover {
-        color: var(--cor-laranja);
+        background-color: var(--cor-vermelho); /* Fica vermelho ao passar o mouse */
+        color: white;
+        transform: rotate(90deg) scale(1.1); /* Gira e cresce um pouquinho */
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
 }
 

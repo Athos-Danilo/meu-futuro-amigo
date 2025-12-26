@@ -129,7 +129,7 @@ function abrirModal(nomeAnimal) {
 
     const btnConhecer = document.createElement('a');
     btnConhecer.className = 'Botao-Conhecer';
-    btnConhecer.innerText = 'Quero Conhecer +';
+    btnConhecer.innerText = 'Quero Conhecer Mais';
     // Link temporário até criarmos a página
     btnConhecer.href = `detalhes.html?animal=${encodeURIComponent(animal.nome)}`;
     
