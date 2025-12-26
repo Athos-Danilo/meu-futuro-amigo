@@ -241,7 +241,7 @@
     letter-spacing: 0.03em;
 }
 
-/* -------- Modal da Janela de Detalhes -------- */
+/* -------- Modal "Lite" (Versão Limpa) -------- */
 .Modal-Fundo {
     position: fixed;
     top: 0;
@@ -277,132 +277,106 @@
     position: absolute;
     top: -5px;
     right: 10px;
-    font-size: 3rem;
+    font-size: 2.5rem; /* Menor que antes */
     font-weight: 900;
     color: var(--cor-cinza-botao);
     cursor: pointer;
     line-height: 1;
     transition: background-color 0.3s ease;
+    z-index: 20;
 }
 
 .Modal-Grid {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px; /* Menor gap */
 }
 
+/* Área da Foto */
 .Modal-Imagem img {
     width: 100%;
-    height: 100px;
+    height: 250px; /* Um pouco maior para destacar a foto */
     object-fit: cover;
     border-radius: 10px;
 }
 
+/* Títulos do Modal */
 .Modal-Infos h2 {
     font-family: var(--fonte-titulos);
-    font-size: 2.5rem;
+    font-size: 2rem; /* Reduzido de 2.5rem */
     font-weight: 500;
     letter-spacing: 0.03em;
     color: var(--cor-marrom);
     margin-bottom: 5px;
+    line-height: 1.1;
+}
+
+#modal-nome {
+    /* Mantém compatibilidade caso use ID */
+    font-size: 2rem;
 }
 
 .Modal-Resumo {
-    font-size: 1.2rem;
+    font-size: 1rem; /* Reduzido de 1.2rem */
     color: var(--cor-verde);
     font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.Modal-Detalhes-Tecnicos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    background-color: var(--cor-cinza-input);
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.Item-Detalhe strong {
-    color: var(--cor-preto);
-}
-
-.Modal-Historia h3 {
-    font-family: var(--fonte-titulos);
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: var(--cor-laranja);
     margin-bottom: 10px;
 }
 
-.Modal-Historia p {
-    line-height: 1.5;
-    text-align: justify;
-    margin-bottom: 30px;
+/* Grid de Detalhes "Lite" */
+.Modal-Detalhes-Tecnicos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background-color: #f8f9fa; /* Fundo bem clarinho */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-.Botao-Adotar-Modal {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background-color: var(--cor-verde); 
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    font-family: var(--fonte-titulos);
-    font-size: 1.6rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    transition: background-color 0.2s;
-}
-
-/* Container para os botões ficarem alinhados */
-.Modal-Botoes {
+.Item-Detalhe {
     display: flex;
-    flex-direction: column; /* Um embaixo do outro no celular */
-    gap: 15px;
-    margin-top: 25px;
+    flex-direction: column; /* Rótulo em cima */
+    font-size: 0.9rem; /* Letra menor */
 }
 
-/* O Botão de Adotar você já tem, mas vamos garantir que ele ocupe largura total */
-.Botao-Adotar-Modal {
-    margin-top: 0; /* Removemos a margem antiga pois o container já tem */
+.Item-Detalhe strong {
+    color: var(--cor-verde-escuro);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+/* Novo Botão "Quero Conhecer" */
+.Botao-Conhecer {
+    background-color: var(--cor-laranja);
+    color: white;
     width: 100%;
-    text-align: center;
-}
-
-/* O NOVO Botão de Compartilhar */
-.Botao-Compartilhar {
-    background-color: transparent;
-    border: 2px solid var(--cor-laranja);
-    color: var(--cor-laranja);
-    font-family: var(--fonte-titulos);
-    font-size: 1.2rem;
     padding: 12px;
     border-radius: 50px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+    transition: transform 0.2s;
+    border: none;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s;
-    width: 100%;
+    font-family: var(--fonte-titulos);
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
 }
 
-.Botao-Compartilhar:hover {
-    background-color: var(--cor-bege);
-    transform: translateY(-2px);
+.Botao-Conhecer:hover {
+    background-color: #e67e22;
+    transform: scale(1.02);
 }
 
-.Botao-Compartilhar svg {
-    width: 20px;
-    height: 20px;
+/* Removemos estilos antigos de botões que não usamos mais no modal */
+.Modal-Botoes {
+    margin-top: 10px;
 }
-
-
 
 
 /* -------- Paginação da Tela -------- */
@@ -443,15 +417,12 @@
 }
 
 /* ================= GALERIA & LIGHTBOX ================= */
-
-/* --- 1. Galeria no Modal (Setas e Posição) --- */
 .Galeria-Wrapper {
-    position: relative; /* Para as setas ficarem "presas" aqui dentro */
+    position: relative;
     width: 100%;
     height: 100%;
 }
 
-/* Estilo das Setas */
 .seta-galeria {
     position: absolute;
     top: 50%;
@@ -464,7 +435,7 @@
     cursor: pointer;
     border-radius: 5px;
     transition: background 0.3s;
-    user-select: none; /* Impede selecionar o texto da seta */
+    user-select: none;
     z-index: 10;
 }
 
@@ -475,7 +446,6 @@
 .seta-galeria.anterior { left: 10px; }
 .seta-galeria.proxima { right: 10px; }
 
-/* Contador de fotos (ex: 1/3) */
 #contador-fotos {
     position: absolute;
     bottom: 10px;
@@ -488,57 +458,17 @@
     font-family: var(--fonte-textos);
 }
 
-/* Cursor de lupa na foto para indicar que dá zoom */
 #modal-img {
     cursor: zoom-in;
 }
 
-/* --- 2. Lightbox (Tela Cheia) --- */
-.Lightbox-Fundo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.95); /* Fundo bem escuro */
-    z-index: 5000; /* Acima de tudo, até do modal */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: zoom-out;
-}
-
-.Lightbox-Fundo img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    animation: zoomEntrada 0.3s ease;
-}
-
-.Fechar-Lightbox {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 3rem;
-    cursor: pointer;
-}
-
-@keyframes zoomEntrada {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
 /* ================= CORREÇÃO DO FANCYBOX ================= */
-/* Força a galeria a ficar na frente do nosso Modal (que tem z-index 3000) */
 .fancybox__container {
     z-index: 10000 !important; 
 }
 
 /* ================= NOVOS DETALHES (Status, Data e Saúde) ================= */
-
-/* --- 1. Etiqueta de Status (No Card) --- */
+/* Status Tag */
 .status-tag {
     position: absolute;
     top: 15px;
@@ -549,17 +479,17 @@
     font-weight: 800;
     color: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 20; /* Fica acima da foto */
+    z-index: 20; 
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-family: var(--fonte-textos);
 }
 
-.status-verde { background-color: #28a745; } /* Disponível */
-.status-amarelo { background-color: #ffc107; color: #333; } /* Concorrido */
-.status-vermelho { background-color: #dc3545; } /* Muito Disputado */
+.status-verde { background-color: #28a745; } 
+.status-amarelo { background-color: #ffc107; color: #333; } 
+.status-vermelho { background-color: #dc3545; } 
 
-/* --- 2. Ícones de Saúde (No Modal e Card) --- */
+/* Ícones de Saúde (Ainda usados na Página Principal, mantemos aqui) */
 .saude-container {
     display: flex;
     gap: 15px;
@@ -574,19 +504,19 @@
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--cor-cinza-botao);
-    opacity: 0.4; /* Padrão: apagado */
+    opacity: 0.4;
     filter: grayscale(100%);
 }
 
 .item-saude.ativo {
-    opacity: 1; /* Aceso */
+    opacity: 1;
     filter: none;
     color: var(--cor-verde-escuro);
 }
 
 .item-saude span { font-size: 1.3rem; }
 
-/* --- 3. Data de Adição (Rodapé do Card) --- */
+/* Data de Adição */
 .data-adicao {
     font-size: 0.85rem;
     color: #888;
@@ -594,30 +524,39 @@
     font-style: italic;
 }
 
+/* --- Novo Box de Status (Estilo Notificação Clean) --- */
+.modal-status-alerta {
+    background-color: var(--cor-bege);
+    color: var(--cor-marrom); /* Contraste bom com o bege */
+    padding: 15px;
+    border-radius: 15px; /* Bordas arredondadas igual aos inputs */
+    text-align: center;
+    font-family: var(--fonte-textos);
+    font-size: 1.1rem;
+    font-weight: 700; /* Negrito para destacar */
+    margin-top: 5px;
+    margin-bottom: 20px; /* Espaço para separar do botão */
+    border: 1px solid rgba(139, 69, 19, 0.1); /* Borda sutil marrom */
+}
 
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
-    /* ---------- Seção: Cabeçalho ---------- */
-    .titulo {
-        font-size: 2rem;
-        margin-bottom: 5;
-    }
+    /* ... Seção Cabeçalho ... */
+    .titulo { font-size: 2rem; margin-bottom: 5; }
 
-    /* ---------- Esconde a setinha so select ---------- */
     select {
-    appearance: none;       /* Padrão moderno */
-    -webkit-appearance: none; /* Safari/Chrome */
-    -moz-appearance: none;    /* Firefox */
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 
-    /* ---------- Botão "Filtrar Animais" ---------- */
     .botao-abrir-filtros {
         font-size: 1.4rem;
         gap: 15px;
         margin: 20px auto 0 auto; 
     }
 
-    /* ---------- Container dos Filtros ---------- */
+    /* ... Filtros ... */
     .container-filtros {
         width: 600px;  
         height: auto;  
@@ -672,11 +611,9 @@
         background-color: var(--cor-marrom);
     }
 
-    .grupo-filtro {
-        width: 100%;
-    }
+    .grupo-filtro { width: 100%; }
     
-    /* ---------- Grid dos Cards  ---------- */
+    /* ... Grid Cards ... */
     .Grid-Animais {
         grid-template-columns: repeat(3, 1fr); 
     }
@@ -690,34 +627,28 @@
         color: var(--cor-preto);
     }
 
-
-    /* -------- Mensagem de Sem Resultados com os Filtros -------- */
+    /* ... Modal Desktop ... */
     .Modal-Grid {
-        flex-direction: row; /* Modal lado a lado */
-        align-items: start;
+        flex-direction: column; /* Voltamos para coluna no Modal Lite */
+        align-items: stretch;
     }
     
+    /* Se quiser modal lado a lado no PC, descomente abaixo */
+    /*
+    .Modal-Grid { flex-direction: row; }
     .Modal-Imagem { flex: 1; }
-    .Modal-Imagem img { height: 100%; min-height: 400px; }
     .Modal-Infos { flex: 1; padding-left: 20px; }
-
-    .Botao-Adotar-Modal:hover {
-        background-color: var(--cor-marrom);
-    }
+    */
 
     .Fechar-Modal:hover {
-    color: var(--cor-laranja);
-    }
-
-    .Modal-Botoes {
-        flex-direction: row; /* Lado a lado no PC */
+        color: var(--cor-laranja);
     }
 }
 
 
 /* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
 @media (min-width: 1400px) {
-    /* ---------- Seção: Cabeçalho ---------- */
+    /* ... Cabeçalho ... */
     .apresetacao {
         padding: 25px 50px 25px 50px; 
         border-radius: 0; 
@@ -725,10 +656,7 @@
         text-align: center; 
     }
 
-    .titulo {
-        font-size: 3rem;
-        text-align: center;
-    }
+    .titulo { font-size: 3rem; text-align: center; }
 
     .subtitulo {
         font-size: 1.6rem;
@@ -739,7 +667,7 @@
 
     .botao-abrir-filtros { display: none; }
 
-    /* ---------- Barra de Filtros ---------- */
+    /* ... Barra de Filtros ... */
     .container-filtros,
     .container-filtros.aberto { 
         position: static;
@@ -826,53 +754,23 @@
         text-align-last: center; 
     }
 
-    #cidade {
-        width: 200px;
-        padding-right: 15px; 
-    }
+    #cidade { width: 200px; padding-right: 15px; }
+    #filtro-especie { width: 120px; padding-right: 7px; }
+    #filtro-porte { width: 120px; }
+    #filtro-sexo { width: 100px; padding-right: 7px; }
+    #filtro-idade { width: 135px; padding-right: 5px; }
+    #filtro-origem { width: 100px; padding-right: 7px; }
     
-    #filtro-especie {
-        width: 120px;
-        padding-right: 7px;
-    }
-
-    #filtro-porte {
-        width: 120px;
-    }
-
-    #filtro-sexo {
-        width: 100px;
-        padding-right: 7px;
-    }
-
-    #filtro-idade {
-        width: 135px;
-        padding-right: 5px;
-    }
-
-    #filtro-origem {
-        width: 100px;
-        padding-right: 7px;
-    }
-    
-    /* ---------- Grid dos Cards  ---------- */
+    /* ... Grid Cards ... */
     .Grid-Animais {
         grid-template-columns: repeat(4, 1fr); 
         gap: 40px;
     }
 
-    .info-card h3 {
-        font-size: 2rem;
-        margin-bottom: 7px;
-    }
+    .info-card h3 { font-size: 2rem; margin-bottom: 7px; }
+    .info-card p { font-size: 1.2rem; margin-bottom: 7px; line-height: 1; }
 
-    .info-card p {
-        font-size: 1.2rem;
-        margin-bottom: 7px;
-        line-height: 1;
-    }
-
-    /* -------- Mensagem de Sem Resultados com os Filtros -------- */
+    /* ... Mensagem ... */
     #mensagem-sem-resultados {
         padding: 40px 260px;
         font-size: 1.8rem;
@@ -881,7 +779,4 @@
     #mensagem-sem-resultados button {
         border-radius: 15px;
     }
-
-
-    
 }

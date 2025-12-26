@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encontre seu novo melhor amigo. Adote cães e gatos em Pernambuco.">
     <title>Adotar | Meu Futuro Amigo</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/adotar.css">
@@ -110,7 +113,6 @@
                 <button id="btn-prox" onclick="mudarPagina(1)">Próxima ❯</button>
             </div>
         </section>
-
     </main>
 
     <div id="modal-animal" class="Modal-Fundo" style="display: none;">
@@ -121,49 +123,19 @@
                 <div class="Modal-Imagem">
                     <div class="Galeria-Wrapper">
                         <button class="seta-galeria anterior" onclick="mudarFoto(-1)">❮</button>
-                        
-                        <img id="modal-img" src="" alt="Foto do Animal" onclick="abrirLightbox()">
-                        
+                        <img id="modal-img" src="" alt="Foto do Animal">
                         <button class="seta-galeria proxima" onclick="mudarFoto(1)">❯</button>
-                        
-                        <span id="contador-fotos">1 / 3</span>
+                        <span id="contador-fotos">1 / 1</span>
                     </div>
                 </div>
                 
                 <div class="Modal-Infos">
-                    <h2 id="modal-nome">Nome do Pet</h2>
-                    <p id="modal-resumo" class="Modal-Resumo">Resumo...</p>
+                    <h2 id="modal-nome">...</h2>
+                    <p id="modal-resumo" class="Modal-Resumo">...</p>
                     
-                    <div class="Modal-Detalhes-Tecnicos">
-                        <div class="Item-Detalhe"><strong>Espécie:</strong> <span id="modal-especie">...</span></div>
-                        <div class="Item-Detalhe"><strong>Sexo:</strong> <span id="modal-sexo">...</span></div>
-                        <div class="Item-Detalhe"><strong>Porte:</strong> <span id="modal-porte">...</span></div>
-                        <div class="Item-Detalhe"><strong>Idade:</strong> <span id="modal-idade">...</span></div>
-                        <div class="Item-Detalhe"><strong>Local:</strong> <span id="modal-local">...</span></div>
-                        <div class="Item-Detalhe"><strong>Origem:</strong> <span id="modal-origem">...</span></div>
-                    </div>
+                    <div class="Modal-Detalhes-Tecnicos"></div>
 
-                    <div class="Modal-Historia">
-                        <h3>Minha História:</h3>
-                        <p id="modal-historia">Texto da história aqui...</p>
-                    </div>
-
-                    <div class="Modal-Botoes">
-                        <a href="#" target="_blank" class="Botao-Adotar-Modal">
-                            Quero Adotar!
-                        </a>
-
-                        <button id="btn-compartilhar" class="Botao-Compartilhar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="18" cy="5" r="3"></circle>
-                                <circle cx="6" cy="12" r="3"></circle>
-                                <circle cx="18" cy="19" r="3"></circle>
-                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                            </svg>
-                            Compartilhar com Amigo
-                        </button>
-                    </div>
+                    <div class="Modal-Botoes"></div>
                 </div>
             </div>
         </div>
@@ -171,9 +143,9 @@
 
     <div id="footer"></div>
 
-</body>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/footer.js"></script>
     <script src="../js/adotar.js"></script>
+</body>
 </html>

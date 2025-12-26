@@ -61,12 +61,12 @@ function formatarData(dataISO) {
 }
 
 function gerarStatusHTML(interessados) {
+    // Retorna apenas o TEXTO, pois o estilo bege será fixo do container
     if (!interessados || interessados === 0) {
-        return `<span class="status-tag status-verde">Disponível ✨</span>`;
-    } else if (interessados < 5) {
-        return `<span class="status-tag status-amarelo">${interessados} na fila ⚠️</span>`;
+        return "Este amigo está disponível para adoção!";
     } else {
-        return `<span class="status-tag status-vermelho">Muito Disputado 🔥</span>`;
+        const p = interessados === 1 ? 'pessoa' : 'pessoas';
+        return `Atenção: Há ${interessados} ${p} na fila de interesse.`;
     }
 }
 
@@ -81,83 +81,68 @@ function gerarSaudeHTML(saude) {
     `;
 }
 
-
-/* --- 2. LÓGICA DO MODAL --- */
+/* --- 2. LÓGICA DO MODAL (ATUALIZADA) --- */
 const modalAnimal = document.getElementById('modal-animal');
 
 function abrirModal(nomeAnimal) {
     const animal = animais.find(a => a.nome === nomeAnimal);
     if (!animal) return;
 
-    // --- CONFIGURAÇÃO DA GALERIA ---
+    // 1. Galeria
     fotosAtuais = Array.isArray(animal.fotos) ? animal.fotos : [animal.foto];
     indiceFotoAtual = 0; 
     atualizarVisualizacaoGaleria(); 
 
-    // --- TEXTOS BÁSICOS ---
+    // 2. Textos Básicos
     document.getElementById('modal-nome').innerText = animal.nome;
     document.getElementById('modal-resumo').innerText = animal.especie; 
-    document.getElementById('modal-historia').innerText = animal.historia || `A história de ${animal.nome} está sendo escrita...`;
+    
+    // Esconde história (como já tínhamos feito)
+    const divHistoria = document.querySelector('.Modal-Historia');
+    if (divHistoria) divHistoria.style.display = 'none';
 
-    // --- RECONSTRUÇÃO DA GRADE DE DETALHES (Com Data e Status) ---
+    // 3. Grid Técnica (4 itens)
     const gridDetalhes = document.querySelector('.Modal-Detalhes-Tecnicos');
-    const dataFormatada = formatarData(animal.dataAdicao);
-    const textoFila = animal.interessados ? `${animal.interessados} pessoas na fila` : "Ninguém na fila (Seja o primeiro!)";
-
     gridDetalhes.innerHTML = `
-        <div class="Item-Detalhe"><strong>Raça:</strong> <span>${animal.raca}</span></div>
-        <div class="Item-Detalhe"><strong>Sexo:</strong> <span>${animal.sexo}</span></div>
-        <div class="Item-Detalhe"><strong>Porte:</strong> <span>${animal.porte}</span></div>
-        <div class="Item-Detalhe"><strong>Idade:</strong> <span>${animal.idade}</span></div>
-        <div class="Item-Detalhe"><strong>Local:</strong> <span>${animal.local}</span></div>
-        <div class="Item-Detalhe"><strong>Origem:</strong> <span>${animal.origem || "Ong"}</span></div>
-        
-        <div class="Item-Detalhe"><strong>Desde:</strong> <span>${dataFormatada}</span></div>
-        <div class="Item-Detalhe" style="grid-column: 1 / -1; background-color: #fff3cd; border-color: #ffeeba;">
-            <strong style="color: #856404;">Status:</strong> 
-            <span style="color: #856404;">${textoFila}</span>
-        </div>
+        <div class="Item-Detalhe"><strong>Raça</strong> <span>${animal.raca}</span></div>
+        <div class="Item-Detalhe"><strong>Sexo</strong> <span>${animal.sexo}</span></div>
+        <div class="Item-Detalhe"><strong>Local</strong> <span>${animal.local}</span></div>
+        <div class="Item-Detalhe"><strong>Idade</strong> <span>${animal.idade}</span></div>
     `;
 
-    // --- ÍCONES DE SAÚDE ---
-    let divSaude = document.getElementById('modal-saude-area');
-    if (!divSaude) {
-        divSaude = document.createElement('div');
-        divSaude.id = 'modal-saude-area';
-        document.getElementById('modal-resumo').after(divSaude);
+    // 4. STATUS (A NOVA CAIXA BEGE)
+    // Verifica se já existe a caixa, se não, cria.
+    let divStatus = document.getElementById('modal-status-area');
+    if (!divStatus) {
+        divStatus = document.createElement('div');
+        divStatus.id = 'modal-status-area';
+        divStatus.className = 'modal-status-alerta'; // A classe CSS nova
+        gridDetalhes.after(divStatus); // Insere DEPOIS da grid
     }
-    divSaude.innerHTML = gerarSaudeHTML(animal.saude);
+    // Preenche com o texto
+    divStatus.innerText = gerarStatusHTML(animal.interessados);
 
-    // --- BOTÕES ---
-    const btnAdotar = document.querySelector('.Botao-Adotar-Modal');
-    if (btnAdotar) {
-        const msgZap = `Olá! Vi o ${animal.nome} no site e fiquei interessado na adoção. (Fila: ${animal.interessados || 0})`;
-        btnAdotar.href = `https://wa.me/5587999999999?text=${encodeURIComponent(msgZap)}`;
-    }
 
-    const btnCompartilhar = document.getElementById('btn-compartilhar');
-    if (btnCompartilhar) {
-        btnCompartilhar.onclick = null; 
-        btnCompartilhar.onclick = async () => {
-            const shareData = {
-                title: `Adote o ${animal.nome}! 🐾`,
-                text: `Gente, olha que amor! 💖 Encontrei o ${animal.nome} (${animal.especie} - ${animal.raca}) no site "Meu Futuro Amigo". Ele está em ${animal.local}. Vamos ajudar ele a achar um lar?`,
-                url: window.location.href 
-            };
-            if (navigator.share) {
-                try { await navigator.share(shareData); } catch (err) { console.log(err); }
-            } else {
-                const textoCompleto = `${shareData.text} \nVeja mais em: ${shareData.url}`;
-                navigator.clipboard.writeText(textoCompleto).then(() => {
-                    alert('Link copiado! 📋');
-                });
-            }
-        };
-    }
+    // 5. Botão "Quero Conhecer"
+    const containerBotoes = document.querySelector('.Modal-Botoes') || document.querySelector('.Botao-Adotar-Modal').parentElement;
+    containerBotoes.innerHTML = ''; 
+
+    const btnConhecer = document.createElement('a');
+    btnConhecer.className = 'Botao-Conhecer';
+    btnConhecer.innerText = 'Quero Conhecer +';
+    // Link temporário até criarmos a página
+    btnConhecer.href = `detalhes.html?animal=${encodeURIComponent(animal.nome)}`;
+    
+    containerBotoes.appendChild(btnConhecer);
+
+    // Limpeza extra
+    const areaSaude = document.getElementById('modal-saude-area');
+    if(areaSaude) areaSaude.remove();
 
     modalAnimal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
+
 
 // --- FUNÇÕES DA GALERIA NO MODAL ---
 function atualizarVisualizacaoGaleria() {
@@ -354,7 +339,7 @@ function renderizarPagina() {
         const cardHTML = `
             <div class="cartao-animal" onclick="abrirModal('${animal.nome}')">
                 <div style="position: relative;">
-                    ${htmlStatus} <img src="${fotoCapa}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
+                    <img src="${fotoCapa}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
                 </div>
                 <div class="info-card">
                     <h3>${animal.nome}</h3>
