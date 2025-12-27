@@ -121,6 +121,7 @@
     border-radius: 50px;
     cursor: pointer;
     margin-bottom: -15px;
+    transition: all 0.3s ease; 
 }
 
 .grupo-filtro {
@@ -296,7 +297,7 @@
 .Modal-Grid {
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 7px; 
 }
 
 .Modal-Imagem img {
@@ -314,6 +315,7 @@
     color: var(--cor-marrom);
     margin-bottom: 5px;
     line-height: 1.1;
+    text-align: center;
 }
 
 #modal-nome {
@@ -325,6 +327,7 @@
     color: var(--cor-verde);
     font-weight: bold;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .Modal-Detalhes-Tecnicos {
@@ -340,8 +343,8 @@
 
 .Item-Detalhe {
     display: flex;
-    flex-direction: column; /* Rótulo em cima */
-    font-size: 0.9rem; /* Letra menor */
+    flex-direction: column; 
+    font-size: 0.9rem; 
 }
 
 .Item-Detalhe strong {
@@ -371,7 +374,6 @@
 .Modal-Botoes {
     margin-top: 10px;
 }
-
 
 /* -------- Paginação da Tela -------- */
 .paginacao-container {
@@ -411,7 +413,7 @@
     color: var(--cor-marrom);
 }
 
-/* ================= GALERIA & LIGHTBOX ================= */
+/* ---------- Galeria ---------- */
 .Galeria-Wrapper {
     position: relative;
     width: 100%;
@@ -425,17 +427,13 @@
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
     border: none;
-    font-size: 2rem;
-    padding: 10px 15px;
+    font-size: 1.6rem;
+    padding: 5px 6px;
     cursor: pointer;
     border-radius: 5px;
     transition: background 0.3s;
     user-select: none;
     z-index: 10;
-}
-
-.seta-galeria:hover {
-    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .seta-galeria.anterior { left: 10px; }
@@ -449,7 +447,7 @@
     color: white;
     padding: 5px 10px;
     border-radius: 15px;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-family: var(--fonte-textos);
 }
 
@@ -457,81 +455,23 @@
     cursor: zoom-in;
 }
 
-/* ================= CORREÇÃO DO FANCYBOX ================= */
 .fancybox__container {
     z-index: 10000 !important; 
 }
 
-/* ================= NOVOS DETALHES (Status, Data e Saúde) ================= */
-/* Status Tag */
-.status-tag {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    padding: 6px 15px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 20; 
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-family: var(--fonte-textos);
-}
-
-.status-verde { background-color: #28a745; } 
-.status-amarelo { background-color: #ffc107; color: #333; } 
-.status-vermelho { background-color: #dc3545; } 
-
-/* Ícones de Saúde (Ainda usados na Página Principal, mantemos aqui) */
-.saude-container {
-    display: flex;
-    gap: 15px;
-    margin-top: 8px;
-    justify-content: center;
-}
-
-.item-saude {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--cor-cinza-botao);
-    opacity: 0.4;
-    filter: grayscale(100%);
-}
-
-.item-saude.ativo {
-    opacity: 1;
-    filter: none;
-    color: var(--cor-verde-escuro);
-}
-
-.item-saude span { font-size: 1.3rem; }
-
-/* Data de Adição */
-.data-adicao {
-    font-size: 0.85rem;
-    color: #888;
-    margin-top: 10px;
-    font-style: italic;
-}
-
-/* --- Novo Box de Status (Estilo Notificação Clean) --- */
+/* ---------- Status Fila Adoção ---------- */
 .modal-status-alerta {
     background-color: var(--cor-bege);
-    color: var(--cor-marrom); /* Contraste bom com o bege */
-    padding: 15px;
-    border-radius: 15px; /* Bordas arredondadas igual aos inputs */
+    color: var(--cor-marrom); 
+    padding: 5px 2px;
+    border-radius: 7px; 
     text-align: center;
     font-family: var(--fonte-textos);
-    font-size: 1.1rem;
-    font-weight: 700; /* Negrito para destacar */
+    font-size: 0.85rem;
+    font-weight: 500; 
     margin-top: 5px;
-    margin-bottom: 20px; /* Espaço para separar do botão */
-    border: 1px solid rgba(139, 69, 19, 0.1); /* Borda sutil marrom */
+    margin-bottom: 10px; 
+    border: 1px solid rgba(139, 69, 19, 0.1); 
 }
 
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
@@ -578,6 +518,7 @@
 
     .botao-fechar-filtros:hover {
         background-color: var(--cor-laranja);
+        transform: scale(1.1); 
     }
     
     .grupo-filtro label {
@@ -644,6 +585,26 @@
         color: white;
         transform: rotate(90deg) scale(1.1); /* Gira e cresce um pouquinho */
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* ---------- Galeria ---------- */
+    .seta-galeria {
+        font-size: 1.8rem;
+        padding: 7px 7px;
+    }
+
+    .seta-galeria:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    #contador-fotos {
+        font-size: 0.9rem;
+    }
+
+    /* ---------- Status Fila Adoção ---------- */
+    .modal-status-alerta {
+        font-size: 1.1rem;
+        font-weight: 600; 
     }
 }
 
@@ -781,4 +742,10 @@
     #mensagem-sem-resultados button {
         border-radius: 15px;
     }
+
+    /* ---------- Status Fila Adoção ---------- */
+    .modal-status-alerta {
+        margin-top: 15px;
+        margin-bottom: 15px; 
+    }   
 }
