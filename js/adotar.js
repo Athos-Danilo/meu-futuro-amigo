@@ -396,7 +396,6 @@ function limparFiltros() {
 }
 
 
-
 /* ------------------------- INICIALIZAÇÃO E EVENTOS ------------------------- */
 // Executa assim que o HTML termina de carregar. Prepara os selects, datalists e eventos iniciais.
 document.addEventListener('DOMContentLoaded', () => {
