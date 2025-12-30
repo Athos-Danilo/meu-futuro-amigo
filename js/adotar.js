@@ -128,18 +128,34 @@ function abrirModal(nomeAnimal) {
         if (divStatus) divStatus.remove();
     }
 
-    // Funcionalidade do Botão "Quero Conhecer Mais".
+    // Dois caminhos para o botão "Quero Conhecer Mais".
     const containerBotoes = document.querySelector('.Modal-Botoes') || document.querySelector('.Botao-Adotar-Modal').parentElement;
-
     containerBotoes.innerHTML = ''; 
 
     const btnConhecer = document.createElement('a');
     btnConhecer.className = 'Botao-Conhecer';
     btnConhecer.innerText = 'Quero Conhecer Mais';
     
-    // Gera o link para a página de detalhes passando o ID via URL
+    // Gera o link base com o ID.
     const paramUrl = animal.id ? `id=${animal.id}` : `animal=${encodeURIComponent(animal.nome)}`;
-    btnConhecer.href = `detalhes.html?${paramUrl}`;
+    const urlDestino = `detalhes.html?${paramUrl}`;
+    
+    // Define o href padrão.
+    btnConhecer.href = urlDestino;
+
+    // Intercepta o clique para decidir como abrir.
+    btnConhecer.onclick = (evento) => {
+        evento.preventDefault(); 
+
+        // Se a tela for maior ou igual a 900px (Notebook/PC) -> Abre Nova Aba.
+        if (window.innerWidth >= 900) {
+            window.open(urlDestino, '_blank');
+        } 
+        // Se for menor (Celular/Tablet em pé) -> Mesma aba.
+        else {
+            window.location.href = urlDestino;
+        }
+    };
     
     containerBotoes.appendChild(btnConhecer);
 
@@ -380,6 +396,20 @@ function aplicarFiltros() {
     
     // Se estiver no celular/tablet, fecha o menu lateral automaticamente após filtrar.
     if (window.innerWidth < 1400) toggleFiltros();
+
+    // Salva os filtros na memória da sessão do usuário.
+    const filtrosSalvos = {
+        cidade: cidadeValor,
+        especie: especieValor,
+        porte: porteValor,
+        sexo: sexoValor,
+        idade: idadeValor,
+        origem: origemValor,
+        racaCachorro: document.getElementById('filtro-raca-cachorro').value,
+        racaGato: document.getElementById('filtro-raca-gato').value
+    };
+
+    sessionStorage.setItem('meusFiltros', JSON.stringify(filtrosSalvos));
 }
 
 // Função que limpa todos os campos de busca e restaura a lista completa.
@@ -393,6 +423,7 @@ function limparFiltros() {
     
     // Restaura a lista original completa (variável 'animais' do dados.js)
     atualizarListaAnimais(animais);
+    sessionStorage.removeItem('meusFiltros');
 }
 
 
@@ -429,7 +460,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (valor === 'Gato') divRacaGato.style.display = 'flex';
     });
 
-    // Calcula itens por página e desenha a lista completa
-    calcularItensPorPagina();
-    atualizarListaAnimais(animais);
+    // Verifica se existe filtro salvo e reaplica.
+    const memoriaFiltros = JSON.parse(sessionStorage.getItem('meusFiltros'));
+    
+    if (memoriaFiltros) {
+        // Preenche os campos com o que estava salvo.
+        document.getElementById('cidade').value = memoriaFiltros.cidade;
+        document.getElementById('filtro-especie').value = memoriaFiltros.especie;
+        document.getElementById('filtro-porte').value = memoriaFiltros.porte;
+        document.getElementById('filtro-sexo').value = memoriaFiltros.sexo;
+        document.getElementById('filtro-idade').value = memoriaFiltros.idade;
+        document.getElementById('filtro-origem').value = memoriaFiltros.origem;
+        document.getElementById('filtro-raca-cachorro').value = memoriaFiltros.racaCachorro;
+        document.getElementById('filtro-raca-gato').value = memoriaFiltros.racaGato;
+
+        // Ajusta a visibilidade das raças (Cão/Gato) visualmente.
+        if (memoriaFiltros.especie === 'Cachorro') divRacaCachorro.style.display = 'flex';
+        if (memoriaFiltros.especie === 'Gato') divRacaGato.style.display = 'flex';
+
+        // Reaplica o filtro automaticamente.
+        aplicarFiltros();
+    } else {
+        // Calcula itens por página e desenha a lista completa.
+        calcularItensPorPagina();
+        atualizarListaAnimais(animais);
+    }
 });
