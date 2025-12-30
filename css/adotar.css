@@ -476,6 +476,38 @@
     border: 1px solid rgba(139, 69, 19, 0.1); 
 }
 
+/* ---------- Botão Para Apagar os Filtros ---------- */
+.botao-limpar-filtros {
+    background-color: var(--cor-cinza-marcacao);
+    color: var(--cor-preto);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-family: var(--fonte-textos);
+    font-size: 1.3rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0px 5px rgba(0,0,0,0.5);
+    transition: transform 0.2s;
+    margin: 20px auto 0 auto; 
+    width: fit-content;
+    justify-content: center;
+}
+
+.botao-limpar-filtros:active {
+    transform: scale(0.95);
+}
+
+/* O botão MOBILE (de fora) só aparece se tiver a classe .ativo */
+#btn-limpar-mobile { display: none; }
+#btn-limpar-mobile.ativo { display: flex; } 
+
+/* O botão DESKTOP (de dentro) NUNCA aparece no celular/tablet, mesmo se tiver .ativo */
+#btn-limpar-desktop { display: none !important; }
+
+
 /* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
 @media (min-width: 900px) {
     /* ---------- Seção: Cabeçalho ---------- */
@@ -660,7 +692,7 @@
         display: block !important;
         width: auto;
         margin: 0;
-        margin-left: 30px;
+        margin-left: 20px;
         background-color: var(--cor-bege); 
         border: 2px solid var(--cor-laranja);
         color: var(--cor-preto);
@@ -750,4 +782,39 @@
         margin-top: 15px;
         margin-bottom: 15px; 
     }   
+
+    /* ---------- Botão de Limpar os Filtros Desktop ---------- */
+    #btn-limpar-desktop {
+        width: auto;
+        margin: 0;
+        margin-left: 20px;
+        background-color: var(--cor-cinza-marcacao); 
+        border: 2px solid var(--cor-laranja);
+        color: var(--cor-preto);
+        font-family: var(--fonte-textos);
+        font-size: 1.3rem;
+        font-weight: 700;
+        white-space: nowrap;
+        padding: 0 20px; 
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        height: 40px; 
+        line-height: 36px; 
+        display: none; 
+        box-shadow: none;
+    }
+
+    #btn-limpar-desktop:hover {
+        background-color: var(--cor-laranja);
+        border: 2px solid var(--cor-laranja);
+        color: var(--cor-branco);
+        transform: scale(0.95);
+    }
+
+    #btn-limpar-mobile.ativo { display: none !important; }
+
+    #btn-limpar-desktop.ativo { 
+        display: inline-block !important; 
+    }
 }

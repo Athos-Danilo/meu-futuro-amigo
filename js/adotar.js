@@ -376,6 +376,29 @@ function aplicarFiltros() {
     if (especieValor === "Cachorro") racaValor = document.getElementById('filtro-raca-cachorro').value;
     else if (especieValor === "Gato") racaValor = document.getElementById('filtro-raca-gato').value;
 
+    // Verifica se tem algum campo dos filtros preenchidos.
+    const temFiltroAtivo = 
+        cidadeValor !== "" ||
+        (especieValor !== "" && especieValor !== "Selecione...") ||
+        (porteValor !== "" && porteValor !== "Todos") ||
+        (sexoValor !== "" && sexoValor !== "Todos") ||
+        (idadeValor !== "" && idadeValor !== "Todas") ||
+        (origemValor !== "" && origemValor !== "Todas") ||
+        (racaValor !== "" && racaValor !== "Todas");
+
+    // Os dois botões de limpar.
+    const btnMobile = document.getElementById('btn-limpar-mobile');
+    const btnDesktop = document.getElementById('btn-limpar-desktop');
+
+    // Se tiver filtro, adiciona a classe .ativo. Se não, remove.
+    if (temFiltroAtivo) {
+        if(btnMobile) btnMobile.classList.add('ativo');
+        if(btnDesktop) btnDesktop.classList.add('ativo');
+    } else {
+        if(btnMobile) btnMobile.classList.remove('ativo');
+        if(btnDesktop) btnDesktop.classList.remove('ativo');
+    }
+
     // Filtragem do Array: O método .filter cria uma nova lista apenas com os aprovados.
     const filtrados = animais.filter(animal => {
         // Verifica cada critério. Se o campo estiver vazio ou "Todos", aceita qualquer valor (true).
@@ -420,10 +443,25 @@ function limparFiltros() {
     document.getElementById('filtro-sexo').value = '';
     document.getElementById('filtro-idade').value = '';
     document.getElementById('filtro-origem').value = '';
+    document.getElementById('filtro-raca-cachorro').value = '';
+    document.getElementById('filtro-raca-gato').value = '';
+
+    // Esconde as divs de raça.
+    document.getElementById('container-raca-cachorro').style.display = 'none';
+    document.getElementById('container-raca-gato').style.display = 'none';
+
+    // Remove a classe .ativo de ambos
+    const btnMobile = document.getElementById('btn-limpar-mobile');
+    const btnDesktop = document.getElementById('btn-limpar-desktop');
+    
+    if(btnMobile) btnMobile.classList.remove('ativo');
+    if(btnDesktop) btnDesktop.classList.remove('ativo');
+    
+    // Apaga os Filtros.
+    sessionStorage.removeItem('meusFiltros');
     
     // Restaura a lista original completa (variável 'animais' do dados.js)
     atualizarListaAnimais(animais);
-    sessionStorage.removeItem('meusFiltros');
 }
 
 
