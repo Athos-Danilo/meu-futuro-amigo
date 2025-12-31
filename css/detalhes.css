@@ -1,0 +1,312 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------- Variáveis do Projeto ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+
+/* --- Fundo e Estrutura Geral --- */
+body {
+    background-color: #f9f9f9;
+    /* Se quiser a imagem de fundo das patinhas, descomente abaixo: */
+    /* background-image: url('../img/patinhas-bg.png'); */
+    /* background-size: 300px; */ 
+    /* opacity: 1; */
+}
+
+.Pagina-Detalhes {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 15px; /* Padding menor no mobile */
+}
+
+/* --- O Cartão Principal (Começa empilhado) --- */
+.Container-Card {
+    background-color: var(--cor-branco);
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 20px; /* Bordas um pouco menores no mobile */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column; /* Um item embaixo do outro */
+    gap: 30px;
+    padding: 25px; /* Espaçamento interno menor */
+    overflow: hidden;
+}
+
+/* --- Coluna da Mídia (Foto/Vídeo) --- */
+.Coluna-Midia {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.Carrossel-Wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Altura menor para caber na tela do celular */
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.Midia-Visualizacao {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Midia-Visualizacao img, 
+.Midia-Visualizacao video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Setas de Navegação */
+.seta-carrossel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border: none;
+    color: white;
+    font-size: 1.5rem; /* Seta um pouco menor */
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.seta-carrossel:active {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--cor-laranja);
+}
+
+.seta-carrossel.anterior { left: 10px; }
+.seta-carrossel.proxima { right: 10px; }
+
+.Contador {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-family: var(--fonte-textos);
+}
+
+/* Tags (Pílulas) */
+.Grid-Tags-Informacao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center; /* Centralizado no mobile */
+}
+
+.Tag-Info {
+    background-color: #FDF5E6;
+    color: var(--cor-marrom);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-family: var(--fonte-textos);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid #EFE0C0;
+}
+
+/* --- Coluna de Texto --- */
+.Coluna-Texto {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center; /* Texto centralizado no mobile */
+}
+
+.Nome-Animal {
+    font-family: var(--fonte-titulos);
+    font-size: 2.5rem; /* Nome menor no mobile */
+    color: var(--cor-laranja);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.Historia-Box h3 {
+    font-family: var(--fonte-titulos);
+    color: var(--cor-marrom);
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.Historia-Box p {
+    font-family: var(--fonte-textos);
+    color: #555;
+    line-height: 1.5;
+    font-size: 1rem;
+    text-align: justify; /* Texto justificado fica melhor leitura */
+}
+
+.Area-Acao {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.Botao-Adotar-Gigante {
+    display: block;
+    width: 100%;
+    max-width: 350px; /* Não deixa ficar gigante em tablets pequenos */
+    background-color: var(--cor-verde);
+    color: white;
+    font-family: var(--fonte-titulos);
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 12px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 10px rgba(107, 142, 35, 0.3);
+}
+
+.Botao-Adotar-Gigante:active {
+    transform: scale(0.98);
+}
+
+.Status-Fila-Texto {
+    font-family: var(--fonte-textos);
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+/* ---------------------------------------- Ajustes para Telas Médias e Grandes (PC/Tablet Horizontal) ---------------------------------------- */
+@media (min-width: 900px) {
+    
+    .Pagina-Detalhes {
+        padding: 40px;
+    }
+
+    /* O Cartão vira Grid (Lado a Lado) */
+    .Container-Card {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr; /* Esquerda maior, Direita menor */
+        gap: 40px;
+        padding: 40px;
+        border-radius: 30px;
+    }
+
+    /* --- Ajustes Mídia --- */
+    .Carrossel-Wrapper {
+        height: 400px; /* Altura "full" no PC */
+        border-radius: 20px;
+    }
+
+    .seta-carrossel {
+        font-size: 2rem;
+        padding: 10px 16px;
+    }
+    .seta-carrossel:hover {
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--cor-laranja);
+    }
+
+    .seta-carrossel.anterior { left: 15px; }
+    .seta-carrossel.proxima { right: 15px; }
+
+    .Contador {
+        bottom: 15px;
+        right: 15px;
+        font-size: 0.8rem;
+        padding: 5px 12px;
+    }
+
+    /* Tags alinhadas à esquerda no PC */
+    .Grid-Tags-Informacao {
+        justify-content: flex-start;
+        gap: 10px;
+    }
+    
+    .Tag-Info {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+    }
+
+    /* --- Ajustes Texto --- */
+    .Coluna-Texto {
+        text-align: left; /* Volta o alinhamento para a esquerda */
+        justify-content: space-between; /* Espalha conteúdo verticalmente */
+    }
+
+    .Nome-Animal {
+        font-size: 3.5rem; /* Nome grandão */
+        margin-bottom: 20px;
+    }
+
+    .Historia-Box h3 {
+        font-size: 1.5rem;
+    }
+
+    .Historia-Box p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    .Area-Acao {
+        margin-top: 30px;
+        align-items: center; /* Mantém botão centralizado na coluna dele ou full? */
+        /* Se quiser o botão alinhado à esquerda, mude para flex-start */
+    }
+    
+    .Botao-Adotar-Gigante:hover {
+        transform: translateY(-3px);
+        background-color: #5a781d;
+    }
+}
+
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+@media (min-width: 1400px) {
+    /* Opcional: Aumentar o limite máximo se a tela for muito larga */
+    .Container-Card {
+        max-width: 1200px;
+    }
+}
