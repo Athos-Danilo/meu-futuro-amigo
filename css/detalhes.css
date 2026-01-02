@@ -27,15 +27,26 @@
     --fonte-textos: 'Afacad', sans-serif;
 }
 
-/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+/* ---------------------------------------- Base (Mobile First) ---------------------------------------- */
 
 /* --- Fundo e Estrutura Geral --- */
 body {
-    background-color: #f9f9f9;
-    /* Se quiser a imagem de fundo das patinhas, descomente abaixo: */
-    /* background-image: url('../img/patinhas-bg.png'); */
-    /* background-size: 300px; */ 
-    /* opacity: 1; */
+    background-color: #FFFFFF;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Camada das Patinhas */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../img/Patas.png');
+    background-repeat: repeat;
+    background-size: 450px; /* Tamanho Mobile */
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .Pagina-Detalhes {
@@ -43,35 +54,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 15px; /* Padding menor no mobile */
+    padding: 20px 15px;
+    position: relative;
+    z-index: 1;
 }
 
-/* --- O Cartão Principal (Começa empilhado) --- */
+/* --- O Cartão Principal --- */
 .Container-Card {
     background-color: var(--cor-branco);
     width: 100%;
     max-width: 1100px;
-    border-radius: 20px; /* Bordas um pouco menores no mobile */
+    border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    
+    /* Layout Base: Coluna única */
     display: flex;
-    flex-direction: column; /* Um item embaixo do outro */
+    flex-direction: column;
     gap: 30px;
-    padding: 25px; /* Espaçamento interno menor */
+    padding: 25px;
     overflow: hidden;
 }
 
-/* --- Coluna da Mídia (Foto/Vídeo) --- */
-.Coluna-Midia {
+/* --- As Duas Grandes Colunas (Estrutura) --- */
+.Coluna-Esquerda, 
+.Coluna-Direita {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     width: 100%;
 }
+
+/* --- Estilos da Coluna Esquerda (Mídia e Infos Básicas) --- */
 
 .Carrossel-Wrapper {
     position: relative;
     width: 100%;
-    height: 300px; /* Altura menor para caber na tela do celular */
+    height: 300px;
     border-radius: 15px;
     overflow: hidden;
     background-color: #000;
@@ -92,7 +110,7 @@ body {
     object-fit: cover;
 }
 
-/* Setas de Navegação */
+/* Setas */
 .seta-carrossel {
     position: absolute;
     top: 50%;
@@ -101,26 +119,20 @@ body {
     backdrop-filter: blur(5px);
     border: none;
     color: white;
-    font-size: 1.5rem; /* Seta um pouco menor */
+    font-size: 1.5rem;
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 50%;
     transition: all 0.3s;
     z-index: 10;
 }
-
-.seta-carrossel:active {
-    background: rgba(255, 255, 255, 0.8);
-    color: var(--cor-laranja);
-}
-
+.seta-carrossel:active { background: rgba(255, 255, 255, 0.8); color: var(--cor-laranja); }
 .seta-carrossel.anterior { left: 10px; }
 .seta-carrossel.proxima { right: 10px; }
 
 .Contador {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    bottom: 10px; right: 10px;
     background: rgba(0,0,0,0.6);
     color: white;
     padding: 4px 10px;
@@ -129,12 +141,22 @@ body {
     font-family: var(--fonte-textos);
 }
 
-/* Tags (Pílulas) */
+/* Nome do Animal */
+.Nome-Animal {
+    font-family: var(--fonte-titulos);
+    font-size: 2.5rem;
+    color: var(--cor-laranja);
+    line-height: 1;
+    margin-top: 10px;
+    text-align: center; /* Centralizado no Mobile */
+}
+
+/* Tags */
 .Grid-Tags-Informacao {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: center; /* Centralizado no mobile */
+    justify-content: center; /* Centralizado no Mobile */
 }
 
 .Tag-Info {
@@ -148,27 +170,14 @@ body {
     border: 1px solid #EFE0C0;
 }
 
-/* --- Coluna de Texto --- */
-.Coluna-Texto {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center; /* Texto centralizado no mobile */
-}
-
-.Nome-Animal {
-    font-family: var(--fonte-titulos);
-    font-size: 2.5rem; /* Nome menor no mobile */
-    color: var(--cor-laranja);
-    line-height: 1;
-    margin-bottom: 5px;
-}
+/* --- Estilos da Coluna Direita (História, Saúde, Ação) --- */
 
 .Historia-Box h3 {
     font-family: var(--fonte-titulos);
     color: var(--cor-marrom);
     font-size: 1.4rem;
     margin-bottom: 8px;
+    text-align: center; /* Título centralizado no mobile */
 }
 
 .Historia-Box p {
@@ -176,21 +185,97 @@ body {
     color: #555;
     line-height: 1.5;
     font-size: 1rem;
-    text-align: justify; /* Texto justificado fica melhor leitura */
+    text-align: justify;
 }
 
+/* Saúde (Timeline) */
+.Container-Saude {
+    width: 100%;
+}
+.Box-Saude {
+    background-color: #FFF59D;
+    border-radius: 10px;
+    position: relative;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.Box-Saude::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: 6px; bottom: 6px;
+    border: 2px dashed #FFFFFF;
+    border-radius: 6px;
+    pointer-events: none;
+}
+.Saude-Titulo {
+    font-family: var(--fonte-titulos);
+    color: var(--cor-marrom);
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+}
+.Saude-Texto {
+    font-family: var(--fonte-textos);
+    color: #5d4037;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+.Saude-Timeline {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+    padding-top: 10px;
+}
+.Saude-Timeline::before {
+    content: "";
+    position: absolute;
+    top: 25px; /* Ajuste do alinhamento da linha */
+    left: 10%; right: 10%;
+    height: 2px;
+    background-color: rgba(139, 69, 19, 0.2);
+    z-index: -1;
+}
+.Item-Timeline {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 8px; text-align: center; width: 80px;
+}
+.Bolinha-Status {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    background-color: white; border: 2px solid #ddd;
+}
+.Item-Timeline.ok .Bolinha-Status {
+    background-color: var(--cor-verde);
+    border-color: var(--cor-verde);
+    color: white;
+    box-shadow: 0 3px 6px rgba(107, 142, 35, 0.3);
+}
+.Item-Timeline.pendente .Bolinha-Status {
+    background-color: rgba(255,255,255,0.6);
+    color: #ccc; font-size: 1rem;
+}
+.Label-Status {
+    font-family: var(--fonte-textos);
+    font-weight: 700; font-size: 0.9rem; color: var(--cor-marrom);
+}
+
+/* Ação (Botão + Fila) */
 .Area-Acao {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    align-items: center; /* Botão no meio no mobile */
+    gap: 15px;
 }
 
 .Botao-Adotar-Gigante {
     display: block;
     width: 100%;
-    max-width: 350px; /* Não deixa ficar gigante em tablets pequenos */
+    max-width: 350px;
     background-color: var(--cor-verde);
     color: white;
     font-family: var(--fonte-titulos);
@@ -204,139 +289,9 @@ body {
     border: none;
     box-shadow: 0 4px 10px rgba(107, 142, 35, 0.3);
 }
-
-.Botao-Adotar-Gigante:active {
-    transform: scale(0.98);
-}
+.Botao-Adotar-Gigante:active { transform: scale(0.98); }
 
 .Status-Fila-Texto {
-    font-family: var(--fonte-textos);
-    color: #666;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-/* --- Área de Saúde (Estilo Timeline com Borda Tracejada) --- */
-.Container-Saude {
-    margin-top: 30px;
-    width: 100%;
-}
-
-.Box-Saude {
-    background-color: #FFF59D; /* Amarelo Pastel */
-    border-radius: 10px; /* Borda externa levemente arredondada (5px a 10px) */
-    position: relative; /* Para segurar a borda interna */
-    padding: 25px; /* Espaço para o conteúdo não colar na borda */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-/* O Traçado Interno Branco (Truque do CSS) */
-.Box-Saude::after {
-    content: "";
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
-    border: 2px dashed #FFFFFF; /* O traçado branco */
-    border-radius: 6px;
-    pointer-events: none; /* Deixa clicar no texto através dele */
-}
-
-/* Título e Texto */
-.Saude-Cabecalho {
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2; /* Fica acima da borda tracejada */
-}
-
-.Saude-Titulo {
-    font-family: var(--fonte-titulos);
-    color: var(--cor-marrom);
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.Saude-Texto {
-    font-family: var(--fonte-textos);
-    color: #5d4037; /* Marrom escuro para leitura */
-    font-size: 1rem;
-    line-height: 1.4;
-}
-
-/* A Timeline (Bolinhas) */
-.Saude-Timeline {
-    display: flex;
-    justify-content: space-around; /* Espalha as bolinhas */
-    align-items: flex-start;
-    position: relative;
-    z-index: 2;
-    padding-top: 10px;
-}
-
-/* Linha conectora cinza atrás das bolinhas */
-.Saude-Timeline::before {
-    content: "";
-    position: absolute;
-    top: 15px; /* Altura da linha */
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background-color: rgba(139, 69, 19, 0.1); /* Linha marrom bem clarinha */
-    z-index: -1;
-}
-
-.Item-Timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
-    width: 80px;
-}
-
-.Bolinha-Status {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    background-color: white; /* Fundo padrão */
-    border: 2px solid #ddd;
-    transition: transform 0.2s;
-}
-
-/* Status: OK (Verde) */
-.Item-Timeline.ok .Bolinha-Status {
-    background-color: var(--cor-verde);
-    border-color: var(--cor-verde);
-    color: white;
-    box-shadow: 0 3px 6px rgba(107, 142, 35, 0.3);
-}
-
-/* Status: Pendente (Cinza/Transparente) */
-.Item-Timeline.pendente .Bolinha-Status {
-    background-color: rgba(255,255,255,0.6);
-    color: #ccc;
-    font-size: 1rem;
-}
-
-.Label-Status {
-    font-family: var(--fonte-textos);
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--cor-marrom);
-}
-
-
-/* --- Status da Fila (Abaixo do Botão) --- */
-.Status-Fila-Texto {
-    margin-top: 15px;
     font-family: var(--fonte-textos);
     font-size: 0.95rem;
     color: #666;
@@ -348,106 +303,57 @@ body {
     gap: 8px;
     border: 1px solid #e0e0e0;
 }
-
-/* Quando tem gente na fila (Texto Laranja) */
-.Status-Fila-Texto span {
-    color: var(--cor-laranja);
-    font-weight: 700;
-}
-
-/* Pontinho Piscando (Efeito "Live") */
+.Status-Fila-Texto span { color: var(--cor-laranja); font-weight: 700; }
 .Ponto-Live {
-    width: 8px;
-    height: 8px;
+    width: 8px; height: 8px;
     background-color: var(--cor-laranja);
     border-radius: 50%;
     display: inline-block;
     animation: piscar 1.5s infinite;
 }
-
 @keyframes piscar {
     0% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(1.2); }
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* ---------------------------------------- Ajustes para Telas Médias e Grandes (PC/Tablet Horizontal) ---------------------------------------- */
+/* ---------------------------------------- Telas Médias e Grandes (PC) ---------------------------------------- */
 @media (min-width: 900px) {
     
-    .Pagina-Detalhes {
-        padding: 40px;
-    }
+    .Pagina-Detalhes { padding: 40px; }
+    
+    body::before { background-size: 900px; }
 
-    /* O Cartão vira Grid (Lado a Lado) */
+    /* O Grande Grid Lado a Lado */
     .Container-Card {
         display: grid;
-        grid-template-columns: 1.2fr 1fr; /* Esquerda maior, Direita menor */
-        gap: 40px;
+        grid-template-columns: 1fr 1fr; /* 50% para cada lado */
+        gap: 50px;
         padding: 40px;
         border-radius: 30px;
+        align-items: start;
     }
 
-    /* --- Ajustes Mídia --- */
-    .Carrossel-Wrapper {
-        height: 400px; /* Altura "full" no PC */
-        border-radius: 20px;
-    }
-
-    .seta-carrossel {
-        font-size: 2rem;
-        padding: 10px 16px;
-    }
-    .seta-carrossel:hover {
-        background: rgba(255, 255, 255, 0.8);
-        color: var(--cor-laranja);
-    }
-
-    .seta-carrossel.anterior { left: 15px; }
-    .seta-carrossel.proxima { right: 15px; }
-
-    .Contador {
-        bottom: 15px;
-        right: 15px;
-        font-size: 0.8rem;
-        padding: 5px 12px;
-    }
-
-    /* Tags alinhadas à esquerda no PC */
-    .Grid-Tags-Informacao {
-        justify-content: flex-start;
-        gap: 10px;
-    }
+    /* Ajustes da Esquerda no PC */
+    .Carrossel-Wrapper { height: 400px; }
     
-    .Tag-Info {
-        padding: 8px 16px;
-        font-size: 0.95rem;
-    }
-
-    /* --- Ajustes Texto --- */
-    .Coluna-Texto {
-        text-align: left; /* Volta o alinhamento para a esquerda */
-        justify-content: space-between; /* Espalha conteúdo verticalmente */
-    }
-
     .Nome-Animal {
-        font-size: 3.5rem; /* Nome grandão */
-        margin-bottom: 20px;
+        text-align: left; /* Alinha à esquerda */
+        font-size: 3.5rem;
+        margin-top: 20px;
     }
 
-    .Historia-Box h3 {
-        font-size: 1.5rem;
+    .Grid-Tags-Informacao {
+        justify-content: flex-start; /* Alinha à esquerda */
     }
 
-    .Historia-Box p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        text-align: left;
-    }
+    /* Ajustes da Direita no PC */
+    .Historia-Box h3 { text-align: left; font-size: 1.5rem; }
+    .Historia-Box p { font-size: 1.1rem; }
 
     .Area-Acao {
-        margin-top: 30px;
-        align-items: center; /* Mantém botão centralizado na coluna dele ou full? */
-        /* Se quiser o botão alinhado à esquerda, mude para flex-start */
+        align-items: center; /* Botão alinhado à esquerda */
+        margin-top: 20px;
     }
     
     .Botao-Adotar-Gigante:hover {
@@ -456,11 +362,8 @@ body {
     }
 }
 
-
-/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+/* ---------------------------------------- Telas Gigantes ---------------------------------------- */
 @media (min-width: 1400px) {
-    /* Opcional: Aumentar o limite máximo se a tela for muito larga */
-    .Container-Card {
-        max-width: 1200px;
-    }
+    body::before { background-size: 1400px; }
+    .Container-Card { max-width: 1200px; }
 }

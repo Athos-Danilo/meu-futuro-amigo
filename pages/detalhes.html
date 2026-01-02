@@ -20,42 +20,42 @@
 
     <main class="Pagina-Detalhes">
         <div class="Container-Card">
-            <div class="Coluna-Midia">
+
+            <div class="Coluna-Esquerda">
                 
                 <div class="Carrossel-Wrapper">
                     <button class="seta-carrossel anterior" onclick="mudarMidia(-1)">❮</button>
-                    
                     <div id="midia-container" class="Midia-Visualizacao">
                         <img id="img-principal" src="" alt="Foto do Animal">
                     </div>
-                    
                     <button class="seta-carrossel proxima" onclick="mudarMidia(1)">❯</button>
                     <span id="contador-midia" class="Contador">1/5</span>
                 </div>
 
-                <div class="Grid-Tags-Informacao" id="container-tags">
-                    </div>
+                <h1 id="detalhes-nome" class="Nome-Animal">Nome do Pet</h1>
 
-                <div class="Container-Saude" id="container-saude">
-                    </div>
+                <div class="Grid-Tags-Informacao" id="container-tags"></div>
+                
             </div>
 
-            <div class="Coluna-Texto">
-                <h1 id="detalhes-nome" class="Nome-Animal">Nome do Pet</h1>
+            <div class="Coluna-Direita">
                 
                 <div class="Historia-Box">
                     <h3>Minha História</h3>
                     <p id="detalhes-historia">Carregando história...</p>
                 </div>
 
+                <div class="Container-Saude" id="container-saude"></div>
+
                 <div class="Area-Acao">
                     <a id="botaoAdotar" href="#" target="_blank" class="Botao-Adotar-Gigante">
                         Quero Adotar
                     </a>
-                    <div id="status-fila" class="Status-Fila-Texto">
-                        </div>
+                    <div id="status-fila" class="Status-Fila-Texto"></div>
                 </div>
+
             </div>
+
         </div>
     </main>
 
