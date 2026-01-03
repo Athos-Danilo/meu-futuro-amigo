@@ -28,10 +28,9 @@
 }
 
 /* ---------------------------------------- Base (Mobile First) ---------------------------------------- */
-
-/* --- Fundo e Estrutura Geral --- */
+/* ---------- Fundo e Estrutura Geral ---------- */
 body {
-    background-color: #FFFFFF;
+    background-color: var(--cor-branco);
     position: relative;
     min-height: 100vh;
 }
@@ -40,10 +39,13 @@ body {
 body::before {
     content: "";
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
     background-image: url('../img/Patas.png');
     background-repeat: repeat;
-    background-size: 450px; /* Tamanho Mobile */
+    background-size: 550px; 
     opacity: 0.1;
     z-index: -1;
     pointer-events: none;
@@ -59,15 +61,13 @@ body::before {
     z-index: 1;
 }
 
-/* --- O Cartão Principal --- */
+/* ---------- O Cartão Principal ---------- */
 .Container-Card {
     background-color: var(--cor-branco);
     width: 100%;
     max-width: 1100px;
     border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    
-    /* Layout Base: Coluna única */
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -75,7 +75,7 @@ body::before {
     overflow: hidden;
 }
 
-/* --- As Duas Grandes Colunas (Estrutura) --- */
+/* ---------- Duas Colunas ---------- */
 .Coluna-Esquerda, 
 .Coluna-Direita {
     display: flex;
@@ -84,15 +84,14 @@ body::before {
     width: 100%;
 }
 
-/* --- Estilos da Coluna Esquerda (Mídia e Infos Básicas) --- */
-
+/* ----- Coluna Esquerda (Mídia e Informações Básicas) ----- */
 .Carrossel-Wrapper {
     position: relative;
     width: 100%;
     height: 300px;
     border-radius: 15px;
     overflow: hidden;
-    background-color: #000;
+    background-color: var(--cor-preto);
 }
 
 .Midia-Visualizacao {
@@ -110,23 +109,22 @@ body::before {
     object-fit: cover;
 }
 
-/* Setas */
 .seta-carrossel {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--cor-branco);
     border: none;
-    color: white;
-    font-size: 1.5rem;
-    padding: 8px 12px;
+    font-size: 1.6rem;
+    padding: 5px 6px;
     cursor: pointer;
-    border-radius: 50%;
-    transition: all 0.3s;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    user-select: none;
     z-index: 10;
 }
-.seta-carrossel:active { background: rgba(255, 255, 255, 0.8); color: var(--cor-laranja); }
+
 .seta-carrossel.anterior { left: 10px; }
 .seta-carrossel.proxima { right: 10px; }
 
@@ -141,27 +139,25 @@ body::before {
     font-family: var(--fonte-textos);
 }
 
-/* Nome do Animal */
 .Nome-Animal {
     font-family: var(--fonte-titulos);
     font-size: 2.5rem;
     color: var(--cor-laranja);
     line-height: 1;
-    margin-top: 10px;
-    text-align: center; /* Centralizado no Mobile */
+    letter-spacing: 0.03em;
+    text-align: center; 
 }
 
-/* Tags */
 .Grid-Tags-Informacao {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: center; /* Centralizado no Mobile */
+    justify-content: center; 
 }
 
 .Tag-Info {
     background-color: #FDF5E6;
-    color: var(--cor-marrom);
+    color: #444;
     padding: 6px 14px;
     border-radius: 50px;
     font-family: var(--fonte-textos);
@@ -170,14 +166,14 @@ body::before {
     border: 1px solid #EFE0C0;
 }
 
-/* --- Estilos da Coluna Direita (História, Saúde, Ação) --- */
-
+/* ----- Coluna Direita (História, Saúde, Ação) ----- */
 .Historia-Box h3 {
     font-family: var(--fonte-titulos);
     color: var(--cor-marrom);
     font-size: 1.4rem;
-    margin-bottom: 8px;
-    text-align: center; /* Título centralizado no mobile */
+    letter-spacing: 0.03em;
+    margin-bottom: 5px;
+    text-align: center; 
 }
 
 .Historia-Box p {
@@ -188,10 +184,10 @@ body::before {
     text-align: justify;
 }
 
-/* Saúde (Timeline) */
 .Container-Saude {
     width: 100%;
 }
+
 .Box-Saude {
     background-color: #FFF59D;
     border-radius: 10px;
@@ -199,6 +195,7 @@ body::before {
     padding: 25px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+
 .Box-Saude::after {
     content: "";
     position: absolute;
@@ -207,19 +204,26 @@ body::before {
     border-radius: 6px;
     pointer-events: none;
 }
+
 .Saude-Titulo {
     font-family: var(--fonte-titulos);
     color: var(--cor-marrom);
     font-size: 1.5rem;
+    letter-spacing: 0.03em;
     margin-bottom: 8px;
-    display: flex; align-items: center; gap: 8px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    gap: 8px;
 }
+
 .Saude-Texto {
     font-family: var(--fonte-textos);
     color: #5d4037;
     font-size: 1rem;
     line-height: 1.4;
 }
+
 .Saude-Timeline {
     display: flex;
     justify-content: space-around;
@@ -228,26 +232,38 @@ body::before {
     z-index: 2;
     padding-top: 10px;
 }
+
 .Saude-Timeline::before {
     content: "";
     position: absolute;
-    top: 25px; /* Ajuste do alinhamento da linha */
+    top: 25px; 
     left: 10%; right: 10%;
     height: 2px;
     background-color: rgba(139, 69, 19, 0.2);
     z-index: -1;
 }
+
 .Item-Timeline {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 8px; text-align: center; width: 80px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    gap: 8px; 
+    text-align: center; 
+    width: 80px;
 }
+
 .Bolinha-Status {
-    width: 32px; height: 32px;
+    width: 32px; 
+    height: 32px;
     border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
     font-size: 1.2rem;
-    background-color: white; border: 2px solid #ddd;
+    background-color: white; 
+    border: 2px solid #ddd;
 }
+
 .Item-Timeline.ok .Bolinha-Status {
     background-color: var(--cor-verde);
     border-color: var(--cor-verde);
@@ -256,19 +272,21 @@ body::before {
 }
 .Item-Timeline.pendente .Bolinha-Status {
     background-color: rgba(255,255,255,0.6);
-    color: #ccc; font-size: 1rem;
+    color: #ccc; 
+    font-size: 1rem;
 }
 .Label-Status {
     font-family: var(--fonte-textos);
-    font-weight: 700; font-size: 0.9rem; color: var(--cor-marrom);
+    font-weight: 700; 
+    font-size: 0.9rem; 
+    color: var(--cor-marrom);
 }
 
-/* Ação (Botão + Fila) */
 .Area-Acao {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Botão no meio no mobile */
+    align-items: center; 
     gap: 15px;
 }
 
@@ -303,7 +321,12 @@ body::before {
     gap: 8px;
     border: 1px solid #e0e0e0;
 }
-.Status-Fila-Texto span { color: var(--cor-laranja); font-weight: 700; }
+
+.Status-Fila-Texto span { 
+    color: var(--cor-laranja); 
+    font-weight: 700;
+}
+
 .Ponto-Live {
     width: 8px; height: 8px;
     background-color: var(--cor-laranja);
@@ -311,59 +334,101 @@ body::before {
     display: inline-block;
     animation: piscar 1.5s infinite;
 }
+
 @keyframes piscar {
     0% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(1.2); }
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* ---------------------------------------- Telas Médias e Grandes (PC) ---------------------------------------- */
+/* ---------------------------------------- Telas Médias  ---------------------------------------- */
 @media (min-width: 900px) {
     
-    .Pagina-Detalhes { padding: 40px; }
+    .Pagina-Detalhes { 
+        padding: 40px; 
+    }
     
-    body::before { background-size: 900px; }
+    body::before { 
+        background-size: 900px; 
+    }
 
-    /* O Grande Grid Lado a Lado */
     .Container-Card {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* 50% para cada lado */
+        grid-template-columns: 1fr 1fr; 
         gap: 50px;
         padding: 40px;
         border-radius: 30px;
         align-items: start;
     }
 
-    /* Ajustes da Esquerda no PC */
-    .Carrossel-Wrapper { height: 400px; }
+    .seta-carrossel {
+        font-size: 1.8rem;
+        padding: 7px 7px;
+    }
+
+    .seta-carrossel:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .Carrossel-Wrapper { 
+        height: 400px; 
+    }
     
     .Nome-Animal {
-        text-align: left; /* Alinha à esquerda */
+        text-align: left; 
         font-size: 3.5rem;
-        margin-top: 20px;
     }
 
     .Grid-Tags-Informacao {
-        justify-content: flex-start; /* Alinha à esquerda */
+        justify-content: flex-start; 
     }
 
-    /* Ajustes da Direita no PC */
-    .Historia-Box h3 { text-align: left; font-size: 1.5rem; }
-    .Historia-Box p { font-size: 1.1rem; }
+    .Historia-Box h3 { 
+        text-align: center; 
+        font-size: 1.5rem; 
+    }
+
+    .Historia-Box p { 
+        font-size: 1.1rem; 
+    }
+
+    .Saude-Titulo {
+        font-size: 1.8rem;
+    }
 
     .Area-Acao {
-        align-items: center; /* Botão alinhado à esquerda */
+        align-items: center; 
         margin-top: 20px;
     }
-    
+
+    .Botao-Adotar-Gigante {
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+    }
+
     .Botao-Adotar-Gigante:hover {
         transform: translateY(-3px);
-        background-color: #5a781d;
+        background-color: var(--cor-marrom);
     }
 }
 
-/* ---------------------------------------- Telas Gigantes ---------------------------------------- */
+/* ---------------------------------------- Telas Grandes ---------------------------------------- */
 @media (min-width: 1400px) {
-    body::before { background-size: 1400px; }
-    .Container-Card { max-width: 1200px; }
+    body::before { 
+        background-size: 1400px; 
+    }
+
+    .Container-Card { 
+        max-width: 1200px; 
+    }
+
+    .Historia-Box h3 { 
+        text-align: center; 
+        font-size: 2rem; 
+    }
+
+    .Historia-Box p { 
+        font-size: 1.2rem; 
+    }
 }
