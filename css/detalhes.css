@@ -309,6 +309,15 @@ body::before {
 }
 .Botao-Adotar-Gigante:active { transform: scale(0.98); }
 
+/* --- Botão Bloqueado --- */
+.Botao-Adotar-Gigante.bloqueado {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed; 
+    box-shadow: none;
+    transform: none;
+}
+
 .Status-Fila-Texto {
     font-family: var(--fonte-textos);
     font-size: 0.95rem;

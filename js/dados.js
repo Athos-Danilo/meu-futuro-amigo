@@ -70,11 +70,11 @@ const animais = [
         local: "Garanhuns - PE", 
         fotos: ["../img/zezinho.jpg", "https://placehold.co/600x400/orange/white?text=Brincando", "https://placehold.co/600x400/green/white?text=Dormindo"],
         origem: "Ong", 
-        historia: "Encontrado perto do parque, Zezinho adora correr e brincar de bola.",
+        historia: "Encontrado perto do parque, Zezinho mostrou desde o início sua alegria contagiante. Ele adora correr, brincar de bola e conquistar todos com seu olhar doce. Já recuperado, está saudável e cheio de energia. É um companheiro perfeito para quem busca diversão e carinho. Zezinho sonha com uma família que o acolha de verdade. Será que você é o lar que ele tanto espera? ",
         dataAdicao: "2024-05-20", 
         interessados: 3, 
         saude: { vacinado: true, castrado: false, vermifugado: true },
-        video: "https://www.youtube.com/embed/D36JuTfHq8Y" // Exemplo de vídeo
+        video: "../img/video-zezinho.mp4"
     },
     // Outros animais (Adicionei IDs simples baseados no nome)
     { id: "luna", nome: "Luna", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Bobtail", idade: "2 Anos", local: "Garanhuns - PE", foto: "../img/luna.jpg", origem: "Protetor", historia: "Luna é muito carinhosa...", dataAdicao: "2024-01-10", interessados: 0, saude: { vacinado: true, castrado: true, vermifugado: true } },
