@@ -3,22 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Em Construção - Meu Futuro Amigo</title> 
+    <title>Finais Felizes | Meu Futuro Amigo</title> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Acme&family=Afacad:ital,wght@0,400..700;1,400..700&family=Anton&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/contrução.css"> 
 
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/finais-felizes.css">
 </head>
+<body>
+    <div id="Cabeçalho"></div>
 
-    <body class="Página-em-construção"> 
-    
-        <main class="Container-Construção">
-            <img src="../img/barreira.png" alt="Ícone de Barreira">
-            <h1 class="titulo-construcao">Atraso na Obra!</h1>
-            <p class="subtitulo-construcao">Ainda estamos construindo isso daqui</p>
-            <a href="index.html" class="link-voltar-home">Voltar para a Página Inicial</a>
-        </main>
+    <main class="Pagina-Historias">
+        
+        <section class="Topo-Pagina">
+            <h1 class="Titulo-Secao">Adotados Recentemente</h1>
+            
+            <div class="Filtros-Container">
+                <button class="Btn-Filtro ativo" onclick="filtrarHistorias('todos')">Mostrar Todos</button>
+                <button class="Btn-Filtro" onclick="filtrarHistorias('Cachorro')">Cães</button>
+                <button class="Btn-Filtro" onclick="filtrarHistorias('Gato')">Gatos</button>
+            </div>
+        </section>
 
-    </body>
+        <section id="lista-historias" class="Lista-Historias">
+            </section>
+
+        <div class="Paginacao-Container" id="paginacao">
+            </div>
+
+        <section class="Chamada-Final">
+            <h2 class="Titulo-CTA">Pronto para Escrever sua Própria História?</h2>
+            <p class="Subtitulo-CTA">O próximo final feliz pode ser o seu. Veja os animais que estão esperando por uma chance agora mesmo.</p>
+            <a href="index.html" class="Botao-Laranja-CTA">Encontrar Meu Novo Amigo!</a>
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+</body>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/dados.js"></script>
+    <script src="../js/finais-felizes.js"></script>
 </html>

@@ -89,3 +89,71 @@ const animais = [
     { id: "silvana", nome: "Silvana", especie: "Gato", sexo: "Fêmea", porte: "Pequeno", raca: "Siamês", idade: "3 Anos", local: "Garanhuns - PE", foto: "../img/Silvana.jpg", dataAdicao: "2024-03-30", interessados: 5 },
     { id: "chico", nome: "Chico", especie: "Cachorro", sexo: "Macho", porte: "Pequeno", raca: "SRD (Vira-lata)", idade: "3 Anos", local: "Jupi - PE", foto: "../img/Chico.jpg", dataAdicao: "2024-04-10", interessados: 2 }
 ];
+
+const animaisAdotados = [
+  {
+    id: 1,
+    foto: " ",
+    nome: "Fubá",
+    titulo: "Ele completou nossa família!",
+    mensagem: "Nós (Mariana e João) sempre sentimos que faltava algo em nosso apartamento. Tínhamos essa rotina de trabalho e casa, mas tudo parecia silencioso demais. Vimos a foto do Fubá no 'Meu Futuro Amigo' e foi instantâneo. O processo de adoção foi super tranquilo e, no dia que ele chegou, a casa mudou. Hoje, nossas manhãs começam com ele pulando na cama e nossos fins de tarde são no parque. Ele é pequeno, mas tem uma personalidade gigante. É exatamente o que o depoimento diz: ele completou nossa família.",
+    especie: "Cachorro",
+    sexo: "Macho",
+    raça: "Yorkshire",
+    idade: "6 Meses",
+    cidade: "Garanhuns-PE",
+    dataAdoção: "15/10/2025"
+  },
+  {
+    id: 2,
+    foto: " ",
+    nome: "Rafaela",
+    titulo: "Virou minha Companheira!",
+    mensagem: "Eu (Laura) moro sozinha e comecei a trabalhar de casa em tempo integral. Passava o dia todo em silêncio, e me sentia muito só. Decidi adotar um gato e encontrei a Rafaela. Que surpresa boa! Rafaela é uma gatinha muito esperta e carinhosa. Ela me acompanha em todos os momentos, e até parece entender quando estou triste. Hoje, não me sinto mais sozinha, e tenho uma rotina muito melhor com minha companheira.",
+    especie: "Gato",
+    sexo: "Fêmea",
+    raça: "Tabby",
+    idade: "2 Meses",
+    cidade: "Jupi-PE",
+    dataAdoção: "07/10/2025"
+  },
+  {
+    id: 3,
+    foto: " ",
+    nome: "Sandrinha",
+    titulo: "Nossa princesa desastrada",
+    mensagem: "A Sandrinha foi resgatada pelo abrigo, e dava para ver no olhar dela que ela era muito tímida e um pouco assustada. Nos apaixonamos por ela justamente por isso. Queríamos dar a ela um lar acolhedor e muito amor. Sandrinha passou por um processo de adaptação, mas aos poucos foi se soltando. Hoje, ela é super brincalhona e até um pouco desastrada. É muito engraçada e nos faz rir todos os dias. Ver essa transformação de um animal tímido para um tão confiante é realmente emocionante.",
+    especie: "Cachorro",
+    sexo: "Fêmea",
+    raça: "Vira-lata",
+    idade: "2 Anos",
+    cidade: "Lajedo-PE",
+    dataAdoção: "29/09/2025"
+  },
+  {
+    id: 4,
+    foto: " ",
+    nome: "Geovanni",
+    titulo: "Me ensinou a ter Paciência",
+    mensagem: "Eu (Pedro) queria um cachorro “pronto”. Que já soubesse brincar, fosse extrovertido, mas não sabia muito. A chegada do Geovanni me ensinou muito. Ele era muito medroso e não confiava em ninguém. Foi um desafio. Tive que aprender a respeitar o tempo dele, e isso me fez crescer muito como pessoa. Hoje, ele é um cachorro alegre, que corre e brinca com outros cães. Geovanni me ensinou a ser uma pessoa melhor, e sou muito grato por isso. Às vezes, o que a gente precisa não é um pet pronto, e sim um que nos ajude a nos reconhecer no próprio tempo.",
+    especie: "Cachorro",
+    sexo: "Macho",
+    raça: "Vira-lata",
+    idade: "1 Ano",
+    cidade: "Canhotinho-PE",
+    dataAdoção: "21/09/2025"
+  },
+  {
+    id: 5,
+    foto: " ",
+    nome: "Fofinho",
+    titulo: "Fofinho é um grude!",
+    mensagem: "O nome Fofinho não é à toa, kkkkkkkkkkk. Ele é o gato mais grudento que eu já vi. A história dele me ensinou grande demais, de me permitir amar de verdade. Eu sou solteira e minha rotina é primária de silêncio, de não companhia, desde que o Fofinho chegou, ele me acompanha em todos os momentos. Ele é super carinhoso e muito peludo. Amo demais esse gato. Fofinho me ensinou que às vezes o que a gente precisa disso: um amor simples, direto e muito peludo.",
+    especie: "Gato",
+    sexo: "Macho",
+    raça: "Vira-lata",
+    idade: "1 Mês",
+    cidade: "Garanhuns-PE",
+    dataAdoção: "15/09/2025"
+  }
+];
