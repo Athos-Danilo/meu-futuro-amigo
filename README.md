@@ -14,10 +14,20 @@ A plataforma busca solucionar um problema real: a dificuldade em conectar animai
 
 ## 📸 Galeria do Projeto
 
-| Tela Inicial [Versão para Computador] | 
-| :---: | :---: |
-| ![Home Page](assets/tela-inicial.png) | 
+> Tela Inicial
+![Home Page](assets/tela-inicial.png) 
 
+> Processo de Adoção 
+![Processo de Adoção](assets/processo-adocao.png)
+
+> Adotados Recentemente 
+![Adotados Recentemente](assets/adotados-recentemente.png)
+
+> Adotar
+![Adotar](assets/adotar.png) 
+
+> Menu do Usuário 
+![Página do Usuário](assets/minha-pagina.png) 
 
 ## ✨ Funcionalidades Implementadas
 
