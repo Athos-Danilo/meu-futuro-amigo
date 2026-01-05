@@ -16,7 +16,7 @@ A plataforma busca solucionar um problema real: a dificuldade em conectar animai
 
 | Tela Inicial [Versão para Computador] | 
 | :---: | :---: |
-| ![Home Page](../meu-futuro-amigo/assets/tela-inicial.png) | 
+| ![Home Page](assets/tela-inicial.png) | 
 
 
 ## ✨ Funcionalidades Implementadas
