@@ -12,6 +12,13 @@ Atualmente, o projeto está em uma fase avançada de desenvolvimento, **evoluind
 
 A plataforma busca solucionar um problema real: a dificuldade em conectar animais que precisam de um lar (sejam de abrigos ou de doações particulares) com pessoas dispostas a adotar de forma responsável em Pernambuco.
 
+## 📸 Galeria do Projeto
+
+| Tela Inicial [Versão para Computador] | 
+| :---: | :---: |
+| ![Home Page](../meu-futuro-amigo/assets/tela-inicial.png) | 
+
+
 ## ✨ Funcionalidades Implementadas
 
 ### 🎨 Front-End (Interface & UX)
