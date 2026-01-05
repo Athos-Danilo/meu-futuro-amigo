@@ -17,12 +17,6 @@ A plataforma busca solucionar um problema real: a dificuldade em conectar animai
 > Tela Inicial
 ![Home Page](assets/tela-inicial.png) 
 
-> Processo de Adoção 
-![Processo de Adoção](assets/processo-adocao.png)
-
-> Adotados Recentemente 
-![Adotados Recentemente](assets/adotados-recentemente.png)
-
 > Adotar
 ![Adotar](assets/adotar.png) 
 
