@@ -41,6 +41,16 @@ A plataforma busca solucionar um problema real: a dificuldade em conectar animai
     * **Modo Leitura vs. Edição:** Interface limpa para visualizar dados, que se transforma em formulário interativo ao clicar em "Editar".
     * **Preview de Imagem:** Visualização instantânea da nova foto de perfil antes de enviar para o servidor.
 
+* **Visualização Imersiva (Página de Detalhes):**
+    * **Galeria Interativa:** Carrossel de imagens com navegação fluida e indicadores visuais.
+    * **Timeline de Saúde:** Componente visual desenvolvido com **CSS avançado** para exibir o status clínico (vacinado/castrado) de forma linear e intuitiva.
+    * **Regras de Negócio no Frontend:** Implementação de lógica de bloqueio de candidaturas, gerenciando estados de "Disponível" ou "Em Análise" baseado na demanda em tempo real.
+
+* **Listagem Inteligente (Finais Felizes):**
+    * **Paginação Algorítmica:** Desenvolvi um script que detecta a resolução da tela do usuário (`window.innerWidth`) e recalcula dinamicamente a quantidade de itens por página (Ex.: 7 para mobile, 10 para tablet, 12 para desktop), garantindo sempre a melhor densidade de informação.
+    * **Filtragem Instantânea:** Sistema de filtros por categoria (Cães/Gatos) que manipula o DOM em tempo real, sem necessidade de recarregar a página.
+
+
 * **UX/UI Aconchegante:** Uso de cores da identidade visual (Laranja, Verde, Marrom), tipografia hierárquica e espaçamentos que transmitem confiança.
 
 ### ⚙️ Back-End & Integração
