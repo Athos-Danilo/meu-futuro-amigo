@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------- Variáveis da Tela ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* ---------------------------------------- Base (Mobile First) ---------------------------------------- */
+
+body.Página-em-construção { 
+    background-color: var(--cor-verde); 
+    color: var(--cor-branco); 
+    font-family: var(--fonte-textos);
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh;
+}
+
+.Container-Construção { 
+    width: 100%; 
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;    
+    text-align: center;     
+    padding: 25px; 
+}
+
+.Container-Construção img { 
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 20px; 
+    object-fit: contain;
+}
+
+.titulo-construcao {
+    font-family: var(--fonte-titulos); 
+    font-size: 1.9rem; 
+    font-weight: 400; 
+    line-height: 1.2;
+    margin-bottom: 30px;
+    max-width: 90%; 
+}
+
+.subtitulo-construcao {
+    color: #d3d3d3;
+    font-size: 1.3rem; 
+    font-weight: 400;
+    margin-bottom: 40px;
+    max-width: 90%; 
+    line-height: 1.4;
+    text-align: justify;
+    text-align-last: center;
+}
+
+.link-voltar-home {
+    color: var(--cor-verde-escuro); 
+    background-color: var(--cor-verde);
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.link-voltar-home:hover {
+    color: var(--cor-verde);
+    background-color: var(--cor-cinza-marcacao);
+}
+
+/* ---------------------------------------- Ajustes para Telas Médias (Tablet) ---------------------------------------- */
+@media (min-width: 900px) {
+    .Container-Construção img { 
+        width: 100px; 
+        height: 100px; 
+    }
+
+    .titulo-construcao {
+        font-size: 2.8rem; 
+        max-width: 500px;
+    }
+
+    .subtitulo-construcao {
+        font-size: 1.5rem;
+        max-width: 650px;
+    }
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes (Desktop) ---------------------------------------- */
+@media (min-width: 1400px) {
+    .titulo-construcao {
+        font-size: 3.5rem; 
+        max-width: 600px;
+    }
+
+    .subtitulo-construcao {
+        font-size: 1.8rem;
+        max-width: 800px;
+    }
+
+    .link-voltar-home {
+        font-size: 1.5rem;
+        margin-top: 50px;
+    }
+}
