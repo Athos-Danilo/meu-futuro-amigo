@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inicializarAbas();
     inicializarBotoesAcao();
     inicializarModalExclusao();
+    verificarAbaUrl();
 });
 
 // Faz as alterações das Abas do histórico do usuário.
@@ -60,6 +61,37 @@ function inicializarAbas() {
             }
         });
     });
+}
+
+// Verifica se a URL tem um parâmetro ?secao=... e clica na aba correspondente.
+function verificarAbaUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const secao = params.get('secao'); // Pega o valor de 'secao' (ex: 'adocoes')
+
+    if (secao) {
+        let nomeAbaParaClicar = "";
+
+        // Mapeia o código da URL para o Nome da Aba (exatamente como está no HTML/Array)
+        if (secao === 'adocoes') {
+            nomeAbaParaClicar = "Minhas Adoções";
+        } else if (secao === 'divulgacoes') {
+            nomeAbaParaClicar = "Minhas Divulgações";
+        } 
+        else if (secao === 'notificacoes') {
+            nomeAbaParaClicar = "Notificações";
+        }
+
+        // Se encontrou um mapeamento, busca o botão e clica
+        if (nomeAbaParaClicar) {
+            const botoes = document.querySelectorAll('.Abas-Navegação button');
+            
+            botoes.forEach(botao => {
+                if (botao.textContent.trim() === nomeAbaParaClicar) {
+                    botao.click(); // Simula o clique do usuário
+                }
+            });
+        }
+    }
 }
 
 // Carrega os dados do usuário no LocalStorage e faz o preenchimento com as informações dele.
