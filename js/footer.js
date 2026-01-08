@@ -3,17 +3,18 @@ async function carregarFooter() {
     const footer = document.getElementById('footer');
     if (!footer) return;
 
-    // Variável local para guardar o caminho (evita conflito com o header)
+    // Variável local para guardar o caminho.
     let basePathFooter = ''; 
 
     try {
-        // TENTATIVA 1: Busca na raiz
+        // Tentativa de carregar o Footer assumindo que estamos na raiz do projeto.
         let response = await fetch('components/footer.html');
         
-        // Se der erro, tenta buscar voltando uma pasta
+        // Se der erro, tenta buscar voltando uma pasta.
         if (!response.ok) {
             response = await fetch('../components/footer.html');
             if (response.ok) {
+                // Se deu certo, salva o prefixo para ajustar os links dentro do Footer.
                 basePathFooter = '../';
             }
         }
@@ -21,9 +22,10 @@ async function carregarFooter() {
         if (!response.ok) throw new Error('Footer não encontrado!');
 
         const html = await response.text();
+        // Coloca o HTML do componente no DOM.
         footer.innerHTML = html;
 
-        // Passamos o basePath descoberto para a função de ajuste
+        // Passa o basePath descoberto para a função de ajuste.
         ajustarLinksDoFooter(footer, basePathFooter);
 
     } catch (error) {
@@ -31,9 +33,8 @@ async function carregarFooter() {
     }
 }
 
-// Função recebe o container E o caminho correto
 function ajustarLinksDoFooter(container, caminhoBase) {
-    // Ajusta IMAGENS
+    // Ajusta o caminho das imagens. 
     const imagens = container.querySelectorAll('img');
     imagens.forEach(img => {
         const src = img.getAttribute('src');
@@ -42,7 +43,7 @@ function ajustarLinksDoFooter(container, caminhoBase) {
         }
     });
     
-    // Ajusta LINKS
+    // Ajusta o caminho dos Links. 
     const links = container.querySelectorAll('a');
     links.forEach(a => {
         const href = a.getAttribute('href');
