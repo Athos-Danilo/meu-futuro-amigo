@@ -371,6 +371,37 @@ app.delete('/deletar-conta', async (req, res) => {
     }
 });
 
+
+// --------------------- Buscar Animais --------------------->
+// Rota para buscar Animais (Aceita filtros: ?status=adotado ou ?status=disponivel)
+app.get('/animais', async (req, res) => {
+    const { status } = req.query; // Lê o que vem depois do '?' na URL
+
+    try {
+        let query = 'SELECT * FROM animais';
+        let params = [];
+
+        // Se o Front-end pediu um status específico (ex: adotado), filtramos
+        if (status) {
+            query += ' WHERE status = $1';
+            params.push(status);
+        }
+
+        // Ordena pela DATA DE ADOÇÃO (do mais recente para o mais antigo)
+        query += ' ORDER BY data_adocao DESC';
+
+        const result = await db.query(query, params);
+        
+        // Devolve a lista (array) de animais
+        res.status(200).json(result.rows);
+
+    } catch (error) {
+        console.error('Erro ao buscar animais:', error);
+        res.status(500).json({ mensagem: 'Erro interno ao buscar animais.' });
+    }
+});
+
+
 // Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);

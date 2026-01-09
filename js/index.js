@@ -1,170 +1,101 @@
-// Slide dos Banners da Tela Inicial.
+// --- 1. SLIDER DOS BANNERS (Mantido igual ao seu) ---
 let indiceAtual = 0; 
 const slides = document.querySelectorAll('.slide-item');
 const totalSlides = slides.length;
 
-// Função de que altera as imagens. 
 function passarSlide() {
+    // Verifica se existem slides para evitar erros
+    if(totalSlides === 0) return;
+    
     slides[indiceAtual].classList.remove('ativa');
     indiceAtual = (indiceAtual + 1) % totalSlides;
     slides[indiceAtual].classList.add('ativa');
 }
 
-// Chama a função "passarSlide" a cada 5 segundos.
 setInterval(passarSlide, 5000);
 
 
-// Gerar os Cards dos Animais Adotados Recentemente.
-
-// 1. BANCO DE DADOS (Simulado)
-const animaisAdotados = [
-    {
-        nome: "Fubá",
-        foto: "img/Fubá.jpg",
-        tipo: "Cachorro / Macho",
-        local: "Garanhuns - PE",
-        data: "Outubro/2025",
-        frase: "\"Ele completou nossa família!\""
-    },
-    {
-        nome: "Rafaela",
-        foto: "img/Rafaela.jpg",
-        tipo: "Gato / Fêmea",
-        local: "Jupi - PE",
-        data: "Outubro/2025",
-        frase: "\"Virou minha companheira!\""
-    },
-    {
-        nome: "Sandrinha",
-        foto: "img/Sandrinha.jpg",
-        tipo: "Cachorro / Fêmea",
-        local: "Lajedo - PE",
-        data: "Setembro/2025",
-        frase: "\"Uma princesa desastrada\""
-    },
-    {
-        nome: "Geovanni",
-        foto: "img/Geovanni.jpg",
-        tipo: "Cachorro / Macho",
-        local: "Canhotinho - PE",
-        data: "Setembro/2025",
-        frase: "\"Me ensinou a ter paciência\""
-    },
-    {
-        nome: "Fofinho",
-        foto: "img/Fofinho.jpg",
-        tipo: "Gato / Macho",
-        local: "Garanhuns - PE",
-        data: "Setembro/2025",
-        frase: "\"Ele é um amor\""
-    },
-    {
-        nome: "Kiko",
-        foto: "img/Kiko.jpg",
-        tipo: "Cachorro / Macho",
-        local: "Garanhuns - PE",
-        data: "Setembro/2025",
-        frase: "\"Ele é uma gracinha\""
-    },
-    {
-        nome: "Cristiano",
-        foto: "img/Cristiano.jpg",
-        tipo: "Gato / Macho",
-        local: "Lajedo - PE",
-        data: "Setembro/2025",
-        frase: "\"O amor não tem idade.\""
-    },
-    {
-        nome: "Mel",
-        foto: "img/Mel.jpg",
-        tipo: "Cachorro / Fêmea",
-        local: "Caruaru - PE",
-        data: "Setembro/2025",
-        frase: "\"Colore meus dias\""
-    },
-    {
-        nome: "Janaina",
-        foto: "img/Janaína.jpg",
-        tipo: "Gato / Fêmea",
-        local: "Jupi - PE",
-        data: "Setembro/2025",
-        frase: "\"Só sabe dormir\""
-    },
-    {
-        nome: "Claudio",
-        foto: "img/Claudio.jpg",
-        tipo: "Cachorro / Macho",
-        local: "Garanhuns - PE",
-        data: "Setembro/2025",
-        frase: "\"Virou minha sombra\""
-    },
-    {
-        nome: "Osquinha",
-        foto: "img/Osquinha.jpg",
-        tipo: "Gato / Macho",
-        local: "Lajedo - PE",
-        data: "Agosto/2025",
-        frase: "\"O mais lindo\""
-    },
-    {
-        nome: "Titã",
-        foto: "img/Titã.jpg",
-        tipo: "Cachorro / Macho",
-        local: "Garanhuns - PE",
-        data: "Agosto/2025",
-        frase: "\"Meu guarda\""
-    }
-];
-
-// 2. FUNÇÃO FÁBRICA DE CARDS (Com Limitador de Tela)
-function carregarAdotados() {
+// --- 2. FUNÇÃO QUE BUSCA DO BANCO E CRIA OS CARDS ---
+async function carregarAdotados() {
     const container = document.getElementById('lista-adotados');
     
-    // Verifica se o container existe
     if (!container) return;
 
-    // Limpa o container
+    // Limpa o container antes de começar
     container.innerHTML = '';
 
-    // --- A LÓGICA DO LIMITADOR ---
-    const larguraTela = window.innerWidth; // Mede a largura da tela do usuário
-    let limite;
+    try {
+        // A. BUSCAR DADOS NO SERVIDOR (A grande mudança!)
+        // Estamos pedindo apenas os com status 'adotado'
+        const response = await fetch('http://localhost:3000/animais?status=adotado');
+        const dadosBanco = await response.json();
 
-    if (larguraTela < 900) {
-        limite = 5; // Celular: mostra só 5
-    } else {
-        limite = animaisAdotados.length; // Desktop: mostra todos (ou use 10 se quiser travar)
-    }
+        // B. LIMITADOR DE TELA (Sua lógica original)
+        const larguraTela = window.innerWidth;
+        let limite;
 
-    // Cria uma nova lista cortada com o tamanho do limite
-    const listaRecortada = animaisAdotados.slice(0, limite);
+        if (larguraTela < 900) {
+            limite = 5; // Celular
+        } else {
+            limite = dadosBanco.length; // Desktop (Mostra todos que vierem do banco)
+            // Se quiser travar no Desktop também, mude para: limite = 8;
+        }
 
-    // --- O LOOP (Agora percorre a listaRecortada) ---
-    listaRecortada.forEach(animal => {
-        
-        const cardHTML = `
-            <div class="Cartão-Adotado">
-                <img src="${animal.foto}" alt="${animal.nome}">
-                <div class="Nome-animal">${animal.nome}</div>
-                <div class="Detalhes-animal">
-                    <div class="linha"></div>
-                    <p>
-                        ${animal.tipo}<br>
-                        ${animal.local}<br>
-                        Adotado em ${animal.data}<br>
-                        <strong>${animal.frase}</strong>
-                    </p>
+        // C. RECORTAR A LISTA
+        // Pegamos os dados do banco e cortamos conforme o limite
+        const listaFinal = dadosBanco.slice(0, limite);
+
+        // Se não tiver ninguém, avisa
+        if (listaFinal.length === 0) {
+            container.innerHTML = '<p>Nenhum animal adotado recentemente.</p>';
+            return;
+        }
+
+        // D. GERAR O HTML (Usando a sua estrutura exata)
+        listaFinal.forEach(animal => {
+            
+            // Tratamento da imagem: se não tiver 'http', adicionamos o localhost
+            let urlFoto = animal.foto;
+            if (!urlFoto.startsWith('http')) {
+                urlFoto = `http://localhost:3000/${animal.foto}`;
+            }
+
+            // Tratamento do texto (para ficar igual ao seu array antigo)
+            const textoTipo = `${animal.especie} / ${animal.sexo}`;
+            const textoFrase = animal.depoimento ? `"${animal.depoimento}"` : '"Final Feliz!"';
+            // Formata a data para o padrão brasileiro (DD/MM/AAAA)
+            let textoData = 'Data não inf.';
+            if (animal.data_adocao) {
+                const dataObj = new Date(animal.data_adocao);
+                // O 'UTC' ajuda a não voltar um dia por causa do fuso horário
+                textoData = dataObj.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            }
+
+            const cardHTML = `
+                <div class="Cartão-Adotado">
+                    <img src="${urlFoto}" alt="${animal.nome}">
+                    <div class="Nome-animal">${animal.nome}</div>
+                    <div class="Detalhes-animal">
+                        <div class="linha"></div>
+                        <p>
+                            ${textoTipo}<br>
+                            ${animal.local}<br>
+                            Adotado em ${textoData}<br>
+                            <strong>${textoFrase}</strong>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
 
-        container.innerHTML += cardHTML;
-    });
+            container.innerHTML += cardHTML;
+        });
+
+    } catch (error) {
+        console.error('Erro ao carregar adotados:', error);
+        container.innerHTML = '<p>Erro ao conectar com o servidor.</p>';
+    }
 }
 
-// 3. OUVINTES DE EVENTOS
-// Executa ao carregar a página
+// --- 3. OUVINTES DE EVENTOS ---
 document.addEventListener('DOMContentLoaded', carregarAdotados);
-
-// Executa se o usuário redimensionar a tela (opcional, mas bom pra testar no PC)
 window.addEventListener('resize', carregarAdotados);
