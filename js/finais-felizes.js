@@ -1,21 +1,26 @@
-// Variáveis Globais da Página.
+// Variáveis Globais da Página
 let itensPorPagina = 7; 
 let paginaAtual = 1; 
 let filtroAtual = 'todos'; 
+
+// Esta lista guardará todos os dados que vierem do Banco de Dados
+let todosOsAnimais = []; 
+// Esta lista será a versão filtrada (só cachorros, só gatos ou todos) mostrada na tela
 let listaAtualDeHistorias = []; 
 
 // ------------------------- INICIALIZAÇÃO ------------------------- //
 document.addEventListener('DOMContentLoaded', () => {
-
+    
+    // 1. Primeiro calculamos quantos cards cabem na tela
     calcularItensPorPagina();
 
-    filtrarHistorias('todos');
+    // 2. Buscamos os dados reais no Backend
+    buscarHistoriasDoBanco();
 
-    // Ouve o redimensionamento da tela para ajustar a paginação.
+    // Ouve o redimensionamento da tela para ajustar a paginação
     window.addEventListener('resize', () => {
         calcularItensPorPagina();
         
-        // Se a mudança de tela reduzir as páginas volta para a página 1.
         const totalPaginas = Math.ceil(listaAtualDeHistorias.length / itensPorPagina);
         if (paginaAtual > totalPaginas && totalPaginas > 0) {
             paginaAtual = 1;
@@ -24,15 +29,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ------------------------- CONEXÃO COM O BANCO ------------------------- //
+async function buscarHistoriasDoBanco() {
+    const container = document.getElementById('lista-historias');
+    
+    try {
+        // Busca na nossa API apenas os adotados, ordenados por data
+        const response = await fetch('http://localhost:3000/animais?status=adotado');
+        const dadosBanco = await response.json();
+
+        // Mapeamos os dados do banco para o formato que seu layout já usa
+        todosOsAnimais = dadosBanco.map(animal => {
+            
+            // Corrige caminho da foto
+            let urlFoto = animal.foto;
+            if (urlFoto && !urlFoto.startsWith('http')) {
+                urlFoto = `http://localhost:3000/${animal.foto}`;
+            }
+
+            // Formata a data (AAAA-MM-DD para DD/MM/AAAA)
+            let dataFormatada = 'Data não inf.';
+            if (animal.data_adocao) {
+                const dataObj = new Date(animal.data_adocao);
+                dataFormatada = dataObj.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            }
+
+            return {
+                nome: animal.nome,
+                foto: urlFoto,
+                titulo: animal.frase_efeito || "Final Feliz!", 
+                mensagem: animal.depoimento,
+                raca: animal.raca || 'SRD',
+                sexo: animal.sexo,
+                idade: animal.idade,
+                cidade: animal.local,
+                dataAdocao: dataFormatada,
+                especie: animal.especie // Importante para o filtro
+            };
+        });
+
+        // Inicializa mostrando todos
+        filtrarHistorias('todos');
+
+    } catch (error) {
+        console.error("Erro ao buscar histórias:", error);
+        if(container) container.innerHTML = '<p style="text-align:center; padding:20px;">Erro ao carregar histórias do servidor.</p>';
+    }
+}
+
 // ------------------------- LÓGICA DOS FILTROS ------------------------- //
 function filtrarHistorias(categoria) {
     filtroAtual = categoria;
     paginaAtual = 1; 
 
-    // Atualiza o visual dos botões de filtro.
+    // Atualiza o visual dos botões
     document.querySelectorAll('.Btn-Filtro').forEach(btn => {
         btn.classList.remove('ativo');
         const textoBtn = btn.innerText.toLowerCase();
+        
+        // Lógica para marcar o botão certo
         if (
             (categoria === 'todos' && textoBtn.includes('todos')) ||
             (categoria === 'Cachorro' && textoBtn.includes('cães')) ||
@@ -42,11 +97,11 @@ function filtrarHistorias(categoria) {
         }
     });
 
-    // Filtra os dados da lista original animaisAdotados que vem de dados.js.
+    // Filtra a lista GLOBAL (todosOsAnimais) vinda do banco
     if (categoria === 'todos') {
-        listaAtualDeHistorias = animaisAdotados;
+        listaAtualDeHistorias = todosOsAnimais;
     } else {
-        listaAtualDeHistorias = animaisAdotados.filter(animal => animal.especie === categoria);
+        listaAtualDeHistorias = todosOsAnimais.filter(animal => animal.especie === categoria);
     }
 
     renderizarPagina();
@@ -56,13 +111,12 @@ function filtrarHistorias(categoria) {
 function calcularItensPorPagina() {
     const largura = window.innerWidth;
     
-    // Número de Cards de acordo com o tamanho da tela.
     if (largura < 900) {
-        itensPorPagina = 7;  // Celular.
+        itensPorPagina = 5;  // Celular (reduzi um pouco para não ficar infinito)
     } else if (largura >= 900 && largura < 1400) {
-        itensPorPagina = 10; // Tablet / Laptop.
+        itensPorPagina = 8; // Tablet
     } else {
-        itensPorPagina = 12; // Telas Grandes.
+        itensPorPagina = 12; // Telas Grandes
     }
 }
 
@@ -70,13 +124,12 @@ function mudarPagina(direcao) {
     paginaAtual += direcao;
     renderizarPagina();
     
-    // Rola suavemente para o topo da lista ao mudar de página.
     const topoLista = document.querySelector('.Topo-Pagina'); 
     if (topoLista) {
         topoLista.scrollIntoView({ behavior: 'smooth' });
     }
 }
-// Busca os elementos de controle.
+
 function atualizarControlesPaginacao() {
     const btnAnt = document.getElementById('btn-ant'); 
     const btnProx = document.getElementById('btn-prox'); 
@@ -84,52 +137,43 @@ function atualizarControlesPaginacao() {
 
     if (!btnAnt || !btnProx || !indicador) return;
 
-    // Calcula o total de páginas.
     const totalPaginas = Math.ceil(listaAtualDeHistorias.length / itensPorPagina);
     
-    // Se não tiver itens.
     if (totalPaginas === 0) {
-        indicador.innerText = `Página 0 de 0`;
+        indicador.innerText = `0 de 0`;
         btnAnt.disabled = true;
         btnProx.disabled = true;
         return;
     }
 
-    // Atualiza texto.
     indicador.innerText = `Página ${paginaAtual} de ${totalPaginas}`;
-
-    // Desativa 'Anterior' na página 1.
     btnAnt.disabled = (paginaAtual === 1);
-    
-    // Desativa 'Próxima' na última página.
     btnProx.disabled = (paginaAtual === totalPaginas);
 }
 
-// ------------------------- GERAR PÁGINA ------------------------- //
+// ------------------------- GERAR PÁGINA (RENDER) ------------------------- //
 function renderizarPagina() {
     const container = document.getElementById('lista-historias');
+    if(!container) return;
+    
     container.innerHTML = '';
 
-    // Verifica se a lista está vazia.
     if (listaAtualDeHistorias.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding:40px; font-size:1.2rem; color:#666;">Nenhuma história encontrada nesta categoria.</p>';
+        container.innerHTML = '<p style="text-align:center; padding:40px; font-size:1.2rem; color:#666;">Ainda não temos histórias nesta categoria. Em breve!</p>';
         atualizarControlesPaginacao();
         return;
     }
 
-    // Fatia a lista conforme a página atual.
+    // Fatia a lista conforme a página atual
     const inicio = (paginaAtual - 1) * itensPorPagina;
     const fim = inicio + itensPorPagina;
     const historiasDaPagina = listaAtualDeHistorias.slice(inicio, fim);
 
-    // Cria os cards HTML.
+    // Cria os cards HTML
     historiasDaPagina.forEach(historia => {
-        // Placeholder se a foto estiver vazia
-        const img = historia.foto && historia.foto.trim().length > 1 
-            ? historia.foto 
-            : `https://placehold.co/600x400/orange/white?text=${historia.nome}`;
+        // Placeholder caso a foto falhe
+        const img = historia.foto || `https://placehold.co/600x400/orange/white?text=${historia.nome}`;
 
-        // Monta o HTML do card.
         const cardHTML = `
             <article class="Card-Historia">
                 <div class="Foto-Wrapper">
@@ -148,7 +192,7 @@ function renderizarPagina() {
                         <span class="Tag-Marrom">${historia.sexo}</span>
                         <span class="Tag-Marrom">${historia.idade}</span>
                         <span class="Tag-Marrom">${historia.cidade}</span>
-                        <span class="Tag-Marrom">Adotado em: ${historia.dataAdocao || historia.dataAdoção || 'Data não inf.'}</span>
+                        <span class="Tag-Marrom">Adotado em: ${historia.dataAdocao}</span>
                     </div>
                 </div>
             </article>
