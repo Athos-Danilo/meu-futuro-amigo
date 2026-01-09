@@ -25,49 +25,46 @@ async function carregarAdotados() {
     container.innerHTML = '';
 
     try {
-        // A. BUSCAR DADOS NO SERVIDOR (A grande mudança!)
-        // Estamos pedindo apenas os com status 'adotado'
+        // A. BUSCAR DADOS NO SERVIDOR
         const response = await fetch('http://localhost:3000/animais?status=adotado');
         const dadosBanco = await response.json();
 
-        // B. LIMITADOR DE TELA (Sua lógica original)
+        // B. LIMITADOR DE TELA (Atualizado com suas regras!) 📏
         const larguraTela = window.innerWidth;
         let limite;
 
         if (larguraTela < 900) {
             limite = 5; // Celular
+        } else if (larguraTela >= 900 && larguraTela < 1400) {
+            limite = 6; // Tablet (Notebooks menores)
         } else {
-            limite = dadosBanco.length; // Desktop (Mostra todos que vierem do banco)
-            // Se quiser travar no Desktop também, mude para: limite = 8;
+            limite = 8; // Telas Grandes (Desktop)
         }
 
         // C. RECORTAR A LISTA
-        // Pegamos os dados do banco e cortamos conforme o limite
         const listaFinal = dadosBanco.slice(0, limite);
 
-        // Se não tiver ninguém, avisa
         if (listaFinal.length === 0) {
             container.innerHTML = '<p>Nenhum animal adotado recentemente.</p>';
             return;
         }
 
-        // D. GERAR O HTML (Usando a sua estrutura exata)
+        // D. GERAR O HTML
         listaFinal.forEach(animal => {
             
-            // Tratamento da imagem: se não tiver 'http', adicionamos o localhost
             let urlFoto = animal.foto;
             if (!urlFoto.startsWith('http')) {
                 urlFoto = `http://localhost:3000/${animal.foto}`;
             }
 
-            // Tratamento do texto (para ficar igual ao seu array antigo)
             const textoTipo = `${animal.especie} / ${animal.sexo}`;
-            const textoFrase = animal.depoimento ? `"${animal.depoimento}"` : '"Final Feliz!"';
-            // Formata a data para o padrão brasileiro (DD/MM/AAAA)
+            // Lembra que mudamos para usar frase_efeito aqui?
+            const textoFrase = animal.frase_efeito ? `"${animal.frase_efeito}"` : '"Final Feliz!"';
+            
+            // Formatação da Data
             let textoData = 'Data não inf.';
             if (animal.data_adocao) {
                 const dataObj = new Date(animal.data_adocao);
-                // O 'UTC' ajuda a não voltar um dia por causa do fuso horário
                 textoData = dataObj.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
             }
 
