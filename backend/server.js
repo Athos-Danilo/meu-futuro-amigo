@@ -401,6 +401,46 @@ app.get('/animais', async (req, res) => {
     }
 });
 
+// --------------------- Detalhes Animais --------------------->
+// Rota para pegar detalhes de UM animal (incluindo a galeria de fotos)
+app.get('/animais/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // 1. Busca os dados principais do animal
+        const animalResult = await db.query('SELECT * FROM animais WHERE id = $1', [id]);
+        
+        if (animalResult.rows.length === 0) {
+            return res.status(404).json({ mensagem: 'Animal não encontrado' });
+        }
+        
+        const animal = animalResult.rows[0];
+
+        // 2. Busca as fotos extras na tabela de galeria
+        const fotosResult = await db.query('SELECT caminho_arquivo FROM fotos_animais WHERE animal_id = $1', [id]);
+        
+        // 3. Monta a lista final de fotos: [Foto de Capa, ...Fotos da Galeria]
+        // Garante que a capa é sempre a primeira
+        let listaFotos = [animal.foto];
+        
+        // Adiciona as outras fotos (se existirem)
+        fotosResult.rows.forEach(f => {
+            // Evita duplicar a capa se ela já estiver na galeria
+            if (f.caminho_arquivo !== animal.foto) {
+                listaFotos.push(f.caminho_arquivo);
+            }
+        });
+
+        // Anexa a lista de fotos ao objeto do animal
+        animal.fotos = listaFotos;
+
+        res.json(animal);
+
+    } catch (error) {
+        console.error('Erro ao buscar detalhes do animal:', error);
+        res.status(500).json({ mensagem: 'Erro interno do servidor' });
+    }
+});
 
 // Liga o Servidor.
 app.listen(PORT, () => {

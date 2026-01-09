@@ -1,23 +1,51 @@
 // Aguarda o carregamento do DOM antes de executar o script.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // ------------------------- IDENTIFICAÇÃO DO ANIMAL ------------------------- 
     // Extrai os parâmetros da URL.
     const params = new URLSearchParams(window.location.search);
     const idAnimal = params.get('id');
-    const nomeAnimal = params.get('animal');
 
-    // Busca o animal no array 'animais' importado do dados.js.
-    // Tenta primeiro por ID, depois por nome.
-    let animal;
-    if (idAnimal) {
-        animal = animais.find(a => a.id === idAnimal);
-    } else if (nomeAnimal) {
-        animal = animais.find(a => a.nome === nomeAnimal);
+    // Se não tiver ID, volta pra home (segurança básica)
+    if (!idAnimal) {
+        alert("Nenhum animal selecionado! Voltando...");
+        window.location.href = "adotar.html";
+        return;
     }
 
-    // Se não encontrou o animal, mostra alerta e redireciona para adotar.html.
-    if (!animal) {
-        alert("Animal não encontrado! Voltando...");
+    let animal;
+
+    try {
+        // --- CONEXÃO COM O SERVIDOR (Novo!) ---
+        const response = await fetch(`http://localhost:3000/animais/${idAnimal}`);
+        
+        if (!response.ok) {
+            throw new Error('Animal não encontrado');
+        }
+
+        const dadosBanco = await response.json();
+
+        // --- ADAPTADOR DE DADOS (Banco -> Seu Layout) ---
+        // Aqui transformamos os dados do banco para ficarem iguais ao que seu código espera
+        animal = {
+            ...dadosBanco,
+            // O banco chama de 'depoimento', mas seu layout espera 'historia'
+            historia: dadosBanco.depoimento, 
+            
+            // O banco traz dados soltos, mas seu layout espera um objeto 'saude'
+            saude: {
+                vacinado: dadosBanco.vacinado,
+                castrado: dadosBanco.castrado,
+                vermifugado: dadosBanco.vermifugado
+            },
+
+            // Corrige as URLs das fotos para incluir o servidor
+            foto: dadosBanco.foto.startsWith('http') ? dadosBanco.foto : `http://localhost:3000/${dadosBanco.foto}`,
+            fotos: dadosBanco.fotos.map(f => f.startsWith('http') ? f : `http://localhost:3000/${f}`)
+        };
+
+    } catch (error) {
+        console.error("Erro:", error);
+        alert("Animal não encontrado no banco de dados! Voltando...");
         window.location.href = "adotar.html";
         return;
     }
@@ -101,10 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Ao clicar na imagem, abre a galeria completa com Fancybox.
             imgElement.onclick = () => {
                 // Define o tipo de cada item (image ou video)
-                Fancybox.show(playlist.map(src => ({ 
-                    src: src, 
-                    type: src.includes('.mp4') ? "video" : "image" 
-                })));
+                if(typeof Fancybox !== 'undefined') {
+                    Fancybox.show(playlist.map(src => ({ 
+                        src: src, 
+                        type: src.includes('.mp4') ? "video" : "image" 
+                    })));
+                }
             };
             
             midiaContainer.appendChild(imgElement);
@@ -132,9 +162,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAcao = document.getElementById('botaoAdotar');
     const divStatus = document.getElementById('status-fila');
     const LIMITE_CANDIDATURAS = 10;
+    
+    // Garante que interessados seja um número (caso venha null do banco)
+    const numInteressados = animal.interessados || 0;
 
     // Verifica se já lotou
-    if (animal.interessados >= LIMITE_CANDIDATURAS) {
+    if (numInteressados >= LIMITE_CANDIDATURAS) {
         
         // Bloqueia o Botão.
         btnAcao.classList.add('bloqueado');
@@ -161,10 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Status Incentivador | Calculamos quantas vagas restam.
-        const vagasRestantes = LIMITE_CANDIDATURAS - animal.interessados;
+        const vagasRestantes = LIMITE_CANDIDATURAS - numInteressados;
         
-        if (animal.interessados > 0) {
-            divStatus.innerHTML = `<span>${animal.interessados} pessoas</span> interessadas. Restam apenas <b>${vagasRestantes} vagas</b> para entrevista!`;
+        if (numInteressados > 0) {
+            divStatus.innerHTML = `<span>${numInteressados} pessoas</span> interessadas. Restam apenas <b>${vagasRestantes} vagas</b> para entrevista!`;
         } else {
             divStatus.innerHTML = `Seja o primeiro a se candidatar!`;
         }
@@ -180,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Função auxiliar que cria um item da timeline baseado no objeto 'animal.saude'
     function gerarItemTimeline(rotulo, chaveObjeto) {
+        // Agora acessamos o objeto 'saude' que criamos lá em cima no adaptador
         const estaOk = animal.saude && animal.saude[chaveObjeto] === true;
         
         const classeStatus = estaOk ? 'ok' : 'pendente';
