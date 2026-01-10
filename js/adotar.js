@@ -11,16 +11,35 @@ let intervaloGaleria = null;
 
 // --- DADOS ESTÁTICOS (Substituindo o dados.js) ---
 const cidadesPE = [
-    "Recife", "Jaboatão dos Guararapes", "Olinda", "Caruaru", "Petrolina", "Paulista",
-    "Cabo de Santo Agostinho", "Camaragibe", "Garanhuns", "Vitória de Santo Antão",
-    "Igarassu", "São Lourenço da Mata", "Santa Cruz do Capibaribe", "Abreu e Lima",
-    "Ipojuca", "Serra Talhada", "Araripina", "Gravatá", "Carpina", "Goiana",
-    "Belo Jardim", "Arcoverde", "Ouricuri", "Escada", "Pesqueira", "Surubim",
-    "Palmares", "Bezerros", "Moreno", "São Bento do Una", "Buíque", "Lajedo", 
-    "Limoeiro", "Timbaúba", "Brejo da Madre de Deus", "Ribeirão", "Bom Conselho",
-    "Sirinhaém", "Catende", "Águas Belas", "Pedra", "Bonito", "Triunfo", 
-    "Nazaré da Mata", "São José da Coroa Grande", "Brejão", "Caetés", "São João", 
-    "Palmerina", "Jupi", "Jurema", "Panelas", "Quipapá"
+  "Abreu e Lima", "Afogados da Ingazeira", "Afrânio", "Agrestina", "Água Preta", "Águas Belas",
+  "Alagoinha", "Aliança", "Altinho", "Amaraji", "Angelim", "Araçoiaba", "Araripina", "Arcoverde",
+  "Barra de Guabiraba", "Barreiros", "Belém de Maria", "Belém do São Francisco", "Belo Jardim",
+  "Betânia", "Bezerros", "Bodocó", "Bom Conselho", "Bom Jardim", "Bonito", "Brejão",
+  "Brejinho", "Brejo da Madre de Deus", "Buenos Aires", "Buíque", "Cabo de Santo Agostinho",
+  "Cabrobó", "Cachoeirinha", "Caetés", "Calçado", "Calumbi", "Camaragibe", "Camocim de São Félix",
+  "Camutanga", "Canhotinho", "Capoeiras", "Carnaíba", "Carnaubeira da Penha", "Carpina",
+  "Caruaru", "Casinhas", "Catende", "Cedro", "Chã de Alegria", "Chã Grande", "Condado",
+  "Correntes", "Cortês", "Cumaru", "Cupira", "Custódia", "Dormentes", "Escada", "Exu",
+  "Feira Nova", "Fernando de Noronha", "Ferreiros", "Flores", "Floresta", "Frei Miguelinho",
+  "Gameleira", "Garanhuns", "Glória do Goitá", "Goiana", "Granito", "Gravatá", "Iati",
+  "Ibimirim", "Ibirajuba", "Igarassu", "Iguaracy", "Inajá", "Ingazeira", "Ipojuca",
+  "Ipubi", "Itacuruba", "Itaíba", "Itambé", "Itapetim", "Itapissuma", "Itaquitinga",
+  "Jaboatão dos Guararapes", "Jataúba", "Jatobá", "João Alfredo", "Joaquim Nabuco",
+  "Jucati", "Jupi", "Jurema", "Lagoa do Carro", "Lagoa do Itaenga", "Lagoa do Ouro",
+  "Lagoa dos Gatos", "Lagoa Grande", "Lajedo", "Limoeiro", "Macaparana", "Machados",
+  "Manari", "Maraial", "Mirandiba", "Moreilândia", "Moreno", "Nazaré da Mata", "Olinda",
+  "Orobó", "Orocó", "Ouricuri", "Palmares", "Palmeirina", "Panelas", "Paranatama",
+  "Parnamirim", "Passira", "Paudalho", "Paulista", "Pedra", "Pesqueira", "Petrolândia",
+  "Petrolina", "Poção", "Pombos", "Primavera", "Quipapá", "Quixaba", "Recife", "Riacho das Almas",
+  "Ribeirão", "Rio Formoso", "Sairé", "Salgadinho", "Salgueiro", "Saloá", "Sanharó",
+  "Santa Cruz", "Santa Cruz da Baixa Verde", "Santa Cruz do Capibaribe", "Santa Filomena",
+  "Santa Maria da Boa Vista", "Santa Maria do Cambucá", "Santa Terezinha", "São Benedito do Sul",
+  "São Bento do Una", "São Caitano", "São João", "São Joaquim do Monte", "São José da Coroa Grande",
+  "São José do Belmonte", "São José do Egito", "São Lourenço da Mata", "São Vicente Ferrer",
+  "Serra Talhada", "Serrita", "Sertânia", "Sirinhaém", "Solidão", "Surubim", "Tabira",
+  "Tacaimbó", "Terezinha", "Terra Nova", "Timbaúba", "Toritama", "Tracunhaém", "Trindade",
+  "Triunfo", "Tupanatinga", "Tuparetama", "Venturosa", "Verdejante", "Vertente do Lério",
+  "Vertentes", "Vicência", "Vitória de Santo Antão", "Xexéu"
 ];
 
 const racasCachorros = ["SRD", "Vira-lata", "Labrador", "Golden Retriever", "Bulldog", "Poodle", "Pastor Alemão", "Pinscher", "Yorkshire", "Shih Tzu", "Rottweiler", "Pug", "Beagle", "Dálmata", "Akita", "Collie", "Cocker Spaniel", "Pitbull", "Greyhound", "Shar Pei", "Dogue Alemão"];
@@ -59,7 +78,6 @@ async function buscarAnimaisDoBanco() {
 
         // Mapeia para corrigir caminhos de imagem e datas
         todosOsAnimais = dados.map(animal => {
-            // Corrige caminho da imagem
             let urlFoto = animal.foto;
             if (urlFoto && !urlFoto.startsWith('http')) {
                 urlFoto = `http://localhost:3000/${animal.foto}`;
@@ -68,7 +86,6 @@ async function buscarAnimaisDoBanco() {
             return {
                 ...animal,
                 foto: urlFoto,
-                // Garante que campos nulos não quebrem o filtro
                 raca: animal.raca || 'SRD',
                 local: animal.local || 'Não informado'
             };
@@ -76,6 +93,24 @@ async function buscarAnimaisDoBanco() {
 
         // Inicializa a lista atual com tudo
         listaAtualDeAnimais = todosOsAnimais;
+
+        // --- NOVA LÓGICA DE RAÇAS DINÂMICAS (Filtro Inteligente) ---
+        // 1. Pega todos os cachorros -> extrai a raça -> remove duplicadas (Set) -> ordena (sort)
+        const racasCachorroReais = [...new Set(todosOsAnimais
+            .filter(a => a.especie === 'Cachorro')
+            .map(a => a.raca)
+        )].sort();
+
+        // 2. Faz o mesmo para gatos
+        const racasGatoReais = [...new Set(todosOsAnimais
+            .filter(a => a.especie === 'Gato')
+            .map(a => a.raca)
+        )].sort();
+
+        // 3. Preenche os selects apenas com o que existe de verdade
+        preencherSelect("filtro-raca-cachorro", racasCachorroReais);
+        preencherSelect("filtro-raca-gato", racasGatoReais);
+        // -----------------------------------------------------------
         
         // Verifica se tem filtros salvos na sessão e reaplica
         verificarFiltrosSalvos();
@@ -195,16 +230,36 @@ function renderizarPagina() {
     const fim = inicio + itensPorPagina;
     const animaisDaPagina = listaAtualDeAnimais.slice(inicio, fim);
 
+    // Data
     animaisDaPagina.forEach(animal => {
-        // Formata data
-        let textoData = 'Recém-chegado';
-        if (animal.data_adicao) { // Note: O banco usa data_adicao ou data_adocao? Disponíveis usam default current_date
-             // Ajuste conforme seu banco. Se não tiver coluna data_entrada, usamos 'Recém-chegado'
-             // Se tiver, formate aqui.
+        // --- LÓGICA DE DATA ---
+        let textoData = '✨ Recém-chegado';
+        
+        // Definições Padrão 
+        let corOriginal = '#FF8C00'; 
+        let restoDoEstilo = 'font-weight: bold; font-size: 1rem;'; 
+
+        if (animal.data_adicao) {
+            const dataAnimal = new Date(animal.data_adicao);
+            const dataHoje = new Date();
+            dataAnimal.setHours(0, 0, 0, 0);
+            dataHoje.setHours(0, 0, 0, 0);
+
+            if (dataAnimal < dataHoje) {
+                textoData = `Adicionado: ${dataAnimal.toLocaleDateString('pt-BR')}`;
+                
+                // Definições para Antigo
+                corOriginal = '#ffffff'; // Cinza
+                restoDoEstilo = 'font-weight: 500; font-size: 0.95rem;';
+            }
         }
 
+        // --- MONTAGEM DO CARD ---
         const cardHTML = `
-            <div class="cartao-animal" onclick="abrirModal(${animal.id})">
+            <div class="cartao-animal" onclick="abrirModal(${animal.id})"
+                 onmouseenter="this.querySelector('.data-adicao').style.color='#000000'"
+                 onmouseleave="this.querySelector('.data-adicao').style.color='${corOriginal}'">
+                 
                 <div style="position: relative;">
                     <img src="${animal.foto}" alt="${animal.nome}" onerror="this.src='https://placehold.co/300x250?text=Foto+Indisponível'">
                 </div>
@@ -212,7 +267,10 @@ function renderizarPagina() {
                     <h3>${animal.nome}</h3>
                     <p>${animal.especie} | ${animal.sexo}</p>
                     <p>${animal.local}</p>
-                    <p class="data-adicao">${textoData}</p>
+                    
+                    <p class="data-adicao" style="color: ${corOriginal}; ${restoDoEstilo}">
+                        ${textoData}
+                    </p>
                 </div>
             </div>
         `;
@@ -279,11 +337,14 @@ function limparFiltros() {
 // --- FUNÇÕES AUXILIARES ---
 
 function popularSelectsIniciais() {
-    preencherSelect("filtro-raca-cachorro", racasCachorros);
-    preencherSelect("filtro-raca-gato", racasGatos);
+    // REMOVEMOS AS LINHAS DE RAÇA DAQUI!
+    // Elas agora são carregadas no buscarAnimaisDoBanco
+    
     preencherSelect("filtro-idade", idades);
     
     const datalist = document.getElementById("cidades");
+    // Limpa antes de preencher para evitar duplicar se chamar 2x
+    datalist.innerHTML = ''; 
     cidadesPE.forEach(cidade => {
         const option = document.createElement("option");
         option.value = cidade;
