@@ -28,8 +28,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Aqui transformamos os dados do banco para ficarem iguais ao que seu código espera
         animal = {
             ...dadosBanco,
-            // O banco chama de 'depoimento', mas seu layout espera 'historia'
-            historia: dadosBanco.depoimento, 
+            // CORREÇÃO: Agora pegamos direto da coluna 'historia' do banco.
+            // Se estiver vazio, o código lá embaixo já coloca o texto padrão.
+            historia: dadosBanco.historia, 
             
             // O banco traz dados soltos, mas seu layout espera um objeto 'saude'
             saude: {

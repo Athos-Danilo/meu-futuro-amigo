@@ -173,7 +173,7 @@ async function abrirModal(idAnimal) {
         
         const btnConhecer = document.createElement('a');
         btnConhecer.className = 'Botao-Conhecer';
-        btnConhecer.innerText = 'Tenho Interesse!';
+        btnConhecer.innerText = 'Quero Conhecer Mais!';
         
         // Gera o link levando o ID do animal
         const urlDestino = `detalhes.html?id=${animal.id}`;
@@ -233,11 +233,11 @@ function renderizarPagina() {
     // Data
     animaisDaPagina.forEach(animal => {
         // --- LÓGICA DE DATA ---
-        let textoData = '✨ Recém-chegado';
+        let textoData = 'Recém-chegado';
         
         // Definições Padrão 
-        let corOriginal = '#FF8C00'; 
-        let restoDoEstilo = 'font-weight: bold; font-size: 1rem;'; 
+        let corOriginal = '#684407'; 
+        let restoDoEstilo = 'font-weight: bold; font-size: 1.2rem;'; 
 
         if (animal.data_adicao) {
             const dataAnimal = new Date(animal.data_adicao);
