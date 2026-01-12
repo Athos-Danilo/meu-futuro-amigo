@@ -442,6 +442,61 @@ app.get('/animais/:id', async (req, res) => {
     }
 });
 
+// Rota para salvar a solicitação de adoção
+app.post('/solicitacoes', async (req, res) => {
+    const dados = req.body;
+
+    try {
+        const query = `
+            INSERT INTO solicitacoes_adocao (
+                animal_id, nome_solicitante, cpf_solicitante, nascimento_solicitante,
+                whatsapp_solicitante, email_solicitante, ocupacao, endereco_completo,
+                cidade, cep, tipo_imovel, posse_imovel, permissao_proprietario,
+                seguranca_detalhes, possui_telas, possui_piscina, local_dormida,
+                qtd_moradores, criancas, tempo_sozinho, outros_animais,
+                ciente_custos, declaracao_verdade
+            ) VALUES (
+                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
+                $14, $15, $16, $17, $18, $19, $20, $21, $22, $23
+            ) RETURNING id;
+        `;
+
+        const values = [
+            dados.animal_id,
+            dados.nome,
+            dados.cpf,
+            dados.nascimento,
+            dados.whatsapp,
+            dados.email,
+            dados.ocupacao,
+            dados.endereco,
+            dados.cidade,
+            dados.cep,
+            dados['tipo-imovel'],
+            dados['posse-imovel'],
+            dados['permissao-proprietario'] || 'Não se aplica',
+            dados['seguranca-casa'],
+            dados.telas || 'não',
+            dados.piscina,
+            dados.dormida,
+            dados.moradores,
+            dados.criancas || 'Não possui',
+            dados['tempo-sozinho'],
+            dados['outros-animais'],
+            dados['check-custos'] === 'on',
+            dados['check-verdade'] === 'on'
+        ];
+
+        await db.query(query, values);
+        
+        res.status(201).json({ message: 'Solicitação enviada com sucesso!' });
+
+    } catch (error) {
+        console.error('Erro ao salvar solicitação:', error);
+        res.status(500).json({ error: 'Erro ao processar sua solicitação.' });
+    }
+});
+
 // Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
