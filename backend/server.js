@@ -497,6 +497,58 @@ app.post('/solicitacoes', async (req, res) => {
     }
 });
 
+// Rota ADMIN: Busca todas as solicitações de adoção
+app.get('/admin/solicitacoes', async (req, res) => {
+    try {
+        // O comando SQL abaixo busca os dados do pedido E o nome/foto do animal
+        const query = `
+            SELECT 
+                s.id, 
+                s.nome_solicitante, 
+                s.status, 
+                s.data_solicitacao,
+                a.nome as nome_animal,
+                a.foto as foto_animal
+            FROM solicitacoes_adocao s
+            JOIN animais a ON s.animal_id = a.id
+            ORDER BY s.id DESC
+        `;
+        
+        const resultado = await db.query(query);
+        res.json(resultado.rows);
+
+    } catch (error) {
+        console.error('Erro ao buscar solicitações:', error);
+        res.status(500).json({ error: 'Erro no servidor' });
+    }
+});
+
+// Rota para buscar UMA solicitação específica com todos os detalhes
+app.get('/admin/solicitacoes/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const query = `
+            SELECT 
+                s.*, 
+                a.nome as nome_animal,
+                a.foto as foto_animal
+            FROM solicitacoes_adocao s
+            JOIN animais a ON s.animal_id = a.id
+            WHERE s.id = $1
+        `;
+        const resultado = await db.query(query, [id]);
+        
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ error: 'Solicitação não encontrada' });
+        }
+
+        res.json(resultado.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar detalhes' });
+    }
+});
+
 // Liga o Servidor.
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}.`);
