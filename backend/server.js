@@ -402,13 +402,20 @@ app.get('/animais', async (req, res) => {
 });
 
 // --------------------- Detalhes Animais --------------------->
-// Rota para pegar detalhes de UM animal (incluindo a galeria de fotos)
+// Rota para pegar detalhes de UM animal (incluindo galeria + total de interessados)
 app.get('/animais/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        // 1. Busca os dados principais do animal
-        const animalResult = await db.query('SELECT * FROM animais WHERE id = $1', [id]);
+        // 1. Busca os dados principais do animal + A CONTAGEM de interessados
+        const query = `
+            SELECT a.*, 
+            (SELECT COUNT(*)::int FROM solicitacoes_adocao WHERE animal_id = a.id) as total_interessados
+            FROM animais a
+            WHERE a.id = $1
+        `;
+        
+        const animalResult = await db.query(query, [id]);
         
         if (animalResult.rows.length === 0) {
             return res.status(404).json({ mensagem: 'Animal não encontrado' });
@@ -420,12 +427,9 @@ app.get('/animais/:id', async (req, res) => {
         const fotosResult = await db.query('SELECT caminho_arquivo FROM fotos_animais WHERE animal_id = $1', [id]);
         
         // 3. Monta a lista final de fotos: [Foto de Capa, ...Fotos da Galeria]
-        // Garante que a capa é sempre a primeira
         let listaFotos = [animal.foto];
         
-        // Adiciona as outras fotos (se existirem)
         fotosResult.rows.forEach(f => {
-            // Evita duplicar a capa se ela já estiver na galeria
             if (f.caminho_arquivo !== animal.foto) {
                 listaFotos.push(f.caminho_arquivo);
             }
@@ -442,11 +446,12 @@ app.get('/animais/:id', async (req, res) => {
     }
 });
 
-// Rota para salvar a solicitação de adoção
+// Rota para salvar a solicitação de adoção (AGORA COM ATUALIZAÇÃO DO CONTADOR)
 app.post('/solicitacoes', async (req, res) => {
     const dados = req.body;
 
     try {
+        // 1. Salva o pedido na tabela de solicitações
         const query = `
             INSERT INTO solicitacoes_adocao (
                 animal_id, nome_solicitante, cpf_solicitante, nascimento_solicitante,
@@ -489,6 +494,9 @@ app.post('/solicitacoes', async (req, res) => {
 
         await db.query(query, values);
         
+        // Vai na tabela animais e soma +1 na coluna interessados
+        await db.query('UPDATE animais SET interessados = interessados + 1 WHERE id = $1', [dados.animal_id]);
+
         res.status(201).json({ message: 'Solicitação enviada com sucesso!' });
 
     } catch (error) {
