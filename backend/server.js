@@ -11,6 +11,7 @@ const bcrypt = require('bcryptjs');
 const db = require('./db');           
 const multer = require('multer');     
 const nodemailer = require('nodemailer'); 
+const fs = require('fs');
 
 // Inicializando a Aplicação.
 const app = express(); 
@@ -56,7 +57,7 @@ app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 
-// ----------------- Rota de Login -----------------> 
+// ----------------- Login do Usuário -----------------> 
 app.post('/login', async (req, res) => {
     // Recebe e extrai os dados do formulário enviado pelo Frontend.
     const { email, senha } = req.body;
@@ -95,6 +96,7 @@ app.post('/login', async (req, res) => {
             }
 
             // Sucesso! O Frontend salva os dados do Usuário no localStorage.
+            console.log(`Login bem-sucedido: ${email}`);
             res.status(200).json({ 
                 mensagem: 'Login Realizado com Sucesso!',
                 user: {
@@ -138,10 +140,12 @@ app.post('/cadastro', async (req, res) => {
     const nome_exibicao = nome_completo.split(' ')[0];
 
     try {
+        console.log('<--- Iniciando Criptografia da Senha --->');
         // O "SALT" é um texto aleatório que será misturado à senha.
         // O número "10" significa que o algoritmo vai embaralhar a senha 1024 vezes (2^10).
         // O O salt gerado sempre tem 22 caracteres (padrão do bcrypt).
         const salt = await bcrypt.genSalt(10);
+        console.log('Salt gerado com sucesso');
         const senhaHash = await bcrypt.hash(senha, salt);
 
         // Insere um Novo Usuário com os dados coletados na tabele "usuarios", retorna o "ID", "EMAIL" e "NOME_EXIBICAO".
@@ -240,7 +244,8 @@ app.post('/completar-perfil', upload.single('foto_perfil'), async (req, res) => 
         }
 
         // Sucesso! Foi concluído o Cadastro do Usuário.
-        res.status(200).json({ 
+            console.log(`Perfil completado com sucesso para: ${email}`);
+            res.status(200).json({ 
             mensagem: 'Perfil atualizado com Sucesso!', 
             user: usuarioAtualizado  
         });
@@ -260,6 +265,7 @@ app.post('/completar-perfil', upload.single('foto_perfil'), async (req, res) => 
 // Acessível via GET em: localhost:3000/teste-email
 app.get('/teste-email', async (req, res) => {
     try {
+        console.log('<--- Iniciando Teste de E-mail --->');
         // Envia um e-mail de Teste para a Própria Conta do Sistema.
         await transporter.sendMail({
             from: '"Meu Futuro Amigo" <' + process.env.EMAIL_USER + '>', 
@@ -269,6 +275,7 @@ app.get('/teste-email', async (req, res) => {
         });
 
         // Feedback exibido no Navegador.
+        console.log('E-mail de teste enviado com sucesso!');
         res.send('E-mail de teste enviado com sucesso! Verifique sua caixa de entrada.');
 
     } catch (error) {
@@ -427,20 +434,6 @@ app.post('/verificar-token', async (req, res) => {
 
 
 // ----------------- Recuperação da Senha - Etapa 3: Troca da Senha -----------------> 
-// ==================================================================
-// 9. RECUPERAÇÃO DE SENHA - ETAPA 3: TROCA DA SENHA (FINAL)
-// ==================================================================
-// FLUXO DA ROTA:
-//   1. Recebe e-mail + código + nova senha do formulário
-//   2. Valida se TODOS os 3 dados foram fornecidos
-//   3. REVALIDAÇÃO DE SEGURANÇA: verifica se o código ainda é válido
-//   4. Gera nova hash bcrypt para a senha
-//   5. Atualiza a senha no banco de dados
-//   6. APAGA o código usado (impede reutilização)
-//   7. Retorna sucesso ao frontend
-//
-// IMPORTANTE: Esta é a ÚLTIMA etapa. Após isso, o usuário consegue fazer login com a nova senha!
-
 app.post('/redefinir-senha', async (req, res) => {
     // Recebe e extrai os dados enviados do Frontend.
     const { email, token, novaSenha } = req.body;
@@ -509,71 +502,120 @@ app.post('/redefinir-senha', async (req, res) => {
     }
 });
 
-// Rota para Excluir Conta
+
+// ----------------- Excluir Conta -----------------> 
 app.delete('/deletar-conta', async (req, res) => {
+    // Recebe e extrai o e-mail enviado pelo Frontend.
     const { email } = req.body;
 
+    // Verifica se E-mail foi fornecido.
     if (!email) {
         return res.status(400).json({ mensagem: 'E-mail é obrigatório para exclusão.' });
     }
 
     try {
-        // 1. Opcional: Apagar tokens de reset de senha associados (limpeza)
-        await db.query('DELETE FROM reset_tokens WHERE email = $1', [email]);
+        // Procura o Usuário pelo E-mail.
+        const userResult = await db.query('SELECT foto_perfil FROM usuarios WHERE email = $1', [email]);
 
-        // 2. Apagar o usuário
-        const result = await db.query('DELETE FROM usuarios WHERE email = $1 RETURNING *', [email]);
-
-        if (result.rows.length === 0) {
+        if (userResult.rows.length === 0) {
             return res.status(404).json({ mensagem: 'Usuário não encontrado.' });
         }
+        // Pega o valor da foto, pode ser o caminho do arquivo ou null se o usuário não tem foto de Perfil.
+        const fotoPerfil = userResult.rows[0].foto_perfil;
 
-        // 3. Sucesso
-        res.status(200).json({ mensagem: 'Conta excluída com sucesso. Sentiremos sua falta!' });
+        // Apaga todos os Tokens de recuperação de senha associados ao E-mail.
+        await db.query('DELETE FROM reset_tokens WHERE email = $1', [email]);
+
+        // Apaga as Informações do Usuário na Tabela "usuarios".
+        await db.query('DELETE FROM usuarios WHERE email = $1', [email]);
+
+        if (fotoPerfil) {
+            // Remove a primeira barra se existir do caminho do arquivo.
+            const caminhoArquivo = fotoPerfil.startsWith('/') ? fotoPerfil.substring(1) : fotoPerfil;
+
+            // Usa o fs.unlink para apagar o arquivo.
+            fs.unlink(caminhoArquivo, (erro) => {
+                if (erro) {
+                    // Se der erro, avisa no console, mas não para o processo de exclusão.
+                    console.error('Erro ao Tentar Apagar Foto Física:', erro);
+                } else {
+                    console.log('Arquivo de Foto Deletado com Sucesso:', caminhoArquivo);
+                }
+            });
+        }
+
+        // Sucesso! Conta Excluida.
+        res.status(200).json({ mensagem: 'Conta e Dados Excluídos com Sucesso. Sentiremos sua falta!' });
 
     } catch (error) {
+        // Se algo der errado durante a exclusão registra o erro no console para o Debugging. 
         console.error('Erro ao deletar conta:', error);
+        
+        // Mensagem Genérica para o Usuário.
         res.status(500).json({ mensagem: 'Erro interno ao tentar excluir a conta.' });
     }
 });
 
 
-// --------------------- Buscar Animais --------------------->
-// Rota para buscar Animais (Aceita filtros: ?status=adotado ou ?status=disponivel)
+// -----------------------------------------------------------------------------------------------------------------------//
+
+
+// --------------------- Buscar Animais: Informações Básicas --------------------->
 app.get('/animais', async (req, res) => {
-    const { status } = req.query; // Lê o que vem depois do '?' na URL
+    // Extrai o parâmetro de "status" da URL (/animais?status=disponivel ou /animais?status=adotado).
+    const { status } = req.query;
 
     try {
-        let query = 'SELECT * FROM animais';
+        // Seleciona todos os dados da tabela "animais".
+        // Subconsulta que conta quantas solicitações cada animal recebeu e chama esse numero de "total_interessados". 
+        let query = `
+            SELECT a.*, 
+            (SELECT COUNT(*) FROM solicitacoes_adocao s WHERE s.animal_id = a.id) as total_interessados
+            FROM animais a
+        `;
+        
+        // Array que armazenará os parâmetros seguros da query.
         let params = [];
 
-        // Se o Front-end pediu um status específico (ex: adotado), filtramos
+        // Filtro de Status: Disponível ou Adotado.
         if (status) {
+            // Se o parâmetro "status" foi fornecido, adiciona à query.
             query += ' WHERE status = $1';
+            
+            // Adiciona o valor do status ao array de parâmetros.
             params.push(status);
         }
 
-        // Ordena pela DATA DE ADOÇÃO (do mais recente para o mais antigo)
-        query += ' ORDER BY data_adocao DESC';
+        // Ordenação: Mostra do Mais Novo para o Mais Antigo.
+        query += ' ORDER BY id DESC';
 
+        // Execução da Query no Banco de Dados.
         const result = await db.query(query, params);
+        console.log(`Busca de animais realizada. Total encontrado: ${result.rows.length}`);
         
-        // Devolve a lista (array) de animais
+        // Sucesso! Array com todos os Animais, cada elemento é um Objeto. Retorna a lista para o Frontend.
         res.status(200).json(result.rows);
 
     } catch (error) {
+        // Se algo der errado durante a execução registra o erro no console para o Debugging. 
         console.error('Erro ao buscar animais:', error);
+
+        // Mensagem Genérica para o Usuário.
         res.status(500).json({ mensagem: 'Erro interno ao buscar animais.' });
     }
 });
 
-// --------------------- Detalhes Animais --------------------->
-// Rota para pegar detalhes de UM animal (incluindo galeria + total de interessados)
+
+// --------------------- Buscar Animais: Todas as Informações  --------------------->
+
+// Rota usada para Retornar Todos os Detalhes de um Animal Específico.
 app.get('/animais/:id', async (req, res) => {
+    // Extrai o ID do Animal pela URL.
     const { id } = req.params;
+    console.log(`<--- Busca de Detalhes do Animal ${id} --->`);
 
     try {
-        // 1. Busca os dados principais do animal + A CONTAGEM de interessados
+        // Busca todos os dados do Animal.
         const query = `
             SELECT a.*, 
             (SELECT COUNT(*)::int FROM solicitacoes_adocao WHERE animal_id = a.id) as total_interessados
@@ -581,29 +623,35 @@ app.get('/animais/:id', async (req, res) => {
             WHERE a.id = $1
         `;
         
+        // Executa a query no banco de dados.
         const animalResult = await db.query(query, [id]);
         
+        // Se não achar o Animal, retorna um aviso ao Usuário.
         if (animalResult.rows.length === 0) {
             return res.status(404).json({ mensagem: 'Animal não encontrado' });
         }
         
+        // Extrai o resultado da query (objeto com todos os campos do animal).
         const animal = animalResult.rows[0];
 
-        // 2. Busca as fotos extras na tabela de galeria
+        // Pega todas as fotos adicionais do animal na tabela "fotos_animais".
         const fotosResult = await db.query('SELECT caminho_arquivo FROM fotos_animais WHERE animal_id = $1', [id]);
-        
-        // 3. Monta a lista final de fotos: [Foto de Capa, ...Fotos da Galeria]
+
+        // Array com a ordem das fotos.
+        // Inicializa o array com a foto da capa.
         let listaFotos = [animal.foto];
-        
+
         fotosResult.rows.forEach(f => {
+            // Adiciona a foto somente se ela for diferente da foto de capa.
             if (f.caminho_arquivo !== animal.foto) {
                 listaFotos.push(f.caminho_arquivo);
             }
         });
 
-        // Anexa a lista de fotos ao objeto do animal
+        // Adiciona o array de fotos ao objeto do animal.
         animal.fotos = listaFotos;
 
+        // Sucesso! Deu Certo.
         res.json(animal);
 
     } catch (error) {
@@ -612,12 +660,19 @@ app.get('/animais/:id', async (req, res) => {
     }
 });
 
-// Rota para salvar a solicitação de adoção (AGORA COM ATUALIZAÇÃO DO CONTADOR)
+
+// -----------------------------------------------------------------------------------------------------------------------//
+
+
+// --------------------- Processo de Adoção --------------------->
 app.post('/solicitacoes', async (req, res) => {
+    // Recebe e extrai todos os dados do formulário enviado pelo Frontend.
     const dados = req.body;
+    console.log(`<--- Nova Solicitação de Adoção --->`);  
+    console.log(`Solicitante: ${dados.nome} | Animal ID: ${dados.animal_id}`);
 
     try {
-        // 1. Salva o pedido na tabela de solicitações
+        // Todos os campos do formulário.
         const query = `
             INSERT INTO solicitacoes_adocao (
                 animal_id, nome_solicitante, cpf_solicitante, nascimento_solicitante,
@@ -633,36 +688,53 @@ app.post('/solicitacoes', async (req, res) => {
         `;
 
         const values = [
-            dados.animal_id,
-            dados.nome,
-            dados.cpf,
-            dados.nascimento,
-            dados.whatsapp,
-            dados.email,
-            dados.ocupacao,
-            dados.endereco,
-            dados.cidade,
-            dados.cep,
-            dados['tipo-imovel'],
-            dados['posse-imovel'],
-            dados['permissao-proprietario'] || 'Não se aplica',
-            dados['seguranca-casa'],
-            dados.telas || 'não',
-            dados.piscina,
-            dados.dormida,
-            dados.moradores,
-            dados.criancas || 'Não possui',
-            dados['tempo-sozinho'],
-            dados['outros-animais'],
-            dados['check-custos'] === 'on',
-            dados['check-verdade'] === 'on'
+            // Identificações básicas:
+            dados.animal_id,                                    
+            dados.nome,                                        
+            dados.cpf,                                         
+            dados.nascimento,                                   
+            
+            // Contato:
+            dados.whatsapp,                                     
+            dados.email,                                        
+            dados.ocupacao,                                     
+            dados.endereco,                                     
+            
+            // Localização:
+            dados.cidade,                                       
+            dados.cep,                                          
+            
+            // Tipo de imóvel:
+            dados['tipo-imovel'],                              
+            dados['posse-imovel'],                             
+            dados['permissao-proprietario'] || 'Não se aplica', 
+            
+            // Segurança da casa:
+            dados['seguranca-casa'],                           
+            dados.telas || 'não',                              
+            dados.piscina,                                      
+            dados.dormida,                                      
+            
+            // Ambiente familiar:
+            dados.moradores,                                    
+            dados.criancas || 'Não possui',                    
+            dados['tempo-sozinho'],                            
+            dados['outros-animais'],                           
+            
+            // Comprometimento:
+            dados['check-custos'] === 'on',                    
+            dados['check-verdade'] === 'on'                    
         ];
 
+        // Inserção no Banco de Dados.
         await db.query(query, values);
-        
-        // Vai na tabela animais e soma +1 na coluna interessados
+        console.log('Solicitação salva na base de dados');
+
+        // Atualiza manualmente a coluna estática 'interessados' na tabela animais.
         await db.query('UPDATE animais SET interessados = interessados + 1 WHERE id = $1', [dados.animal_id]);
 
+        // Sucesso! Candidatura enviada.
+        console.log('Solicitação de adoção processada e confirmada!');
         res.status(201).json({ message: 'Solicitação enviada com sucesso!' });
 
     } catch (error) {
@@ -671,60 +743,19 @@ app.post('/solicitacoes', async (req, res) => {
     }
 });
 
-// Rota ADMIN: Busca todas as solicitações de adoção
-app.get('/admin/solicitacoes', async (req, res) => {
-    try {
-        // O comando SQL abaixo busca os dados do pedido E o nome/foto do animal
-        const query = `
-            SELECT 
-                s.id, 
-                s.nome_solicitante, 
-                s.status, 
-                s.data_solicitacao,
-                a.nome as nome_animal,
-                a.foto as foto_animal
-            FROM solicitacoes_adocao s
-            JOIN animais a ON s.animal_id = a.id
-            ORDER BY s.id DESC
-        `;
-        
-        const resultado = await db.query(query);
-        res.json(resultado.rows);
 
-    } catch (error) {
-        console.error('Erro ao buscar solicitações:', error);
-        res.status(500).json({ error: 'Erro no servidor' });
-    }
-});
+// -----------------------------------------------------------------------------------------------------------------------//
 
-// Rota para buscar UMA solicitação específica com todos os detalhes
-app.get('/admin/solicitacoes/:id', async (req, res) => {
-    const id = req.params.id;
-    try {
-        const query = `
-            SELECT 
-                s.*, 
-                a.nome as nome_animal,
-                a.foto as foto_animal
-            FROM solicitacoes_adocao s
-            JOIN animais a ON s.animal_id = a.id
-            WHERE s.id = $1
-        `;
-        const resultado = await db.query(query, [id]);
-        
-        if (resultado.rows.length === 0) {
-            return res.status(404).json({ error: 'Solicitação não encontrada' });
-        }
-
-        res.json(resultado.rows[0]);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao buscar detalhes' });
-    }
-});
 
 // Liga o Servidor.
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}.`);
-    console.log('Agora está pronto para receber POSTs em /login, /cadastro, /completar-perfil e /esqueci-senha');
+    console.log('---------------------------------------------------------');
+    console.log(`--- SERVIDOR ONLINE <======> RODANDO NA PORTA ${PORT}---`)
+    console.log('---------------------------------------------------------');
+    console.log('Rotas Ativas:');
+    console.log(' > Autenticação: /login, /cadastro, /esqueci-senha');
+    console.log(' > Perfil: /completar-perfil, /deletar-conta');
+    console.log(' > Animais: /animais e /animais/:id');
+    console.log(' > Adoção: /solicitacoes');
+    console.log('---------------------------------------------------------');
 });
