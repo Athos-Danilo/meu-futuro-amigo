@@ -1,0 +1,395 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------- Variáveis do Projeto ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* ---------------------------------------- Base (Mobile First) ---------------------------------------- */
+/* ---------- Fundo e Estrutura Geral ---------- */
+body {
+    background-color: var(--cor-branco);
+    position: relative;
+    min-height: 100vh;
+    font-family: var(--fonte-textos);
+}
+
+/* -- Camada das Patinhas -- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../img/Patas.png');
+    background-repeat: repeat;
+    background-size: 550px; 
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.processo-adocao {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 15px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Cartão Branco ---------- */
+.container-card {
+    background-color: var(--cor-branco);
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 25px; 
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+/* ---------- Header do Animal ---------- */
+.header-resumo-animal {
+    background-color: #FFF8E1;
+    border: 2px dashed var(--cor-bege);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.foto-resumo-wrapper img {
+    width: 120px;                       
+    height: 120px;                       
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--cor-laranja);
+}
+
+.dados-resumo-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.titulo-resumo {
+    font-family: var(--fonte-textos);
+    padding: 0px 10px;               
+    font-size: 1rem;
+    color: var(--cor-preto);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nome-grande {
+    font-family: var(--fonte-titulos);
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+    font-weight: 500;              
+    color: var(--cor-marrom);
+    line-height: 1;
+}
+
+.tags-resumo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--cor-preto);
+    font-weight: 600;
+}
+.separador { 
+    color: var(--cor-laranja); 
+    font-weight: bold;
+}
+
+/* ---------- Formulário ---------- */
+.intro-form {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    padding: 0 10px;
+}
+
+.grupo-form {
+    border: 1px solid var(--cor-cinza-marcacao);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #FAFAFA;
+}
+
+.grupo-form legend {
+    font-family: var(--fonte-cabeçalho);
+    color: var(--cor-marrom);
+    font-size: 1.2rem;
+    padding: 0 8px;
+}
+
+/* -- Estilo Inputs -- */
+.linha-input {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.linha-input label {
+    font-weight: 600;
+    color: var(--cor-cinza-escuro);
+    font-size: 0.9rem;
+}
+
+.obrigatorio { color: var(--cor-vermelho); }
+
+input[type="text"], input[type="email"], input[type="date"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--cor-cinza-caixa);
+    border-radius: 8px;
+    font-family: var(--fonte-textos);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: var(--cor-branco);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--cor-laranja);
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+}
+
+textarea { resize: vertical; }
+
+.input-travado {
+    background-color: var(--cor-cinza-input);
+    color: #777;
+    cursor: not-allowed;
+    border-color: #eee;
+}
+
+/* -- Padrão Mobile: 1 coluna -- */
+.grid-duplo {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 15px;
+}
+
+/* -- Permissão do Proprietário -- */
+.radio-group {
+    display: flex;
+    gap: 20px;
+    padding: 8px 0;
+}
+
+.radio-group label {
+    font-weight: normal;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    accent-color: var(--cor-laranja);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* -- Acordo -- */
+.destaque-termo {
+    background-color: #FFF3E0;
+    border-color: #FFE0B2;
+}
+
+.checkbox-legal {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.checkbox-legal label {
+    font-weight: normal;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.checkbox-legal input[type="checkbox"] {
+    margin-top: 5px; 
+}
+
+/* -- Botão -- */
+.botao-enviar-grande {
+    width: 100%;
+    background-color: var(--cor-verde);
+    color: var(--cor-branco);
+    font-family: var(--fonte-titulos);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s, background-color 0.2s;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(107, 142, 35, 0.4);
+}
+
+.botao-enviar-grande:active {
+    transform: scale(0.98);
+}
+
+
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
+@media (min-width: 900px) {
+    /* ---------- Fundo e Estrutura Geral ---------- */
+    .processo-adocao { 
+        padding: 40px; 
+    }
+
+    body::before { 
+        background-size: 900px; 
+    }
+
+    .container-card {
+        padding: 40px; 
+    }
+
+    /* ---------- Header do Animal ---------- */
+    .header-resumo-animal {
+        flex-direction: row; 
+        text-align: left;
+        padding: 25px;
+        gap: 25px;
+    }
+
+    .foto-resumo-wrapper img {
+        width: 130px;                       
+        height: 130px;                       
+        border-radius: 25%;
+    }
+
+    .dados-resumo-wrapper {
+        align-items: flex-start;
+    }
+
+    .titulo-resumo {
+        padding: 0px 0px;               
+        font-size: 1.1rem;
+    }
+
+    .nome-grande {
+        font-size: 2.5rem;
+        font-weight: 500;              
+    }
+
+    .tags-resumo {
+        font-size: 1.1rem;
+    }
+
+    /* ---------- Formulário ---------- */
+    .grid-duplo {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grupo-form {
+        padding: 25px;
+    }
+
+    /* -- Acordo -- */
+    .checkbox-legal input[type="checkbox"] {
+        margin-top: 3px; 
+    }
+
+    /* -- Botão -- */
+    .botao-enviar-grande {
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+        font-size: 1.4rem;
+    }
+
+    .botao-enviar-grande:hover {
+        background-color: var(--cor-marrom);    
+        transform: translateY(-3px);
+    }
+}
+
+
+/* ---------------------------------------- Telas Grandes (1400px) ---------------------------------------- */
+@media (min-width: 1400px) {
+    /* ---------- Fundo e Estrutura Geral ---------- */
+    body::before { 
+        background-size: 1400px; 
+    }
+
+    .container-card { 
+        max-width: 900px; 
+    }
+
+    /* ---------- Header do Animal ---------- */
+    .foto-resumo-wrapper img {
+        width: 150px;                       
+        height: 150px;                       
+        border-radius: 15%;
+    }
+
+    .titulo-resumo {            
+        font-size: 1.2rem;
+    }
+
+    .nome-grande {
+        font-size: 2.7rem;
+    }
+
+    .tags-resumo {
+        font-size: 1.2rem;
+    }
+
+    /* ---------- Formulário ---------- */
+    .grupo-form legend {
+        font-size: 1.4rem;
+    }
+
+    /* -- Botão -- */
+    .botao-enviar-grande {
+        width: 45%;
+        font-size: 1.5rem;
+    }
+}
