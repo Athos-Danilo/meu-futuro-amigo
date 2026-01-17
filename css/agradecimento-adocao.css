@@ -1,0 +1,634 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------- Variáveis do Projeto ---------------------------------------- */
+:root {
+    --cor-marrom: #8B4513;
+    --cor-bege: #F5DEB3;
+    --cor-laranja: #FF8C00;
+    --cor-verde: #6B8E23;
+    --cor-verde-escuro: #2d380e; 
+    --cor-branco: #FFFFFF; 
+    --cor-preto: #000000; 
+    --cor-vermelho: #ff0000;
+    --cor-amarelo: #FFFF00; 
+    --cor-cinza: #DBCDCD;
+    --cor-cinza-input: #f0f0f0;
+    --cor-cinza-escuro: #3d3d3d;
+    --cor-cinza-botao: #4A4A4A;
+    --cor-cinza-caixa: #D9D9D9;
+    --cor-cinza-marcacao: #E4E4E4;
+    --cor-amarelo-fundo: #fffde7;
+    --cor-amarelo-borda: #fbc02d;
+
+    --fonte-cabeçalho: 'Acme', sans-serif;
+    --fonte-titulos: 'Anton', sans-serif;
+    --fonte-textos: 'Afacad', sans-serif;
+}
+
+/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+/* ---------- Base da Tela ---------- */
+body {
+    background-color: var(--cor-branco);
+    position: relative;
+    min-height: 100vh;
+    font-family: var(--fonte-textos);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../img/Patas.png');
+    background-repeat: repeat;
+    background-size: 550px; 
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.agradecimento {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 25px;           
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Container Principal ---------- */
+.container-card {
+    background-color: var(--cor-branco);
+    width: 100%;
+    max-width: 500px; 
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    border: 1px solid #eee;
+}
+
+/* ---------- Grid ---------- */
+.dashboard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.coluna-resumo, .coluna-detalhes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ---------- Coluna Esquerda ---------- */
+/* --- Agradecimento --- */
+.header-sucesso {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.circulo-pulsante {
+    width: 70px; 
+    height: 70px;
+    background-color: #FFF0F5;
+    border-radius: 50%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    color: #E91E63;
+    animation: pulsar 2s infinite ease-in-out;
+}
+
+.circulo-pulsante svg { 
+    width: 40px; 
+    height: 40px; 
+}
+
+.titulo-pagina {
+    font-family: var(--fonte-titulos);
+    font-size: 1.8rem;
+    color: var(--cor-verde);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+}
+
+.subtitulo { 
+    color: var(--cor-preto); 
+    font-size: 1rem; 
+    line-height: 1.4; 
+    text-align: center; 
+}
+
+/* --- Animal --- */
+.card-resumo-mini {
+    background-color: var(--cor-cinza-input);
+    border-radius: 50px;
+    padding: 10px 20px 10px 10px;
+    display: flex; 
+    align-items: center; 
+    gap: 15px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.foto-mini-wrapper img {
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid var(--cor-laranja);
+}
+
+.info-mini h3 { 
+    font-family: var(--fonte-titulos); 
+    color: var(--cor-marrom); 
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    font-weight: 400; 
+}
+
+.label-mini { 
+    font-size: 0.8rem; 
+    color: #888;  
+}
+
+/* --- Cronômetro --- */
+.container-cronometro {
+    text-align: center;
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; 
+}
+
+.label-prazo {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+    font-weight: 600;
+}
+
+.alerta-prazo-pill {
+    background-color: transparent;
+    border: 2px solid var(--cor-laranja); 
+    border-radius: 50px;
+    padding: 8px 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(255, 140, 0, 0.15);
+}
+
+.tempo-destaque {
+    font-family: var(--fonte-titulos); 
+    font-size: 1.4rem; 
+    color: var(--cor-laranja);
+    letter-spacing: 1px;
+}
+
+.separador {
+    color: #ddd;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.condicao-extra {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Ajuste Mobile: Se a tela for muito pequena, quebra a linha dentro da pílula */
+@media (max-width: 400px) {
+    .alerta-prazo-pill {
+        flex-direction: column;
+        border-radius: 20px;
+        gap: 2px;
+    }
+
+    .separador { 
+        display: none; /* Esconde a barrinha no mobile */
+    } 
+}
+
+/* --- Aviso Atenção --- */
+.aviso-fixo {
+    background-color: var(--cor-amarelo-fundo);
+    border-left: 4px solid var(--cor-amarelo-borda);
+    padding: 10px; 
+    margin-bottom: 20px;
+    font-size: 0.87rem; 
+    color: #444;
+    text-align: justify;
+    box-shadow: 0px 0px 2px rgba(25, 77, 1, 0.273);
+}
+
+/* ---------- Coluna Direita ---------- */
+/* --- Timeline --- */
+.timeline-box { 
+    position: relative; 
+    width: 100%; 
+    padding: 0 5px; 
+}
+
+.steps-container { 
+    display: flex; 
+    justify-content: space-between; 
+    position: relative; 
+    z-index: 2; 
+}
+
+.linha-base { 
+    position: absolute; 
+    top: 20px; 
+    left: 0; 
+    width: 100%; 
+    height: 4px; 
+    background-color: #eee; 
+    z-index: 1; 
+}
+
+.linha-progresso { 
+    height: 100%; 
+    background-color: var(--cor-verde); 
+    width: 0%; 
+    border-radius: 4px; 
+    animation: preencherBarra 1.5s ease-out forwards; 
+}
+
+.step { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 8px; 
+    width: 60px; 
+    cursor: pointer; 
+}
+
+.bolinha {
+    width: 40px; 
+    height: 40px;
+    background-color: var(--cor-branco); 
+    border: 3px solid #ddd; 
+    border-radius: 50%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-weight: bold; 
+    color: #aaa; 
+    transition: all 0.3s;
+}
+
+.legenda { 
+    font-size: 0.75rem; 
+    color: #aaa; 
+    font-weight: 600; 
+}
+
+/* --- Estilos da Timeline Inteligente --- */
+/* 1. Passo CONCLUÍDO (Onde o usuário realmente está - Passo 1) */
+/* Sempre VERDE e preenchido */
+.step.concluido .bolinha {
+    background-color: var(--cor-verde);
+    border-color: var(--cor-verde);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(107, 142, 35, 0.2); 
+}
+.step.concluido .legenda { 
+    color: var(--cor-verde); 
+    font-weight: bold;
+}
+
+/* 2. Passo ATIVO/SELECIONADO (O que o usuário está LENDO agora) */
+.step.ativo:not(.concluido) .bolinha {
+    border-color: var(--cor-laranja);
+    color: var(--cor-laranja);
+    background-color: #fff3e0; 
+    transform: scale(1.1); 
+}
+
+.step.ativo:not(.concluido) .legenda {
+    color: var(--cor-laranja);
+    font-weight: bold;
+}
+
+/* --- Box de Informações --- */
+.titulo-secao {
+    color: #e65100; 
+    margin-top: 10px; 
+    margin-bottom: 5px;
+    font-family: var(--fonte-titulos); 
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.box-status-info {
+    background-color: #FFF8E1;
+    border-left: 5px solid var(--cor-amarelo-borda);
+    padding: 20px; 
+    border-radius: 8px;
+    font-size: 0.95rem; 
+    color: #555; 
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.titulo-dinamico {
+    font-size: 1.2rem; 
+    display: block; 
+    margin-bottom: 15px;
+    color: #d84315; 
+    border-bottom: 1px solid #ffe0b2; 
+    padding-bottom: 5px;
+}
+
+.texto-dinamico { 
+    line-height: 1.4; 
+    font-size: 0.9rem; 
+    color: #3e2723;
+    text-align: justify; 
+}
+
+/* --- Setinhas --- */
+.nav-botoes {
+    margin-top: 25px; 
+    display: flex; 
+    justify-content: space-between;
+    border-top: 1px dotted #ffcc80; 
+    padding-top: 15px;
+}
+
+.btn-nav {
+    border: none; 
+    background: none; 
+    color: #f57c00;
+    cursor: pointer; 
+    font-weight: bold; 
+    font-family: var(--fonte-textos);
+    font-size: 1rem; 
+    transition: transform 0.2s;
+}
+
+.btn-nav:hover { 
+    transform: scale(1.05); 
+}
+
+/* --- Botões Principais --- */
+.btn-primario {
+    background-color: var(--cor-laranja); 
+    color: var(--cor-branco);
+    text-align: center; 
+    padding: 15px; 
+    border-radius: 50px;
+    text-decoration: none; 
+    font-family: var(--fonte-titulos);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.04em; 
+    text-transform: uppercase; 
+    display: block; 
+    width: 100%;
+    transition: transform 0.2s;
+}
+
+.btn-primario:hover { 
+    transform: translateY(-3px); 
+    background-color: var(--cor-marrom); 
+}
+
+.btn-secundario {
+    background-color: transparent; 
+    border: 2px solid var(--cor-cinza-botao);
+    color: var(--cor-cinza-botao); 
+    padding: 12px; 
+    border-radius: 50px;
+    font-weight: bold; 
+    cursor: pointer; 
+    width: 100%;
+    transition: all 0.2s;
+    margin-top: 10px;
+}
+
+.btn-secundario:hover { 
+    background-color: #00000019; 
+    border-color: var(--cor-marrom); 
+}
+
+
+/* ---------------- ANIMAÇÕES ---------------- */
+@keyframes pulsar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+@keyframes preencherBarra {
+    0% { width: 0%; }
+    100% { width: 25%; }
+}
+
+
+/* ---------------------------------------- Ajustes para Telas Médias ---------------------------------------- */
+@media (min-width: 900px) {
+    /* ---------- Base da Tela ---------- */
+    body::before { 
+        background-size: 900px;
+    }
+
+    /* ---------- Container Principal ---------- */
+    .container-card { 
+        max-width: 850px; 
+        padding: 25px; 
+    }
+    
+    /* ---------- Grid (2 Colunas) ---------- */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr; 
+        gap: 40px;
+        align-items: start;
+    }
+
+    /* ---------- Coluna Esquerda ---------- */
+    /* --- Agradecimento --- */
+    .header-sucesso { 
+        align-items: center; 
+        text-align: center; 
+    }
+
+    .circulo-pulsante {
+        width: 80px; 
+        height: 80px;
+    }
+
+    .circulo-pulsante svg { 
+        width: 40px; 
+        height: 40px; 
+    }
+
+    .titulo-pagina { 
+        font-size: 2rem;
+        font-weight: 500;
+    }
+
+    .subtitulo { 
+        font-size: 1.1rem; 
+        line-height: 1.2;
+    }
+
+    /* --- Animal --- */
+    .card-resumo-mini {
+        border-radius: 30px;
+        padding: 10px 20px 10px 10px;
+    }
+
+    .foto-mini-wrapper img {
+        width: 65px; 
+        height: 65px;
+        border-radius: 40%; 
+    }
+
+    .info-mini h3 { 
+        font-size: 1.7rem;
+    }
+
+    .label-mini { 
+        font-size: 0.9rem;   
+    }
+    
+    /* --- Aviso Atenção --- */
+    .aviso-fixo {
+        font-size: 0.9rem; 
+        color: #333;
+    }
+
+    /* ---------- Coluna Direita ---------- */
+    /* --- Timeline --- */
+    .legenda { 
+        font-size: 0.8rem; 
+    }
+
+    /* --- Box de Informações --- */
+    .titulo-secao {
+        font-size: 1.7rem;
+    }
+
+    .texto-dinamico { 
+        line-height: 1.5; 
+        font-size: 1.05rem; 
+    }
+
+    /* --- Botões Principais --- */
+    .btn-primario { 
+        width: 90%; 
+        margin: 0 auto;
+    }
+
+    .btn-secundario { 
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 15px; 
+    }
+}
+
+/* ---------------------------------------- Ajustes para Telas Grandes ---------------------------------------- */
+@media (min-width: 1400px) {
+    /* ---------- Base da Tela ---------- */
+    body::before { 
+        background-size: 1400px; 
+    }
+
+    /* ---------- Container Principal ---------- */
+    .container-card { 
+        max-width: 1200px;
+        padding: 45px; 
+    } 
+    
+    /* ---------- Grid (2 Colunas) ---------- */
+    .dashboard-grid { 
+        gap: 70px; 
+    }
+
+    /* ---------- Coluna Esquerda ---------- */
+    /* --- Agradecimento --- */
+    .titulo-pagina { 
+        font-size: 2.6rem;
+        letter-spacing: 0.02em;
+        font-weight: 500; 
+    }
+
+    .subtitulo { 
+        font-size: 1.3rem; 
+        line-height: 1.3;
+    }
+
+    /* --- Animal --- */
+    .card-resumo-mini {
+        border-radius: 20px;
+        padding: 10px 20px 10px 10px;
+    }
+
+    .foto-mini-wrapper img {
+        width: 100px; 
+        height: 100px;
+        border-radius: 25%; 
+    }
+
+    .info-mini h3 { 
+        font-size: 2rem;
+        font-weight: 500; 
+    }
+
+    .label-mini { 
+        font-size: 1rem;  
+    }
+
+    /* --- Aviso Atenção --- */
+    .aviso-fixo {
+        font-size: 1rem; 
+        color: #222;
+    }
+
+    /* ---------- Coluna Direita ---------- */
+    /* --- Timeline --- */
+    .legenda { 
+        font-size: 0.9rem; 
+    }
+
+    /* --- Box de Informações --- */
+    .titulo-secao {
+        font-size: 2rem;
+        letter-spacing: 0.04em;
+        text-align: start;
+    }
+
+    .titulo-dinamico {
+        font-size: 1.4rem; 
+    }
+
+    .texto-dinamico { 
+        line-height: 1.6;  
+        color: #261815; 
+    }
+
+    /* --- Botões Principais --- */
+    .btn-primario { 
+        width: 70%; 
+    }
+    
+    .btn-secundario { 
+        width: 50%; 
+    }
+}
