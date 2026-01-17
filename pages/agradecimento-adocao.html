@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,71 +13,108 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/agradecimento-adocao.css">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
 </head>
 <body>
+
     <div id="header"></div>
 
     <main class="agradecimento">
+
         <div class="container-card">
-            <div class="header-sucesso">
-                <div class="circulo-pulsante">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                </div>
-                <h1 class="titulo-pagina">Solicitação Enviada!</h1>
-                <p class="subtitulo">Obrigado por querer mudar uma vida. <br>Agora estamos analisando seu perfil.</p>
-            </div>
-
-            <div class="card-resumo-mini">
-                <div class="foto-mini-wrapper">
-                    <img id="foto-animal" src="" alt="Foto do Pet"> </div>
-                <div class="info-mini">
-                    <span class="label-mini">Processo de Adoção:</span>
-                    <h3 id="nome-animal">Carregando...</h3>
-                </div>
-            </div>
-
-            <div class="timeline-box">
-                <div class="linha-base">
-                    <div class="linha-progresso"></div>
-                </div>
-
-                <div class="steps-container">
-                    <div class="step ativo">
-                        <div class="bolinha">1</div>
-                        <span class="legenda">Enviado</span>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="bolinha">2</div>
-                        <span class="legenda">Análise</span>
-                    </div>
-
-                    <div class="step">
-                        <div class="bolinha">3</div>
-                        <span class="legenda">Entrevista</span>
-                    </div>
-
-                    <div class="step">
-                        <div class="bolinha">4</div>
-                        <span class="legenda">Adoção</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="box-status-info">
-                <strong>O que acontece agora?</strong>
-                <p>Nossa equipe recebeu sua ficha. Vamos ler com carinho e, se o perfil for compatível, entraremos em contato via WhatsApp em até 48h.</p>
-            </div>
-
-            <div class="botoes-acao">
-                <button class="btn-secundario" onclick="alert('O sistema de chat interno estará disponível em breve! Por enquanto, aguarde nosso contato. 💬')">
-                    Fale com o Protetor
-                </button>
+            
+          <div class="dashboard-grid">
                 
-                <a href="/index.html" class="btn-primario">Voltar ao Início</a>
+                <div class="coluna-resumo">
+                    
+                    <div class="header-sucesso">
+                        <div class="circulo-pulsante">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
+                        <h1 class="titulo-pagina">Solicitação Enviada!</h1>
+                        <p class="subtitulo">Obrigado por querer mudar uma vida<br>Obrigado por oferecer um futuro melhor</p>
+                    </div>
+
+                    <div class="card-resumo-mini">
+                        <div class="foto-mini-wrapper">
+                            <img id="foto-animal" src="" alt="Foto do Pet"> 
+                        </div>
+                        <div class="info-mini">
+                            <span class="label-mini">Você Escolheu:</span>
+                            <h3 id="nome-animal">Carregando...</h3>
+                        </div>
+                    </div>
+
+                    <div class="container-cronometro">
+                        <p class="label-prazo">Prazo para encerrar as candidaturas</p>
+                        <div class="alerta-prazo-pill">
+                            <span id="data-limite" class="tempo-destaque">...</span>
+                            <span class="separador">|</span>
+                            <span class="condicao-extra">ou até a 10ª solicitação</span>
+                        </div>
+                    </div>
+
+                    <div class="aviso-fixo" style="width: 100%; border-radius: 8px;">
+                        🔔 <strong>Fique tranquilo!</strong> Para você não perder nenhum prazo, nós te avisaremos a cada mudança de etapa através de 3 canais: 
+                        <b>Notificação no site</b>, <b>E-mail</b> e <b>WhatsApp</b>. Fique atento ao seu celular!
+                    </div>
+
+                </div>
+
+                <div class="coluna-detalhes">
+                    
+                    <div class="timeline-box">
+                        <div class="linha-base">
+                            <div class="linha-progresso"></div>
+                        </div>
+
+                        <div class="steps-container">
+                            <div class="step ativo" onclick="mudarPasso(1)" title="Ver detalhes desta etapa">
+                                <div class="bolinha">1</div>
+                                <span class="legenda">Enviado</span>
+                            </div>
+                            <div class="step" onclick="mudarPasso(2)" title="Ver detalhes desta etapa">
+                                <div class="bolinha">2</div>
+                                <span class="legenda">Análise</span>
+                            </div>
+                            <div class="step" onclick="mudarPasso(3)" title="Ver detalhes desta etapa">
+                                <div class="bolinha">3</div>
+                                <span class="legenda">Entrevista</span>
+                            </div>
+                            <div class="step" onclick="mudarPasso(4)" title="Ver detalhes desta etapa">
+                                <div class="bolinha">4</div>
+                                <span class="legenda">Adoção</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="titulo-secao">O Que Acontece Agora?</h2>
+
+                    <div class="box-status-info">
+                        <strong id="titulo-passo" class="titulo-dinamico">
+                            1. Solicitação Recebida com Sucesso
+                        </strong>
+                        
+                        <p id="texto-passo" class="texto-dinamico">
+                            Você fez a sua parte! Escolheu com carinho um novo amigo e nos enviou suas informações. Sua ficha já está segura em nosso sistema e entrou oficialmente na fila de candidatos deste pet. Agora, nossa equipe fará uma conferência inicial apenas para garantir que seus dados de contato estão corretos e que o formulário foi preenchido integralmente.
+                        </p>
+
+                        <div class="nav-botoes">
+                            <button id="btn-voltar" onclick="passoAnterior()" class="btn-nav">⬅️ Voltar Etapa</button>
+                            <button id="btn-proximo" onclick="proximoPasso()" class="btn-nav">Próxima Etapa ➡️</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-secundario" onclick="alert('O sistema de chat interno estará disponível em breve! Por enquanto, aguarde nosso contato.')">
+                        Fale com o Protetor
+                    </button>
+
+                    <a href="/index.html" class="btn-primario">Voltar ao Início</a>
+                </div>
             </div>
+            
         </div>
     </main>
 
