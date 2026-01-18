@@ -153,15 +153,18 @@ async function abrirModal(idAnimal) {
 
         // Lógica de Interessados (Fila)
         let divStatus = document.getElementById('modal-status-area');
-        if (animal.interessados && animal.interessados > 0) {
+
+        // SUBSTITUIR AQUI: de animal.interessados para animal.total_interessados
+        if (animal.total_interessados && animal.total_interessados > 0) { 
             if (!divStatus) {
                 divStatus = document.createElement('div');
                 divStatus.id = 'modal-status-area';
                 divStatus.className = 'modal-status-alerta';
                 gridDetalhes.after(divStatus);
             }
-            const p = animal.interessados === 1 ? 'pessoa' : 'pessoas';
-            divStatus.innerText = `Atenção: Há ${animal.interessados} ${p} na fila de interesse.`;
+            // E AQUI TAMBÉM:
+            const p = animal.total_interessados === 1 ? 'pessoa' : 'pessoas';
+            divStatus.innerText = `Atenção: Há ${animal.total_interessados} ${p} na fila de interesse.`;
             divStatus.style.display = 'block';
         } else {
             if (divStatus) divStatus.remove();

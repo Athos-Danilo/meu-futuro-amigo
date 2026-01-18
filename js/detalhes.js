@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const LIMITE_CANDIDATURAS = 10;
     
     // Garante que interessados seja um número (caso venha null do banco)
-    const numInteressados = animal.interessados || 0;
+    const numInteressados = animal.total_interessados || 0;
 
     // Verifica se já lotou
     if (numInteressados >= LIMITE_CANDIDATURAS) {
@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         btnAcao.innerText = "Quero Adotar";
         btnAcao.onclick = (e) => {
             e.preventDefault();
-            alert("Em breve: Formulário de Adoção! 📝");
+            // Agora sim: Redireciona para a página de formulário levando o ID!
+            window.location.href = `processo-adocao.html?id=${animal.id}`;
         };
 
         // Status Incentivador | Calculamos quantas vagas restam.
