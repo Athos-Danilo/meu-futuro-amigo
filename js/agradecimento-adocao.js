@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!idAnimal) {
         // Se não tiver ID, redireciona o usuário para a página de "adotar".
-        window.location.href = 'pages/adotar.html'; 
+        window.location.href = 'adotar.html'; 
         return;
     }
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error("Erro ao carregar detalhes do animal:", error);
         alert('Ocorreu um erro ao carregar os detalhes do animal. Você será redirecionado para a página de adoção.');
-        window.location.href = 'pages/adotar.html';
+        window.location.href = 'adotar.html';
     }
 
     // Contador Fake.
