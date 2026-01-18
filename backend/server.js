@@ -109,7 +109,8 @@ app.post('/login', async (req, res) => {
                     numero: user.numero,                  
                     cep: user.cep,                        
                     cidade: user.cidade,                  
-                    estado: user.estado                   
+                    estado: user.estado,
+                    cpf: user.cpf                   
                 }
             });
         } else {
@@ -672,6 +673,17 @@ app.post('/solicitacoes', async (req, res) => {
     console.log(`Solicitante: ${dados.nome} | Animal ID: ${dados.animal_id}`);
 
     try {
+        // Se veio um ID de usuário e um CPF no formulário.
+        if (dados.usuario_id && dados.cpf) {
+            console.log(`Verificando atualização de CPF para usuário ${dados.usuario_id}...`);
+            
+            // Atualiza o CPF do Usuário apenas se o campo estiver vazio.
+            await db.query(
+                "UPDATE usuarios SET cpf = $1 WHERE id = $2 AND (cpf IS NULL OR cpf = '')",
+                [dados.cpf, dados.usuario_id]
+            );
+        }
+
         // Todos os campos do formulário.
         const query = `
             INSERT INTO solicitacoes_adocao (
@@ -744,6 +756,45 @@ app.post('/solicitacoes', async (req, res) => {
 });
 
 
+// --------------------- Histórico de Solicitações de Adoção --------------------->
+app.get('/minhas-solicitacoes', async (req, res) => {
+
+    const { email } = req.query;
+
+    if (!email) {
+        return res.status(400).json({ mensagem: 'E-mail é obrigatório.' });
+    }
+
+    console.log(`<--- Buscando histórico de adoções para: ${email} --->`);
+
+    try {
+        // Seleciona ID, Status, Data e junta com Nome e Foto do Animal.
+        const query = `
+            SELECT 
+                s.id, 
+                s.animal_id,
+                s.status, 
+                s.data_solicitacao,
+                a.nome as nome_animal,
+                a.foto as foto_animal
+            FROM solicitacoes_adocao s
+            JOIN animais a ON s.animal_id = a.id
+            WHERE s.email_solicitante = $1
+            ORDER BY s.id DESC
+        `;
+
+        const result = await db.query(query, [email]);
+        
+        console.log(`Encontradas ${result.rows.length} solicitações.`);
+        res.status(200).json(result.rows);
+
+    } catch (error) {
+        console.error('Erro ao buscar minhas solicitações:', error);
+        res.status(500).json({ mensagem: 'Erro interno ao buscar histórico.' });
+    }
+});
+
+
 // -----------------------------------------------------------------------------------------------------------------------//
 
 
@@ -756,6 +807,6 @@ app.listen(PORT, () => {
     console.log(' > Autenticação: /login, /cadastro, /esqueci-senha');
     console.log(' > Perfil: /completar-perfil, /deletar-conta');
     console.log(' > Animais: /animais e /animais/:id');
-    console.log(' > Adoção: /solicitacoes');
+    console.log(' > Adoção: /minhas-solicitacoes');
     console.log('---------------------------------------------------------');
 });
