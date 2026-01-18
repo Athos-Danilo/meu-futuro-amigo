@@ -1,5 +1,5 @@
 // Inicializa tudo quando o DOM estiver pronto.
-document.addEventListener('DOMContentLoaded', () => {  
+document.addEventListener('DOMContentLoaded', () => {   
     carregarDadosUsuario();
     inicializarAbas();
     inicializarBotoesAcao();
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Faz as alterações das Abas do histórico do usuário.
 function inicializarAbas() {
+    // Conteúdos estáticos para as abas (Agora inclui Minhas Adoções como padrão)
     const conteudos = {
         "Notificações": {
             titulo: "Você não tem novas<br>notificações",
@@ -18,7 +19,7 @@ function inicializarAbas() {
         "Minhas Adoções": {
             titulo: "Você ainda não adotou<br>nenhum bichinho",
             imagem: "../img/ilustração cachorro triste.png",
-            textoBotao: "Encontrar um Amigo", linkBotao: "/pages/adotar.html"
+            textoBotao: "Encontrar um Amigo", linkBotao: "/pages/quero-adotar.html" // Ajuste o link se necessário
         },
         "Minhas Divulgações": {
             titulo: "Você ainda não divulgou<br>nenhum animal",
@@ -28,85 +29,96 @@ function inicializarAbas() {
     };
 
     const botoesAba = document.querySelectorAll('.Abas-Navegação button');
-    const tituloEl = document.querySelector('.Chamada .Título');
-    const imagemEl = document.querySelector('.Chamada .Imagem');
-    const botaoEl = document.querySelector('.Chamada a');
+    const cardBranco = document.querySelector('.Card-Branco');
 
     // Ao clicar em uma aba, atualiza o visual e conteúdo do card.
     botoesAba.forEach(botao => {
         botao.addEventListener('click', () => {
             const nomeAba = botao.textContent.trim();
-            const dados = conteudos[nomeAba];
 
-            if (dados) {
-                // Marca a aba ativa.
-                botoesAba.forEach(b => b.className = 'Aba-Item');
-                botao.className = 'Aba-Item-Ativa';
+            // 1. Marca a aba ativa visualmente
+            botoesAba.forEach(b => b.className = 'Aba-Item');
+            botao.className = 'Aba-Item-Ativa';
+            
+            // 2. Efeito visual de Fade Out (Sumir conteúdo antigo)
+            cardBranco.style.opacity = '0';
+
+            setTimeout(() => {
+                // Busca o conteúdo correspondente no objeto 'conteudos'
+                const dados = conteudos[nomeAba];
                 
-                const cardBranco = document.querySelector('.Card-Branco');
-                cardBranco.style.opacity = '0';
-
-                setTimeout(() => {
-                    tituloEl.innerHTML = dados.titulo;
-                    imagemEl.src = dados.imagem;
-                    if (dados.textoBotao) {
-                        botaoEl.style.display = 'inline-block';
-                        botaoEl.textContent = dados.textoBotao;
-                        botaoEl.href = dados.linkBotao;
-                    } else {
-                        botaoEl.style.display = 'none';
-                    }
-                    cardBranco.style.opacity = '1';
-                }, 200);
-            }
+                if (dados) {
+                    renderizarConteudoPadrao(cardBranco, dados);
+                } else {
+                    // Fallback caso a aba não esteja mapeada
+                    console.warn("Conteúdo da aba não encontrado:", nomeAba);
+                }
+                
+                // 3. Fade In (Aparecer novo conteúdo)
+                cardBranco.style.opacity = '1';
+            }, 200);
         });
     });
+}
+
+// Função Auxiliar: Monta o HTML do estado vazio (Cachorro Triste/Correndo)
+function renderizarConteudoPadrao(container, dados) {
+    let htmlBotao = dados.textoBotao 
+        ? `<a href="${dados.linkBotao}" class="Btn-Encontrar-Amigo" style="display:inline-block">${dados.textoBotao}</a>` 
+        : '';
+
+    container.innerHTML = `
+        <div class="Chamada">
+            <h3 class="Título">${dados.titulo}</h3>
+            <img src="${dados.imagem}" alt="Ilustração" class="Imagem">
+            ${htmlBotao}
+        </div>
+    `;
 }
 
 // Verifica se a URL tem um parâmetro ?secao=... e clica na aba correspondente.
 function verificarAbaUrl() {
     const params = new URLSearchParams(window.location.search);
-    const secao = params.get('secao'); // Pega o valor de 'secao' (ex: 'adocoes')
+    const secao = params.get('secao'); // Ex: 'adocoes', 'divulgacoes'
 
     if (secao) {
         let nomeAbaParaClicar = "";
 
-        // Mapeia o código da URL para o Nome da Aba (exatamente como está no HTML/Array)
         if (secao === 'adocoes') {
             nomeAbaParaClicar = "Minhas Adoções";
         } else if (secao === 'divulgacoes') {
             nomeAbaParaClicar = "Minhas Divulgações";
-        } 
-        else if (secao === 'notificacoes') {
+        } else if (secao === 'notificacoes') {
             nomeAbaParaClicar = "Notificações";
         }
-
-        // Se encontrou um mapeamento, busca o botão e clica
+        
         if (nomeAbaParaClicar) {
             const botoes = document.querySelectorAll('.Abas-Navegação button');
-            
             botoes.forEach(botao => {
                 if (botao.textContent.trim() === nomeAbaParaClicar) {
-                    botao.click(); // Simula o clique do usuário
+                    botao.click();
                 }
             });
         }
     }
 }
 
-// Carrega os dados do usuário no LocalStorage e faz o preenchimento com as informações dele.
+// Carrega os dados do usuário no LocalStorage e preenche a sidebar.
 function carregarDadosUsuario() {
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     if (!usuarioSalvo) {
-        window.location.href = '/index.html';
+        window.location.href = '/index.html'; // Chuta para home se não estiver logado
         return;
     }
     const usuario = JSON.parse(usuarioSalvo);
+    
+    // Elementos da Sidebar
     const nomeEl = document.getElementById('nomeUsuario');
     const localEl = document.getElementById('cidadeEstado');
     const telefoneEl = document.getElementById('telefone');
     const fotoEl = document.querySelector('.Foto-Perfil img');
 
+    // Preenchimento Seguro
     if (nomeEl) nomeEl.textContent = usuario.nome_exibicao || usuario.nome_completo || "Usuário";
     
     if (localEl) {
@@ -116,11 +128,15 @@ function carregarDadosUsuario() {
     
     if (telefoneEl) telefoneEl.textContent = usuario.numero || "(XX) XXXXX-XXXX";
 
-    if (fotoEl && usuario.foto_perfil) fotoEl.src = usuario.foto_perfil;
+    // Lógica da Foto de Perfil
+    const caminhoAvatarPadrao = '/img/Perfil.png'; 
+    if (fotoEl) {
+        fotoEl.src = usuario.foto_perfil || caminhoAvatarPadrao;
+        fotoEl.onerror = () => { fotoEl.src = caminhoAvatarPadrao; };
+    }
 
+    // Botão Sair
     const btnSair = document.getElementById('btn-sair');
-
-    // Remove usuário do localStorage e redireciona para a tela inicial.
     if (btnSair) {
         btnSair.addEventListener('click', (e) => {
             e.preventDefault();
@@ -130,7 +146,7 @@ function carregarDadosUsuario() {
     }
 }
 
-// Modo de edição dos dados do usuário.
+// Gerencia a troca entre Sidebar e Formulário de Edição
 function inicializarBotoesAcao() {
     const btnMeusDados = document.querySelector('.Btn-Meus-Dados');
     const btnFechar = document.getElementById('btn-cancelar-edicao');
@@ -139,7 +155,7 @@ function inicializarBotoesAcao() {
     const secaoNavegacao = document.querySelector('.Retângulo-Navegação'); 
     const secaoFormulario = document.querySelector('.Seção-Meus-Dados'); 
 
-    // Esconde a sidbar e o card do perfil.
+    // Botão "Meus Dados" (Abre o form)
     if (btnMeusDados) {
         btnMeusDados.addEventListener('click', () => {
             if (sidebar) sidebar.classList.add('Escondido');
@@ -147,13 +163,13 @@ function inicializarBotoesAcao() {
             
             secaoFormulario.style.display = 'flex';
             
-            desativarModoEdicao();
+            desativarModoEdicao(); // Começa bloqueado
             preencherFormularioComDadosAtuais();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // Volta para o início da página meus dados. 
+    // Botão "Fechar" (Volta pra sidebar)
     if (btnFechar) {
         btnFechar.addEventListener('click', (e) => {
             e.preventDefault();
@@ -163,7 +179,7 @@ function inicializarBotoesAcao() {
         });
     }
 
-    // Ativa a edição das informações do usuário, e salva as alterações.
+    // Botão Principal (Editar ou Salvar)
     if (btnAcaoPrincipal) {
         btnAcaoPrincipal.addEventListener('click', (e) => {
             e.preventDefault();
@@ -175,7 +191,7 @@ function inicializarBotoesAcao() {
         });
     }
 
-    // Mostrar imagem selecionada antes do upload.
+    // Preview de Imagem no Upload
     const inputFoto = document.getElementById('input-upload-foto');
     const imgPreview = document.getElementById('preview-foto');
     if (inputFoto) {
@@ -191,7 +207,7 @@ function inicializarBotoesAcao() {
     }
 }
 
-// Libera o usuário a preencher ou alterar suas infomações.
+// Desbloqueia inputs
 function ativarModoEdicao() {
     const form = document.getElementById('editar-perfil');
     const btnAcao = document.getElementById('btn-acao-principal');
@@ -207,7 +223,7 @@ function ativarModoEdicao() {
     btnAcao.textContent = 'Salvar Alterações';
 }
 
-// Sai do modo de edição.
+// Bloqueia inputs
 function desativarModoEdicao() {
     const form = document.getElementById('editar-perfil');
     const btnAcao = document.getElementById('btn-acao-principal');
@@ -218,7 +234,7 @@ function desativarModoEdicao() {
     btnAcao.textContent = 'Editar Informações';
 }
 
-//Preenche o formulário com os dados do usuário armazenados em localStorage.
+// Pega dados do localStorage e joga nos inputs
 function preencherFormularioComDadosAtuais() {
     const usuarioSalvo = localStorage.getItem('usuarioLogado');
     if (!usuarioSalvo) return;
@@ -236,25 +252,21 @@ function preencherFormularioComDadosAtuais() {
     else imgPreview.src = '../img/Perfil.png';
 }
 
-// Envia os dados do formulário para o servidor.
+// Envia atualização para o servidor
 async function salvarDados() {
     const btnSalvar = document.getElementById('btn-acao-principal');
     btnSalvar.textContent = "Salvando...";
     btnSalvar.disabled = true;
 
     const formData = new FormData();
-    const email = document.getElementById('input-email').value;
-    const numero = document.getElementById('input-telefone').value;
-    const cep = document.getElementById('input-cep').value;
-    const cidade = document.getElementById('input-cidade').value;
-    const estado = document.getElementById('input-estado').value;
+    // Coleta dados dos inputs
+    formData.append('email', document.getElementById('input-email').value);
+    formData.append('numero', document.getElementById('input-telefone').value);
+    formData.append('cep', document.getElementById('input-cep').value);
+    formData.append('cidade', document.getElementById('input-cidade').value);
+    formData.append('estado', document.getElementById('input-estado').value);
 
-    formData.append('email', email);
-    formData.append('numero', numero);
-    formData.append('cep', cep);
-    formData.append('cidade', cidade);
-    formData.append('estado', estado);
-
+    // Coleta foto se houver
     const inputFoto = document.getElementById('input-upload-foto');
     if (inputFoto.files[0]) {
         formData.append('foto_perfil', inputFoto.files[0]);
@@ -271,10 +283,11 @@ async function salvarDados() {
         if (response.ok) {
             alert("Dados atualizados com sucesso!");
             
+            // Atualiza LocalStorage
             const usuarioAntigo = JSON.parse(localStorage.getItem('usuarioLogado'));
             const usuarioNovo = { ...usuarioAntigo, ...resultado.user };
             
-            // Ajusta caminho da foto para funcionar no cliente (normaliza barras)
+            // Normaliza barras da foto
             if (resultado.user.foto_perfil) {
                  let foto = resultado.user.foto_perfil.replace(/\\/g, '/');
                  if(!foto.startsWith('/')) foto = '/' + foto;
@@ -282,7 +295,7 @@ async function salvarDados() {
             }
 
             localStorage.setItem('usuarioLogado', JSON.stringify(usuarioNovo));
-            carregarDadosUsuario(); 
+            carregarDadosUsuario(); // Atualiza sidebar
             desativarModoEdicao();
             
         } else {
@@ -300,35 +313,25 @@ async function salvarDados() {
     }
 }
 
-// Inicializa o modal e todo o processo de exclusão da conta.
+// Modal de Exclusão de Conta
 function inicializarModalExclusao() {
     const btnAbrir = document.getElementById('btn-abrir-modal-exclusao');
     const btnCancelar = document.getElementById('btn-cancelar-exclusao');
-    const btnConfirmar = document.getElementById('btn-confirmar-exclusao'); // O botão vermelho
+    const btnConfirmar = document.getElementById('btn-confirmar-exclusao');
     const modal = document.getElementById('modal-exclusao');
 
-    // Abrir Modal.
     if (btnAbrir) {
-        btnAbrir.addEventListener('click', () => {
-            modal.style.display = 'flex';
-        });
+        btnAbrir.addEventListener('click', () => modal.style.display = 'flex');
     }
 
-    // Fechar Modal.
     if (btnCancelar) {
-        btnCancelar.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
+        btnCancelar.addEventListener('click', () => modal.style.display = 'none');
     }
 
-    // Fechar Clicando Fora da área.
     window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
+        if (e.target === modal) modal.style.display = 'none';
     });
 
-    // Excluir conta.
     if (btnConfirmar) {
         btnConfirmar.addEventListener('click', async () => {
             const usuarioSalvo = localStorage.getItem('usuarioLogado');
@@ -342,16 +345,14 @@ function inicializarModalExclusao() {
             try {
                 const response = await fetch('http://localhost:3000/deletar-conta', {
                     method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })
                 });
 
                 const resultado = await response.json();
 
                 if (response.ok) {
-                    alert("Sua conta foi excluída com sucesso. Esperamos te ver de volta um dia!");
+                    alert("Sua conta foi excluída com sucesso.");
                     localStorage.removeItem('usuarioLogado');
                     window.location.href = '/index.html';
                 } else {
