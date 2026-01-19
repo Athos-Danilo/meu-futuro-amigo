@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Carrega os dados do Animal.
     try {
-        const response = await fetch(`http://localhost:3000/animais/${idAnimal}`);
+        const response = await fetch(`/animais/${idAnimal}`);
         if (!response.ok) throw new Error('Animal não encontrado no banco de dados.');
         
         const animal = await response.json();
 
         // Ajuste da URL da foto do Animal: Se já começar com "http", usa direto. Se não, adiciona o domínio do servidor.
-        const fotoUrl = animal.foto.startsWith('http') ? animal.foto : `http://localhost:3000/${animal.foto}`;
+        const fotoUrl = animal.foto.startsWith('http') ? animal.foto : `/${animal.foto}`;
 
         // Preenche o Card de Resumo.
         document.getElementById('resumo-foto').src = fotoUrl;
@@ -139,7 +139,7 @@ async function enviarSolicitacao(e) {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         // Só depois de 2 segundos ele faz o envio.
-        const response = await fetch('http://localhost:3000/solicitacoes', {
+        const response = await fetch('/solicitacoes', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados)

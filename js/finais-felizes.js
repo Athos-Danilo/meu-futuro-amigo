@@ -35,7 +35,7 @@ async function buscarHistoriasDoBanco() {
     
     try {
         // Busca na nossa API apenas os adotados, ordenados por data
-        const response = await fetch('http://localhost:3000/animais?status=adotado');
+        const response = await fetch('/animais?status=adotado');
         const dadosBanco = await response.json();
 
         // Mapeamos os dados do banco para o formato que seu layout já usa
@@ -44,7 +44,7 @@ async function buscarHistoriasDoBanco() {
             // Corrige caminho da foto
             let urlFoto = animal.foto;
             if (urlFoto && !urlFoto.startsWith('http')) {
-                urlFoto = `http://localhost:3000/${animal.foto}`;
+                urlFoto = `/${animal.foto}`;
             }
 
             // Formata a data (AAAA-MM-DD para DD/MM/AAAA)

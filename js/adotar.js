@@ -73,14 +73,14 @@ async function buscarAnimaisDoBanco() {
         grid.innerHTML = '<p style="text-align:center; padding:20px; width:100%;">Carregando animais...</p>';
         
         // Busca apenas os disponíveis
-        const response = await fetch('http://localhost:3000/animais?status=disponivel');
+        const response = await fetch('/animais?status=disponivel');
         const dados = await response.json();
 
         // Mapeia para corrigir caminhos de imagem e datas
         todosOsAnimais = dados.map(animal => {
             let urlFoto = animal.foto;
             if (urlFoto && !urlFoto.startsWith('http')) {
-                urlFoto = `http://localhost:3000/${animal.foto}`;
+                urlFoto = `/${animal.foto}`;
             }
 
             return {
@@ -127,12 +127,12 @@ async function abrirModal(idAnimal) {
     
     try {
         // Busca os dados completos no endpoint específico
-        const response = await fetch(`http://localhost:3000/animais/${idAnimal}`);
+        const response = await fetch(`/animais/${idAnimal}`);
         const animal = await response.json();
 
         // Configura a galeria de fotos
         fotosAtuais = animal.fotos.map(foto => {
-             return foto.startsWith('http') ? foto : `http://localhost:3000/${foto}`;
+             return foto.startsWith('http') ? foto : `/${foto}`;
         });
         
         indiceFotoAtual = 0;

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // --- CONEXÃO COM O SERVIDOR (Novo!) ---
-        const response = await fetch(`http://localhost:3000/animais/${idAnimal}`);
+        const response = await fetch(`/animais/${idAnimal}`);
         
         if (!response.ok) {
             throw new Error('Animal não encontrado');
@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
 
             // Corrige as URLs das fotos para incluir o servidor
-            foto: dadosBanco.foto.startsWith('http') ? dadosBanco.foto : `http://localhost:3000/${dadosBanco.foto}`,
-            fotos: dadosBanco.fotos.map(f => f.startsWith('http') ? f : `http://localhost:3000/${f}`)
+            foto: dadosBanco.foto.startsWith('http') ? dadosBanco.foto : `/${dadosBanco.foto}`,
+            fotos: dadosBanco.fotos.map(f => f.startsWith('http') ? f : `/${f}`)
         };
 
     } catch (error) {

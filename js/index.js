@@ -26,10 +26,10 @@ async function carregarAdotados() {
 
     try {
         // A. BUSCAR DADOS NO SERVIDOR
-        const response = await fetch('http://localhost:3000/animais?status=adotado');
+        const response = await fetch('/animais?status=adotado');
         const dadosBanco = await response.json();
 
-        // B. LIMITADOR DE TELA (Atualizado com suas regras!) 📏
+        // B. LIMITADOR DE TELA (Atualizado com suas regras!) 
         const larguraTela = window.innerWidth;
         let limite;
 
@@ -54,7 +54,7 @@ async function carregarAdotados() {
             
             let urlFoto = animal.foto;
             if (!urlFoto.startsWith('http')) {
-                urlFoto = `http://localhost:3000/${animal.foto}`;
+                urlFoto = `/${animal.foto}`;
             }
 
             const textoTipo = `${animal.especie} / ${animal.sexo}`;

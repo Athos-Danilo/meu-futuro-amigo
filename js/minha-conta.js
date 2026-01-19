@@ -267,7 +267,7 @@ async function salvarDados() {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/completar-perfil', {
+        const response = await fetch('/completar-perfil', {
             method: 'POST',
             body: formData
         });
@@ -337,7 +337,7 @@ function inicializarModalExclusao() {
             btnConfirmar.disabled = true;
 
             try {
-                const response = await fetch('http://localhost:3000/deletar-conta', {
+                const response = await fetch('/deletar-conta', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email })
@@ -375,7 +375,7 @@ async function carregarMinhasAdocoes(container) {
 
     try {
         // Busca usando o E-mail
-        const response = await fetch(`http://localhost:3000/minhas-solicitacoes?email=${usuario.email}`);
+        const response = await fetch(`/minhas-solicitacoes?email=${usuario.email}`);
         
         if (!response.ok) throw new Error('Falha ao buscar dados');
 

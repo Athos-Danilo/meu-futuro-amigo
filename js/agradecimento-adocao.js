@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Busca os dados do animal.
     try {
-        const response = await fetch(`http://localhost:3000/animais/${idAnimal}`);
+        const response = await fetch(`/animais/${idAnimal}`);
         if (!response.ok) throw new Error('Erro ao buscar animal');
         
         const animal = await response.json();
 
         // Ajusta o caminho da foto.
-        const fotoUrl = animal.foto.startsWith('http') ? animal.foto : `http://localhost:3000/${animal.foto}`;
+        const fotoUrl = animal.foto.startsWith('http') ? animal.foto : `/${animal.foto}`;
 
         // Preenche o HTML.
         document.getElementById('foto-animal').src = fotoUrl;
