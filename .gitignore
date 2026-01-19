@@ -3,6 +3,3 @@ node_modules/
 
 # Ignora o arquivo de senhas e variáveis de ambiente.
 .env
-
-# Igonora a pasta de uploads.
-backend/uploads/
