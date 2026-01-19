@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Salva a url atual para voltar pra cá depois do login.
         sessionStorage.setItem('redirectAfterLogin', window.location.href);
-        window.location.href = "login.html"; 
+        window.location.href = "entrar.html"; 
         return; 
     }
 

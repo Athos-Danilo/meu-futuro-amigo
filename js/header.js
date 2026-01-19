@@ -172,7 +172,7 @@ function verificarLoginUsuario() {
             }
 
             // Configuração para os links da Áre do usuário levar as abas certas.
-            if (linkPerfil) linkPerfil.href = basePath + 'pages/minha-conta.html';
+            if (linkPerfil) linkPerfil.href = basePath + 'pages/minha-conta.html?secao=adocoes';
             
             // Adiciona '?secao=...' para que o JS da "minha-conta" saiba qual aba clicar.
             if (linkNotificacoes) linkNotificacoes.href = basePath + 'pages/minha-conta.html?secao=notificacoes';

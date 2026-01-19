@@ -60,7 +60,7 @@ form.addEventListener('submit', async (Event) => {
             // Salvando os dados do usuário no navegador para ser usado posteriormente se necessário.
             localStorage.setItem('usuarioLogado', JSON.stringify(data.user));
 
-            window.location.href = 'minha-conta.html'
+            window.location.href = '../index.html'
             
         } else {
             console.log('Erro do servidor', data.mensagem);

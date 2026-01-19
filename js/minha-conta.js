@@ -16,15 +16,10 @@ function inicializarAbas() {
             imagem: "../img/ilustração cachorro correndo.png",
             textoBotao: null, linkBotao: null
         },
-        "Minhas Adoções": {
-            titulo: "Você ainda não adotou<br>nenhum bichinho",
-            imagem: "../img/ilustração cachorro triste.png",
-            textoBotao: "Encontrar um Amigo", linkBotao: "/pages/quero-adotar.html" // Ajuste o link se necessário
-        },
         "Minhas Divulgações": {
             titulo: "Você ainda não divulgou<br>nenhum animal",
             imagem: "../img/ilustração gato triste.png",
-            textoBotao: "Divulgar um Animal", linkBotao: "/pages/como-ajudar.html"
+            textoBotao: "Divulgar um Animal", linkBotao: "#"
         }
     };
 
@@ -44,17 +39,16 @@ function inicializarAbas() {
             cardBranco.style.opacity = '0';
 
             setTimeout(() => {
-                // Busca o conteúdo correspondente no objeto 'conteudos'
-                const dados = conteudos[nomeAba];
-                
-                if (dados) {
-                    renderizarConteudoPadrao(cardBranco, dados);
-                } else {
-                    // Fallback caso a aba não esteja mapeada
-                    console.warn("Conteúdo da aba não encontrado:", nomeAba);
+                // SE FOR A ABA DE ADOÇÕES, CARREGA A LISTA DINÂMICA
+                if (nomeAba === "Minhas Adoções") {
+                    carregarMinhasAdocoes(cardBranco);
+                } 
+                // SE FOR OUTRA, CARREGA O CONTEÚDO PADRÃO
+                else {
+                    const dados = conteudos[nomeAba];
+                    if (dados) renderizarConteudoPadrao(cardBranco, dados);
                 }
                 
-                // 3. Fade In (Aparecer novo conteúdo)
                 cardBranco.style.opacity = '1';
             }, 200);
         });
@@ -368,5 +362,95 @@ function inicializarModalExclusao() {
                 btnConfirmar.disabled = false;
             }
         });
+    }
+}
+
+
+async function carregarMinhasAdocoes(container) {
+    const usuarioSalvo = localStorage.getItem('usuarioLogado');
+    if (!usuarioSalvo) return;
+    const usuario = JSON.parse(usuarioSalvo);
+
+    container.innerHTML = '<div class="Chamada"><h3 class="Título">Buscando seus pedidos...</h3></div>';
+
+    try {
+        // Busca usando o E-mail
+        const response = await fetch(`http://localhost:3000/minhas-solicitacoes?email=${usuario.email}`);
+        
+        if (!response.ok) throw new Error('Falha ao buscar dados');
+
+        const adocoes = await response.json();
+
+        // Se a lista estiver vazia
+        if (adocoes.length === 0) {
+            renderizarConteudoPadrao(container, {
+                titulo: "Você ainda não adotou<br>nenhum bichinho",
+                imagem: "../img/ilustração cachorro triste.png",
+                textoBotao: "Encontrar um Amigo", linkBotao: "/pages/quero-adotar.html"
+            });
+            return;
+        }
+
+        // Se tiver dados, monta a lista
+        let htmlLista = '<div class="Lista-Adocoes">';
+        
+        adocoes.forEach(adocao => {
+            // 1. Status Colorido
+            let classeBadge = "Analise"; 
+            let textoBadge = "Em Análise";
+
+            if (adocao.status === 'aprovado') {
+                classeBadge = "Aprovado";
+                textoBadge = "Aprovado";
+            } else if (adocao.status === 'reprovado') {
+                classeBadge = "Reprovado";
+                textoBadge = "Não Aprovado";
+            }
+
+            // 2. Correção da Data (Agora pega o nome certo do banco)
+            const dataObj = new Date(adocao.data_solicitacao);
+            const dataFormatada = !isNaN(dataObj) 
+                ? dataObj.toLocaleDateString('pt-BR') 
+                : 'Data desconhecida';
+
+            // 3. Tratamento da Imagem (Para não quebrar)
+            let caminhoFoto = adocao.foto_animal;
+            
+            // Se o caminho não começar com http ou /, adiciona a barra para garantir
+            if (caminhoFoto && !caminhoFoto.startsWith('http') && !caminhoFoto.startsWith('/')) {
+                caminhoFoto = '/' + caminhoFoto;
+            }
+            
+            // Se vier nulo, coloca um placeholder direto
+            if (!caminhoFoto) caminhoFoto = '../img/ilustração cachorro triste.png';
+
+            // Renderiza o Card
+            htmlLista += `
+                <div class="Item-Adocao">
+                    <img src="${caminhoFoto}" 
+                         alt="${adocao.nome_animal}" 
+                         class="Foto-Animal-Pequena" 
+                         onerror="this.onerror=null; this.src='../img/ilustração cachorro triste.png'">
+                    
+                    <div class="Info-Principal">
+                        <h4>${adocao.nome_animal}</h4>
+                        <span>Solicitado em: ${dataFormatada}</span>
+                    </div>
+
+                    <div class="Badge ${classeBadge}">${textoBadge}</div>
+
+                    <a href="/pages/agradecimento-adocao.html?id=${adocao.animal_id}" class="Btn-Acompanhar">
+                        Acompanhar
+                    </a>
+                </div>
+            `;
+        });
+
+        htmlLista += '</div>';
+        container.innerHTML = htmlLista;
+
+    } catch (erro) {
+        console.error(erro);
+        container.innerHTML = '<h3 class="Título" style="color:red">Erro ao carregar adoções.</h3>';
     }
 }
