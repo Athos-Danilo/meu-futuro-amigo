@@ -804,9 +804,11 @@ app.listen(PORT, () => {
     console.log(`--- SERVIDOR ONLINE <======> RODANDO NA PORTA ${PORT}---`)
     console.log('---------------------------------------------------------');
     console.log('Rotas Ativas:');
-    console.log(' > Autenticação: /login, /cadastro, /esqueci-senha');
-    console.log(' > Perfil: /completar-perfil, /deletar-conta');
-    console.log(' > Animais: /animais e /animais/:id');
-    console.log(' > Adoção: /minhas-solicitacoes');
+    console.log(' > Autenticação e Entrada: [POST] /login -|- [POST] /cadastro');
+    console.log(' > Gerenciamento de Perfil: [POST] /completar-perfil -|- [DELETE] /deletar-conta');
+    console.log(' > Recuperação de Senha: [POST] /esqueci-senha -|- [POST] /verificar-token -|- [POST] /redefinir-senha');
+    console.log(' > Animais: [GET] /animais -|- [GET] /animais/:id');
+    console.log(' > Adoção: [POST] /solicitacoes -|- [GET] /minhas-solicitacoes');
+    console.log(' > Utilitários: [GET] /teste-email');
     console.log('---------------------------------------------------------');
 });
