@@ -1,106 +1,79 @@
-## Meu Futuro Amigo 🐾
+# 🐾 Meu Futuro Amigo
 
-**Conectando Lares e Corações: Uma Plataforma de Adoção Responsável**
+> **Status:** Aplicação Full Stack (Em Desenvolvimento)
 
-**🚧 Projeto em Evolução Contínua: De um site estático para uma aplicação Web Full Stack.**
+Uma plataforma completa de adoção de animais desenvolvida para conectar abrigos e protetores de Pernambuco a novas famílias. O sistema evoluiu de um protótipo estático para uma aplicação web robusta com **autenticação segura**, **banco de dados relacional** e **filtragem dinâmica**.
 
-## 🌟 Sobre o Projeto
+![Banner ou Screenshot Principal](assets/tela-inicial.png)
 
-Bem-vindo ao repositório do **Meu Futuro Amigo**! Este projeto nasceu como um trabalho para a disciplina de **Programação para Internet 1**, focado em Front-end, com o objetivo de criar um site funcional e visualmente atraente utilizando **HTML5 Semântico** e **CSS3**, baseado em um protótipo de alta fidelidade.
+## Sobre o Projeto
 
-Atualmente, o projeto está em uma fase avançada de desenvolvimento, **evoluindo para uma aplicação Full Stack completa**. Além de uma interface bonita e responsiva, agora ele conta com um **servidor próprio, banco de dados real e funcionalidades dinâmicas de autenticação, gerenciamento de perfil e segurança**.
+O **Meu Futuro Amigo** soluciona a dificuldade de centralizar informações sobre animais disponíveis para adoção. Diferente de sites estáticos, esta aplicação gerencia o ciclo completo: desde o cadastro do usuário e login seguro, até a visualização detalhada dos animais com galerias interativas e controle de fila de interessados.
 
-A plataforma busca solucionar um problema real: a dificuldade em conectar animais que precisam de um lar (sejam de abrigos ou de doações particulares) com pessoas dispostas a adotar de forma responsável em Pernambuco.
+### Destaques Técnicos
 
-## 📸 Galeria do Projeto
+* **Cloud Native:** A aplicação roda 100% na nuvem, garantindo disponibilidade e acesso remoto.
+* **Arquitetura MVC:** Separação clara entre regras de negócio, rotas e visualização.
+* **Performance:** Carregamento otimizado de imagens e filtragem de dados no *Client-side* para reduzir requisições ao servidor.
+* **Segurança:** Implementação de Hashing de senhas e Tokens de recuperação com expiração automática.
 
-> Tela Inicial
-![Home Page](assets/tela-inicial.png) 
+---
 
-> Adotar
-![Adotar](assets/adotar.png) 
+## ☁️ Infraestrutura e Deploy
 
-> Menu do Usuário 
-![Página do Usuário](assets/minha-pagina.png) 
+O projeto não roda apenas localmente. Ele utiliza uma arquitetura moderna de hospedagem:
 
-## ✨ Funcionalidades Implementadas
+* **Aplicação (Back-end & Front-end):** Hospedada no **Render**, uma plataforma de nuvem (PaaS) que gerencia o ambiente Node.js e garante que o servidor esteja sempre ativo.
+* **Banco de Dados:** Utiliza o **Neon**, um PostgreSQL **Serverless**. Isso garante escalabilidade automática e alta performance nas consultas, separando a computação do armazenamento.
 
-### 🎨 Front-End (Interface & UX)
+---
 
-* **Novo Cabeçalho (Header) Dinâmico:**
-    * Design moderno com cortes diagonais via CSS (sem uso de imagens de fundo pesadas).
-    * Menu "Hamburguer" animado para Mobile e navegação horizontal para Desktop.
-    * Exibição condicional: Mostra foto e nome quando logado, ou botão de entrar quando visitante.
+## Stack Tecnológico
 
-* **Sistema de Modais (Pop-ups):**
-    * Login e Cadastro acessíveis via janelas sobrepostas, sem sair da página principal.
-    * Modal de segurança ("Cachorrinho Triste") para confirmação de exclusão de conta.
+O projeto foi construído utilizando um ecossistema moderno de JavaScript:
 
-* **Dashboard do Usuário ("Minha Conta"):**
-    * **Layout Responsivo:** Sidebar lateral (Desktop) que se transforma em cards empilhados (Mobile).
-    * **Modo Leitura vs. Edição:** Interface limpa para visualizar dados, que se transforma em formulário interativo ao clicar em "Editar".
-    * **Preview de Imagem:** Visualização instantânea da nova foto de perfil antes de enviar para o servidor.
+### **Back-End (API & Server)**
+* **Node.js & Express:** Servidor RESTful para gerenciamento de rotas (GET, POST, DELETE).
+* **Autenticação:** Biblioteca `bcryptjs` para criptografia de senhas (Hash + Salt).
+* **Uploads:** Middleware `multer` para processamento e armazenamento de imagens de perfil.
+* **E-mail Service:** Integração com `nodemailer` para fluxo de "Esqueci minha senha".
 
-* **Visualização Imersiva (Página de Detalhes):**
-    * **Galeria Interativa:** Carrossel de imagens com navegação fluida e indicadores visuais.
-    * **Timeline de Saúde:** Componente visual desenvolvido com **CSS avançado** para exibir o status clínico (vacinado/castrado) de forma linear e intuitiva.
-    * **Regras de Negócio no Frontend:** Implementação de lógica de bloqueio de candidaturas, gerenciando estados de "Disponível" ou "Em Análise" baseado na demanda em tempo real.
+### **Front-End (Interface)**
+* **JavaScript (ES6+):** Manipulação avançada do DOM e consumo de API via `fetch`.
+* **CSS3 Moderno:** Layout responsivo com Flexbox/Grid e variáveis CSS para tema.
+* **Lógica de Filtros:** Algoritmo de filtragem multicritério (Cidade, Espécie, Porte) rodando no navegador.
+* **Fancybox:** Integração para zoom e navegação em galeria de fotos.
 
-* **Listagem Inteligente (Finais Felizes):**
-    * **Paginação Algorítmica:** Desenvolvi um script que detecta a resolução da tela do usuário (`window.innerWidth`) e recalcula dinamicamente a quantidade de itens por página (Ex.: 7 para mobile, 10 para tablet, 12 para desktop), garantindo sempre a melhor densidade de informação.
-    * **Filtragem Instantânea:** Sistema de filtros por categoria (Cães/Gatos) que manipula o DOM em tempo real, sem necessidade de recarregar a página.
+### **Banco de Dados**
+* **PostgreSQL:** Banco relacional para integridade dos dados.
+* **Modelagem:** Relacionamentos 1:N (Um animal possui várias fotos) e gerenciamento de integridade referencial.
+
+---
+
+## Funcionalidades Principais
+
+### Autenticação e Perfil
+* **Login Seguro:** Comparação de Hash de senha no servidor.
+* **Recuperação de Senha:** Geração de Token numérico de 6 dígitos com validade de 1 hora, enviado por e-mail.
+* **Gestão de Conta:** O usuário pode atualizar dados cadastrais e foto de perfil (com preview em tempo real) ou excluir a conta definitivamente.
+
+### Navegação e Adoção
+* **Filtros Inteligentes:** O usuário pode cruzar dados (ex: "Gato" + "Filhote" + "Recife") e a lista se atualiza instantaneamente sem recarregar a página.
+* **Paginação Responsiva:** Script que calcula quantos cards exibir por página baseado na largura da tela do dispositivo (`window.innerWidth`).
+* **Página de Detalhes:** Exibição dinâmica de dados do banco, incluindo status de vacinação (Timeline CSS), galeria de fotos e contador de interessados na fila.
+
+---
+
+## Screenshots
+
+| Área | Descrição |
+| :--- | :--- |
+| ![Adotar](assets/adotar.png) | **Filtros e Listagem:** Grid responsivo com cards informativos. |
+| ![Minha Conta](assets/minha-pagina.png) | **Dashboard:** Edição de perfil e gerenciamento de dados. |
 
 
-* **UX/UI Aconchegante:** Uso de cores da identidade visual (Laranja, Verde, Marrom), tipografia hierárquica e espaçamentos que transmitem confiança.
+## Design
 
-### ⚙️ Back-End & Integração
+O layout foi fielmente implementado com base no protótipo de alta fidelidade.
+* **Protótipo no Figma:** [Acessar Projeto](https://www.figma.com/design/GDqz34u7yU78RZSstfax6A/Projeto-Web?node-id=0-1&t=Cj0maHrw5e0URM2f-1)
 
-* **CRUD Completo de Usuários:**
-    * **Create (Criar):** Cadastro em duas etapas com validação de e-mail único.
-    * **Read (Ler):** Carregamento automático dos dados (Nome, Telefone, Endereço, Foto) ao fazer login.
-    * **Update (Atualizar):** Lógica inteligente que permite atualizar apenas textos ou alterar a foto de perfil (mantendo a antiga caso nenhuma nova seja enviada).
-    * **Delete (Excluir):** Rota segura para remoção total da conta e dados do usuário.
-
-* **Upload e Processamento de Imagens:** Uso do `Multer` para receber arquivos, tratar caminhos (Windows/Unix) e salvar no servidor.
-
-* **Autenticação e Segurança:**
-    * Senhas criptografadas com `bcrypt` (nunca salvas em texto puro).
-    * Verificação de credenciais no login.
-
-* **Banco de Dados Relacional:** Uso do PostgreSQL para persistência segura dos dados.
-
-## 🚀 Acesso ao Projeto
-
-* **Site no Ar (GitHub Pages - Versão Estática):** [https://athos-danilo.github.io/meu-futuro-amigo/](https://athos-danilo.github.io/meu-futuro-amigo/)
-* **Protótipo no Figma:** [Link para o Figma](https://www.figma.com/design/GDqz34u7yU78RZSstfax6A/Projeto-Web?node-id=0-1&t=Cj0maHrw5e0URM2f-1)
-
-## 💻 Tecnologias Utilizadas
-
-O projeto utiliza um conjunto moderno e robusto de tecnologias Full Stack:
-
-### Design & Front-End
-* **Design:** Figma (Protótipo de alta fidelidade)
-* **Estrutura:** HTML5 Semântico
-* **Estilização:** CSS3 (Flexbox, Grid, Media Queries, Variáveis CSS, Animações, Mobile First)
-* **Linguagem de Script:** JavaScript ES6+ (Manipulação do DOM, Fetch API, FormData, localStorage)
-
-### Back-End (Servidor)
-* **Ambiente de Execução:** Node.js
-* **Framework:** Express.js (Criação de rotas e API REST)
-* **Middlewares & Utilitários:**
-    * `multer` (Upload e armazenamento de imagens)
-    * `bcryptjs` (Criptografia/Hash de senhas)
-    * `dotenv` (Gerenciamento de variáveis de ambiente)
-    * `cors` (Permissão de requisições entre domínios)
-    * `nodemailer` (Envio de e-mails para recuperação de senha)
-
-### Banco de Dados
-* **SGBD:** PostgreSQL
-* **Integração:** Pacote `pg` (node-postgres) para conexão e queries SQL.
-
-### Ferramentas & Infraestrutura
-* **Versionamento:** Git & GitHub
-* **Gerenciamento de Banco:** pgAdmin 4
-
--------
-Desenvolvido por **Athos Danilo**.
