@@ -1,6 +1,7 @@
 # 🐾 Meu Futuro Amigo
 
 > **Status:** Aplicação Full Stack (Em Desenvolvimento)
+> **Link da Página:** https://meu-futuro-amigo.onrender.com/
 
 Uma plataforma completa de adoção de animais desenvolvida para conectar abrigos e protetores de Pernambuco a novas famílias. O sistema evoluiu de um protótipo estático para uma aplicação web robusta com **autenticação segura**, **banco de dados relacional** e **filtragem dinâmica**.
 
@@ -19,7 +20,7 @@ O **Meu Futuro Amigo** soluciona a dificuldade de centralizar informações sobr
 
 ---
 
-## ☁️ Infraestrutura e Deploy
+## Infraestrutura e Deploy
 
 O projeto não roda apenas localmente. Ele utiliza uma arquitetura moderna de hospedagem:
 
@@ -65,15 +66,14 @@ O projeto foi construído utilizando um ecossistema moderno de JavaScript:
 ---
 
 ## Screenshots
+**Filtros e Listagem:** Grid responsivo com cards informativos.
+![Adotar](assets/adotar.png)  
 
-| Área | Descrição |
-| :--- | :--- |
-| ![Adotar](assets/adotar.png) | **Filtros e Listagem:** Grid responsivo com cards informativos. |
-| ![Minha Conta](assets/minha-pagina.png) | **Dashboard:** Edição de perfil e gerenciamento de dados. |
+**Dashboard:** Edição de perfil e gerenciamento de dados.
+![Minha Conta](assets/minha-pagina.png)  
 
 
 ## Design
 
 O layout foi fielmente implementado com base no protótipo de alta fidelidade.
 * **Protótipo no Figma:** [Acessar Projeto](https://www.figma.com/design/GDqz34u7yU78RZSstfax6A/Projeto-Web?node-id=0-1&t=Cj0maHrw5e0URM2f-1)
-
