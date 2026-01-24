@@ -1,6 +1,7 @@
 # 🐾 Meu Futuro Amigo
 
 > **Status:** Aplicação Full Stack (Em Desenvolvimento)
+
 > **Link da Página:** https://meu-futuro-amigo.onrender.com/
 
 Uma plataforma completa de adoção de animais desenvolvida para conectar abrigos e protetores de Pernambuco a novas famílias. O sistema evoluiu de um protótipo estático para uma aplicação web robusta com **autenticação segura**, **banco de dados relacional** e **filtragem dinâmica**.
