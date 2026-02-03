@@ -4,6 +4,10 @@
 
 > **Link da Página:** https://meu-futuro-amigo.onrender.com/
 
+> **Usuário de Teste:** E-mail: anajulia@outlook.com <> Senha: ajulia2026 (Fique avontade para testar a plataforma).
+
+## Introdução 
+
 Uma plataforma completa de adoção de animais desenvolvida para conectar abrigos e protetores de Pernambuco a novas famílias. O sistema evoluiu de um protótipo estático para uma aplicação web robusta com **autenticação segura**, **banco de dados relacional** e **filtragem dinâmica**.
 
 ![Banner ou Screenshot Principal](assets/tela-inicial.png)
