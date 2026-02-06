@@ -19,11 +19,141 @@
     <div id="header"></div>
 
     <main class="container">
+        
+        <header class="page-header">
+            <h1>Divulgar um Amigo</h1>
+            <p>Ajude este animal a encontrar um novo lar preenchendo as informações abaixo.</p>
+        </header>
 
+        <form id="form-divulgar" enctype="multipart/form-data">
+
+            <section class="card-formulario">
+                <h2>Fotos</h2>
+                <p class="dica-foto">A primeira foto será a capa. Capriche na iluminação!</p>
+                
+                <div class="area-upload">
+                    <div class="preview-container" id="preview-capa">
+                        <img id="img-preview" src="#" alt="Prévia da foto" class="hidden">
+                        <div class="upload-placeholder">
+                            <span>+</span>
+                            <p>Toque para adicionar a Capa</p>
+                        </div>
+                        <input type="file" id="input-capa" name="foto_capa" accept="image/*" required>
+                    </div>
+
+                    <div class="galeria-upload">
+                        <label for="input-galeria" class="botao-galeria">
+                            <span>+ Adicionar mais fotos</span>
+                        </label>
+                        <input type="file" id="input-galeria" name="fotos_galeria" accept="image/*" multiple style="display: none;">
+                        <div id="preview-galeria" class="preview-miniaturas"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card-formulario">
+                <h2>Identidade</h2>
+
+                <div class="input-group">
+                    <label for="nome">Nome do Animal</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Totó, Luna..." required>
+                </div>
+
+                <div class="input-group">
+                    <label>Espécie</label>
+                    <div class="seletor-especie">
+                        <input type="radio" name="especie" id="especie-cachorro" value="Cachorro" checked>
+                        <label for="especie-cachorro" class="btn-especie">🐶 Cachorro</label>
+
+                        <input type="radio" name="especie" id="especie-gato" value="Gato">
+                        <label for="especie-gato" class="btn-especie">🐱 Gato</label>
+                    </div>
+                </div>
+
+                <div class="grid-2-col">
+                    <div class="input-group">
+                        <label for="raca">Raça</label>
+                        <select id="raca" name="raca">
+                            <option value="SRD (Vira-lata)">SRD (Vira-lata)</option>
+                            <option value="Pastor Alemão">Pastor Alemão</option>
+                            <option value="Siames">Siamês</option>
+                            <option value="Outra">Outra</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="idade">Idade Aproximada</label>
+                        <input type="text" id="idade" name="idade" placeholder="Ex: 2 anos, 5 meses" required>
+                    </div>
+                </div>
+
+                <div class="grid-2-col">
+                    <div class="input-group">
+                        <label for="porte">Porte</label>
+                        <select id="porte" name="porte" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Pequeno">Pequeno</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Grande">Grande</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Sexo</label>
+                        <div class="seletor-sexo">
+                            <label><input type="radio" name="sexo" value="Macho" required> Macho</label>
+                            <label><input type="radio" name="sexo" value="Fêmea"> Fêmea</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="local">Cidade onde ele está</label>
+                    <input type="text" id="local" name="local" placeholder="Ex: Garanhuns - PE" required>
+                </div>
+            </section>
+
+            <section class="card-formulario">
+                <h2>Prontuário Médico</h2>
+                <div class="checkbox-container">
+                    <label class="checkbox-box">
+                        <input type="checkbox" name="vacinado">
+                        <span class="checkmark"></span>
+                        Vacinado
+                    </label>
+
+                    <label class="checkbox-box">
+                        <input type="checkbox" name="castrado">
+                        <span class="checkmark"></span>
+                        Castrado
+                    </label>
+
+                    <label class="checkbox-box">
+                        <input type="checkbox" name="vermifugado">
+                        <span class="checkmark"></span>
+                        Vermifugado
+                    </label>
+                </div>
+            </section>
+
+            <section class="card-formulario">
+                <h2>A História dele(a)</h2>
+                <div class="input-group">
+                    <textarea name="historia" id="historia" rows="5" placeholder="Conte um pouco sobre a personalidade, como ele foi resgatado e do que ele gosta..." required></textarea>
+                </div>
+            </section>
+
+            <div class="area-botao">
+                <button type="submit" class="btn-cadastrar">Cadastrar Amigo</button>
+            </div>
+
+        </form>
     </main>
-    
+
     <div id="footer"></div>
 
     <script src="../js/divulgar.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 </body>
 </html>
