@@ -27,4 +27,403 @@
     --fonte-textos: 'Afacad', sans-serif;
 }
 
-/* ---------------------------------------- Base feita para Telas Pequenas (Mobile First) ---------------------------------------- */
+/* ---------------------------------------- Base (Mobile First) ---------------------------------------- */
+/* ---------- Fundo e Estrutura Geral ---------- */
+body {
+    background-color: var(--cor-branco);
+    position: relative;
+    min-height: 100vh;
+    font-family: var(--fonte-textos);
+}
+
+/* -- Camada das Patinhas -- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../img/Patas.png');
+    background-repeat: repeat;
+    background-size: 550px; 
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+}
+
+/* ---------- Cabeçalho da Página ---------- */
+.page-header {
+    text-align: center;
+    margin-bottom: 10px;
+    max-width: 600px;
+}
+
+.page-header h1 {
+    font-family: var(--fonte-titulos);
+    color: var(--cor-marrom);
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: var(--cor-cinza-escuro);
+    font-size: 1rem;
+}
+
+/* ---------- Cartão do Formulário (Base) ---------- */
+.card-formulario {
+    background-color: var(--cor-branco);
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 25px; 
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-formulario h2 {
+    font-family: var(--fonte-cabeçalho);
+    color: var(--cor-marrom);
+    font-size: 1.4rem;
+    border-bottom: 2px dashed var(--cor-bege);
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+/* ---------- Área de Upload (Fotos) ---------- */
+.dica-foto {
+    font-size: 0.9rem;
+    color: var(--cor-verde-escuro);
+    background-color: #f1f8e9;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.area-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* -- Preview da Capa -- */
+.preview-container {
+    width: 100%;
+    height: 250px;
+    background-color: var(--cor-cinza-input);
+    border: 2px dashed var(--cor-cinza-caixa);
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+
+.preview-container:hover {
+    border-color: var(--cor-laranja);
+}
+
+.upload-placeholder {
+    text-align: center;
+    color: var(--cor-cinza-botao);
+}
+
+.upload-placeholder span {
+    font-size: 3rem;
+    display: block;
+    line-height: 1;
+}
+
+#img-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+.hidden { display: none; }
+input[type="file"] { display: none; } /* Esconde input padrão */
+
+/* -- Galeria de Miniaturas -- */
+.galeria-upload {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.botao-galeria {
+    min-width: 80px;
+    height: 80px;
+    background-color: var(--cor-cinza-input);
+    border: 1px dashed var(--cor-cinza-botao);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 5px;
+    color: var(--cor-cinza-escuro);
+}
+
+.preview-miniaturas {
+    display: flex;
+    gap: 10px;
+}
+
+.thumb-miniatura {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid var(--cor-laranja);
+}
+
+/* ---------- Inputs e Labels ---------- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: var(--cor-cinza-escuro);
+    font-size: 0.95rem;
+}
+
+input[type="text"], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--cor-cinza-caixa);
+    border-radius: 8px;
+    font-family: var(--fonte-textos);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: var(--cor-branco);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--cor-laranja);
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+}
+
+textarea { resize: vertical; }
+
+/* -- Grid para Inputs (Mobile = 1 col) -- */
+.grid-2-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ---------- Seletores Especiais (Botões) ---------- */
+/* -- Espécie -- */
+.seletor-especie {
+    display: flex;
+    gap: 15px;
+}
+
+.seletor-especie input[type="radio"] { display: none; }
+
+.btn-especie {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--cor-cinza-caixa);
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--cor-cinza-escuro);
+    background-color: var(--cor-cinza-input);
+    transition: all 0.3s;
+}
+
+/* Estado Selecionado */
+.seletor-especie input:checked + .btn-especie {
+    background-color: var(--cor-laranja);
+    color: var(--cor-branco);
+    border-color: var(--cor-laranja);
+    box-shadow: 0 4px 6px rgba(255, 140, 0, 0.3);
+}
+
+/* -- Sexo -- */
+.seletor-sexo {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.seletor-sexo label {
+    font-weight: normal;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.seletor-sexo input[type="radio"] {
+    accent-color: var(--cor-laranja);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* ---------- Checkboxes de Saúde ---------- */
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkbox-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--cor-cinza-escuro);
+    background-color: #FAFAFA;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--cor-cinza-marcacao);
+}
+
+.checkbox-box input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--cor-verde);
+}
+
+/* ---------- Botão Final ---------- */
+.area-botao {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-cadastrar {
+    width: 100%;
+    background-color: var(--cor-verde);
+    color: var(--cor-branco);
+    font-family: var(--fonte-titulos);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 10px rgba(107, 142, 35, 0.4);
+}
+
+.btn-cadastrar:active {
+    transform: scale(0.98);
+}
+.btn-cadastrar:hover {
+    background-color: var(--cor-verde-escuro);
+}
+
+
+/* ---------------------------------------- Ajustes para Telas Médias (900px) ---------------------------------------- */
+@media (min-width: 900px) {
+    /* ---------- Fundo e Estrutura Geral ---------- */
+    .container { 
+        padding: 40px; 
+    }
+
+    body::before { 
+        background-size: 900px; 
+    }
+
+    .card-formulario {
+        padding: 40px; 
+    }
+
+    /* ---------- Inputs e Grid ---------- */
+    .grid-2-col {
+        flex-direction: row; /* Vira 2 colunas */
+    }
+
+    .grid-2-col .input-group {
+        flex: 1; /* Ocupam espaço igual */
+    }
+
+    /* ---------- Saúde ---------- */
+    .checkbox-container {
+        flex-direction: row; /* Ficam lado a lado */
+        justify-content: space-between;
+    }
+
+    .checkbox-box {
+        flex: 1;
+        justify-content: center;
+    }
+
+    /* ---------- Botão ---------- */
+    .btn-cadastrar {
+        width: 50%;
+        margin: 0 auto;
+        display: block;
+        font-size: 1.4rem;
+    }
+
+    .btn-cadastrar:hover {
+        background-color: var(--cor-marrom);    
+        transform: translateY(-3px);
+    }
+}
+
+
+/* ---------------------------------------- Telas Grandes (1400px) ---------------------------------------- */
+@media (min-width: 1400px) {
+    /* ---------- Fundo e Estrutura Geral ---------- */
+    body::before { 
+        background-size: 1400px; 
+    }
+
+    .card-formulario { 
+        max-width: 900px; 
+    }
+
+    .page-header h1 {
+        font-size: 3rem;
+    }
+
+    /* ---------- Inputs e Títulos ---------- */
+    .card-formulario h2 {
+        font-size: 1.6rem;
+    }
+
+    input[type="text"], select, textarea {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+
+    /* ---------- Botão ---------- */
+    .btn-cadastrar {
+        width: 45%;
+        font-size: 1.5rem;
+    }
+}
