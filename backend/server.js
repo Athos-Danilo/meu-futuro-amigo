@@ -795,6 +795,86 @@ app.get('/minhas-solicitacoes', async (req, res) => {
 });
 
 
+// Rota para Cadastrar Novo Animal (Usuário Comum)
+// upload.fields permite múltiplos campos de arquivo
+app.post('/solicitacoes/novo-animal', 
+    upload.fields([
+        { name: 'foto_capa', maxCount: 1 }, 
+        { name: 'fotos_galeria', maxCount: 10 }
+    ]), 
+    async (req, res) => {
+    
+    try {
+        // 1. Captura os dados de Texto
+        const { nome, especie, raca, idade, porte, sexo, local, historia } = req.body;
+        
+        // Converte Checkboxes (que vêm como "on" ou undefined) para Boolean
+        const vacinado = req.body.vacinado === 'on';
+        const castrado = req.body.castrado === 'on';
+        const vermifugado = req.body.vermifugado === 'on';
+
+        // 2. Validação Básica de Arquivos
+        if (!req.files || !req.files['foto_capa']) {
+            return res.status(400).json({ erro: 'A foto de capa é obrigatória!' });
+        }
+
+        // Caminho da foto de capa (para salvar no banco)
+        // O Multer salva o caminho completo, precisamos ajustar para o padrão do HTML
+        const caminhoCapa = 'uploads/' + req.files['foto_capa'][0].filename;
+
+        // 3. INSERÇÃO NO BANCO DE DADOS (Tabela Animais)
+        // Nota: Definimos status como 'analise' para o admin aprovar depois
+        const queryAnimal = `
+            INSERT INTO animais 
+            (nome, especie, raca, sexo, idade, porte, local, origem, foto, vacinado, castrado, vermifugado, status, historia)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+            RETURNING id;
+        `;
+
+        const valuesAnimal = [
+            nome, 
+            especie, 
+            raca, 
+            sexo, 
+            idade, 
+            porte, 
+            local, 
+            'Resgate (Usuário)', // Origem fixa ou poderia pegar o nome do usuário logado
+            caminhoCapa, 
+            vacinado, 
+            castrado, 
+            vermifugado, 
+            'analise', // Importante: não vai direto para 'disponivel'
+            historia
+        ];
+
+        const result = await db.query(queryAnimal, valuesAnimal);
+        const novoAnimalId = result.rows[0].id;
+
+        // 4. INSERÇÃO DAS FOTOS (Tabela fotos_animais)
+        
+        // Primeiro, inserimos a CAPA também na galeria (opcional, mas recomendado)
+        const queryFoto = `INSERT INTO fotos_animais (animal_id, caminho_arquivo, tipo) VALUES ($1, $2, $3)`;
+        await db.query(queryFoto, [novoAnimalId, caminhoCapa, 'foto']);
+
+        // Depois, inserimos as fotos da GALERIA (se houver)
+        if (req.files['fotos_galeria']) {
+            for (const file of req.files['fotos_galeria']) {
+                const caminhoGaleria = 'uploads/' + file.filename;
+                await db.query(queryFoto, [novoAnimalId, caminhoGaleria, 'foto']);
+            }
+        }
+
+        // 5. Sucesso!
+        console.log(`Animal cadastrado com sucesso: ${nome} (ID: ${novoAnimalId})`);
+        res.status(201).json({ mensagem: 'Animal cadastrado com sucesso!', id: novoAnimalId });
+
+    } catch (erro) {
+        console.error('Erro ao cadastrar animal:', erro);
+        res.status(500).json({ erro: 'Erro interno no servidor ao salvar os dados.' });
+    }
+});
+
 // -----------------------------------------------------------------------------------------------------------------------//
 
 
