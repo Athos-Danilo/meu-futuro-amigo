@@ -193,7 +193,7 @@ function configurarEnvioFormulario() {
 
             if (response.ok) {
                 alert('Sucesso! O animal foi cadastrado e será analisado.');
-                window.location.href = '/minha-conta'; // Redireciona
+                window.location.href = 'minha-conta.html'; // Redireciona
             } else {
                 throw new Error(resultado.erro || 'Erro desconhecido');
             }

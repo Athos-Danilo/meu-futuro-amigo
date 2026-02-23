@@ -19,7 +19,7 @@ function inicializarAbas() {
         "Minhas Divulgações": {
             titulo: "Você ainda não divulgou<br>nenhum animal",
             imagem: "../img/ilustração gato triste.png",
-            textoBotao: "Divulgar um Animal", linkBotao: "#"
+            textoBotao: "Divulgar um Animal", linkBotao: "../pages/divulgar.html"
         }
     };
 

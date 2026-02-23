@@ -800,7 +800,7 @@ app.get('/minhas-solicitacoes', async (req, res) => {
 app.post('/solicitacoes/novo-animal', 
     upload.fields([
         { name: 'foto_capa', maxCount: 1 }, 
-        { name: 'fotos_galeria', maxCount: 10 }
+        { name: 'fotos_galeria', maxCount: 4 }
     ]), 
     async (req, res) => {
     

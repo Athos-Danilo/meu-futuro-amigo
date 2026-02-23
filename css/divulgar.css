@@ -80,8 +80,9 @@ body::before {
     font-size: 1rem;
 }
 
-/* ---------- Cartão do Formulário (Base) ---------- */
-.card-formulario {
+/* ---------- Cartão Principal do Formulário ---------- */
+/* Agora o formulário inteiro é a caixa branca */
+#form-divulgar {
     background-color: var(--cor-branco);
     width: 100%;
     max-width: 800px;
@@ -89,6 +90,13 @@ body::before {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     padding: 25px; 
     border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Aumentei o gap para separar bem as seções internamente */
+}
+
+/* As seções agora são apenas organizadoras invisíveis */
+.card-formulario {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -108,9 +116,10 @@ body::before {
     font-size: 0.9rem;
     color: var(--cor-verde-escuro);
     background-color: #f1f8e9;
-    padding: 8px;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 8px;
     text-align: center;
+    line-height: 1.4;
 }
 
 .area-upload {
@@ -357,8 +366,9 @@ textarea { resize: vertical; }
         background-size: 900px; 
     }
 
-    .card-formulario {
-        padding: 40px; 
+    /* O padding maior agora fica no Form */
+    #form-divulgar {
+        padding: 40px 50px; 
     }
 
     /* ---------- Inputs e Grid ---------- */
@@ -403,7 +413,8 @@ textarea { resize: vertical; }
         background-size: 1400px; 
     }
 
-    .card-formulario { 
+    /* O max-width maior agora fica no Form */
+    #form-divulgar { 
         max-width: 900px; 
     }
 
