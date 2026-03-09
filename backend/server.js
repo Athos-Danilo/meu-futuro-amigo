@@ -795,8 +795,7 @@ app.get('/minhas-solicitacoes', async (req, res) => {
 });
 
 
-// Rota para Cadastrar Novo Animal (Usuário Comum)
-// upload.fields permite múltiplos campos de arquivo
+// --------------------- Divulgar um Animal --------------------->
 app.post('/solicitacoes/novo-animal', 
     upload.fields([
         { name: 'foto_capa', maxCount: 1 }, 
@@ -805,25 +804,45 @@ app.post('/solicitacoes/novo-animal',
     async (req, res) => {
     
     try {
-        // 1. Captura os dados de Texto
+        // Captura os dados de Texto.
         const { nome, especie, raca, idade, porte, sexo, local, historia } = req.body;
         
-        // Converte Checkboxes (que vêm como "on" ou undefined) para Boolean
-        const vacinado = req.body.vacinado === 'on';
-        const castrado = req.body.castrado === 'on';
-        const vermifugado = req.body.vermifugado === 'on';
-
-        // 2. Validação Básica de Arquivos
+        // Validação Básica de Arquivos.
         if (!req.files || !req.files['foto_capa']) {
             return res.status(400).json({ erro: 'A foto de capa é obrigatória!' });
         }
 
-        // Caminho da foto de capa (para salvar no banco)
-        // O Multer salva o caminho completo, precisamos ajustar para o padrão do HTML
-        const caminhoCapa = 'uploads/' + req.files['foto_capa'][0].filename;
+        // Define se vai para a pasta 'cachorros' ou 'gatos'.
+        const pastaEspecie = especie === 'Gato' ? 'gatos' : 'cachorros';
+        
+        // Limpa o nome do animal (remove espaços/acentos) e adiciona a hora (timestamp).
+        const nomeLimpo = nome.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const nomePastaNova = `${nomeLimpo}_${Date.now()}`;
+        
+        // Caminho absoluto de onde a nova pasta deve ficar no seu projeto.
+        const diretorioDestino = path.join(__dirname, 'uploads', pastaEspecie, nomePastaNova);
+        
+        // Cria a pasta nova (recursive: true garante que crie as pastas pai se não existirem).
+        if (!fs.existsSync(diretorioDestino)) {
+            fs.mkdirSync(diretorioDestino, { recursive: true });
+        }
 
-        // 3. INSERÇÃO NO BANCO DE DADOS (Tabela Animais)
-        // Nota: Definimos status como 'analise' para o admin aprovar depois
+        // --- MOVE A FOTO DE CAPA ---
+        const arquivoCapa = req.files['foto_capa'][0];
+        const destinoFinalCapa = path.join(diretorioDestino, arquivoCapa.filename);
+        
+        // Move o arquivo do local temporário (foto_perfil) para a nova pasta do animal.
+        fs.renameSync(arquivoCapa.path, destinoFinalCapa); 
+        
+        // Caminho final que será salvo no Banco de Dados.
+        const caminhoCapaBD = `uploads/${pastaEspecie}/${nomePastaNova}/${arquivoCapa.filename}`;
+
+        // Converte Checkboxes.
+        const vacinado = req.body.vacinado === 'on';
+        const castrado = req.body.castrado === 'on';
+        const vermifugado = req.body.vermifugado === 'on';
+
+        // Inserção no Banco de Dados (Tabela Animais).
         const queryAnimal = `
             INSERT INTO animais 
             (nome, especie, raca, sexo, idade, porte, local, origem, foto, vacinado, castrado, vermifugado, status, historia)
@@ -839,34 +858,40 @@ app.post('/solicitacoes/novo-animal',
             idade, 
             porte, 
             local, 
-            'Resgate (Usuário)', // Origem fixa ou poderia pegar o nome do usuário logado
-            caminhoCapa, 
+            'Resgate (Usuário)', 
+            caminhoCapaBD, 
             vacinado, 
             castrado, 
             vermifugado, 
-            'analise', // Importante: não vai direto para 'disponivel'
+            'analise', 
             historia
         ];
 
         const result = await db.query(queryAnimal, valuesAnimal);
         const novoAnimalId = result.rows[0].id;
 
-        // 4. INSERÇÃO DAS FOTOS (Tabela fotos_animais)
-        
-        // Primeiro, inserimos a CAPA também na galeria (opcional, mas recomendado)
+        // INSERÇÃO DAS FOTOS DA GALERIA (Tabela fotos_animais)
         const queryFoto = `INSERT INTO fotos_animais (animal_id, caminho_arquivo, tipo) VALUES ($1, $2, $3)`;
-        await db.query(queryFoto, [novoAnimalId, caminhoCapa, 'foto']);
+        
+        // Salva a capa também como primeira foto da galeria.
+        await db.query(queryFoto, [novoAnimalId, caminhoCapaBD, 'foto']);
 
-        // Depois, inserimos as fotos da GALERIA (se houver)
+        // --- MOVE E SALVA AS FOTOS DA GALERIA ---
         if (req.files['fotos_galeria']) {
             for (const file of req.files['fotos_galeria']) {
-                const caminhoGaleria = 'uploads/' + file.filename;
-                await db.query(queryFoto, [novoAnimalId, caminhoGaleria, 'foto']);
+                // Move o arquivo da galeria para a nova pasta.
+                const destinoFinalGaleria = path.join(diretorioDestino, file.filename);
+                fs.renameSync(file.path, destinoFinalGaleria);
+
+                // Caminho final para o banco de dados.
+                const caminhoGaleriaBD = `uploads/${pastaEspecie}/${nomePastaNova}/${file.filename}`;
+                
+                await db.query(queryFoto, [novoAnimalId, caminhoGaleriaBD, 'foto']);
             }
         }
 
-        // 5. Sucesso!
-        console.log(`Animal cadastrado com sucesso: ${nome} (ID: ${novoAnimalId})`);
+        // Sucesso!
+        console.log(`Animal cadastrado: ${nome} (Pasta gerada: ${nomePastaNova})`);
         res.status(201).json({ mensagem: 'Animal cadastrado com sucesso!', id: novoAnimalId });
 
     } catch (erro) {
@@ -874,6 +899,46 @@ app.post('/solicitacoes/novo-animal',
         res.status(500).json({ erro: 'Erro interno no servidor ao salvar os dados.' });
     }
 });
+
+
+// --------------------- Busca todas as Raças no Banco --------------------->
+/*
+Rota utilizada para preencher todas as raças já cadastradas no banco, tornando o uso mais dinâmico. 
+Assim, quando o usuário for divulgar um animal, não precisará digitar o nome da raça, a menos que 
+não exista nenhum exemplar registrado no banco de dados.
+*/
+app.get('/api/racas', async (req, res) => {
+    // Pega a espécie que o Front-end enviou na URL (ex: ?especie=Cachorro).
+    const { especie } = req.query;
+
+    if (!especie) {
+        return res.status(400).json({ erro: 'Espécie não informada.' });
+    }
+
+    try {
+        // Pega só raças únicas daquela espécie, em ordem alfabética.
+        const query = `
+            SELECT DISTINCT raca 
+            FROM animais 
+            WHERE especie = $1 
+            AND raca IS NOT NULL 
+            AND raca != ''
+            ORDER BY raca;
+        `;
+        
+        const result = await db.query(query, [especie]);
+        
+        // O resultado vem como um array de objetos: [{raca: 'Poodle'}, {raca: 'Siamês'}].
+        // Vamos transformar num array simples de textos: ['Poodle', 'Siamês'].
+        const racas = result.rows.map(linha => linha.raca);
+
+        res.json(racas); // Devolve para o Front-end.
+    } catch (erro) {
+        console.error('Erro ao buscar raças exclusivas:', erro);
+        res.status(500).json({ erro: 'Erro interno no servidor' });
+    }
+});
+
 
 // -----------------------------------------------------------------------------------------------------------------------//
 
@@ -887,7 +952,8 @@ app.listen(PORT, () => {
     console.log(' > Autenticação e Entrada: [POST] /login -|- [POST] /cadastro');
     console.log(' > Gerenciamento de Perfil: [POST] /completar-perfil -|- [DELETE] /deletar-conta');
     console.log(' > Recuperação de Senha: [POST] /esqueci-senha -|- [POST] /verificar-token -|- [POST] /redefinir-senha');
-    console.log(' > Animais: [GET] /animais -|- [GET] /animais/:id');
+    console.log(' > Animais: [GET] /animais -|- [GET] /animais/:id -|- [GET] /api/racas');
+    console.log(' > Divulgação: [POST] /solicitacoes/novo-animal');
     console.log(' > Adoção: [POST] /solicitacoes -|- [GET] /minhas-solicitacoes');
     console.log(' > Utilitários: [GET] /teste-email');
     console.log('---------------------------------------------------------');
