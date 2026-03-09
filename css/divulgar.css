@@ -69,7 +69,7 @@ body::before {
 
 .page-header h1 {
     font-family: var(--fonte-titulos);
-    color: var(--cor-marrom);
+    color: var(--cor-preto);
     font-size: 2.2rem;
     letter-spacing: 1px;
     margin-bottom: 5px;

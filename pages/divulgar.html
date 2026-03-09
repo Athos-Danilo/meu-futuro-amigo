@@ -62,7 +62,7 @@
                 <div class="input-group">
                     <label>Espécie</label>
                     <div class="seletor-especie">
-                        <input type="radio" name="especie" id="especie-cachorro" value="Cachorro" checked>
+                        <input type="radio" name="especie" id="especie-cachorro" value="Cachorro">
                         <label for="especie-cachorro" class="btn-especie">Cachorro</label>
 
                         <input type="radio" name="especie" id="especie-gato" value="Gato">
@@ -73,11 +73,8 @@
                 <div class="grid-2-col">
                     <div class="input-group">
                         <label for="raca">Raça</label>
-                        <select id="raca" name="raca">
-                            <option value="SRD (Vira-lata)">SRD (Vira-lata)</option>
-                            <option value="Pastor Alemão">Pastor Alemão</option>
-                            <option value="Siames">Siamês</option>
-                            <option value="Outra">Outra</option>
+                        <select id="raca" name="raca" required>
+                            <option value="" disabled selected>Selecione a espécie primeiro...</option>
                         </select>
                     </div>
                     
