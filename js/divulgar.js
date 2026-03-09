@@ -78,41 +78,57 @@ function inicializarLogicaRacas() {
         });
     });
 
-    // 2. Função que popula o Select
+    // Função que popula o Select buscando do Banco de Dados
     async function atualizarOpcoesRaca(especie) {
-        selectRaca.innerHTML = '<option value="">Carregando...</option>';
-
-        let listaRacas = [];
+        // Mostra pro usuário que está carregando...
+        selectRaca.innerHTML = '<option value="" disabled selected>Carregando raças do banco...</option>';
 
         try {
-            // Tenta buscar do backend (Rota que criaremos no futuro)
-            // const response = await fetch(`/api/racas?especie=${especie}`);
-            // listaRacas = await response.json();
+            // Agora sim! Fazemos a requisição para o nosso próprio Back-end
+            const response = await fetch(`/api/racas?especie=${especie}`);
             
-            // POR ENQUANTO: Simula o banco de dados usando as listas acima
-            if (especie === 'Cachorro') listaRacas = racasCachorro;
-            else listaRacas = racasGato;
+            if (!response.ok) {
+                throw new Error('Falha ao conectar com a API');
+            }
+            
+            const listaRacas = await response.json();
+
+            // Limpa o select para colocar as raças que vieram do banco
+            selectRaca.innerHTML = '<option value="" disabled selected>Selecione a raça...</option>';
+
+            // Regra de negócio: Se o banco estiver vazio (novo projeto), garante pelo menos o Vira-lata
+            if (listaRacas.length === 0) {
+                listaRacas.push('SRD (Vira-lata)');
+            }
+
+            // Popula as options do HTML
+            listaRacas.forEach(raca => {
+                const option = document.createElement('option');
+                option.value = raca;
+                option.textContent = raca;
+                selectRaca.appendChild(option);
+            });
+
+            // E sempre adiciona a opção "Outra" por último
+            const optionOutra = document.createElement('option');
+            optionOutra.value = 'Outra';
+            optionOutra.textContent = 'Outra (Digitar manualmente)';
+            selectRaca.appendChild(optionOutra);
 
         } catch (error) {
             console.error("Erro ao buscar raças:", error);
-            listaRacas = ['SRD (Vira-lata)']; // Fallback seguro
+            // Fallback seguro de emergência caso a internet caia
+            selectRaca.innerHTML = '<option value="" disabled selected>Erro ao carregar</option>';
+            const optionViraLata = document.createElement('option');
+            optionViraLata.value = 'SRD (Vira-lata)';
+            optionViraLata.textContent = 'SRD (Vira-lata)';
+            selectRaca.appendChild(optionViraLata);
+            
+            const optionOutra = document.createElement('option');
+            optionOutra.value = 'Outra';
+            optionOutra.textContent = 'Outra (Digitar manualmente)';
+            selectRaca.appendChild(optionOutra);
         }
-
-        // Limpa e reconstrói o Select
-        selectRaca.innerHTML = '';
-        
-        listaRacas.forEach(raca => {
-            const option = document.createElement('option');
-            option.value = raca;
-            option.textContent = raca;
-            selectRaca.appendChild(option);
-        });
-
-        // Adiciona a opção "Outra" no final
-        const optionOutra = document.createElement('option');
-        optionOutra.value = 'Outra';
-        optionOutra.textContent = 'Outra (Digitar manualmente)';
-        selectRaca.appendChild(optionOutra);
     }
 
     // 3. Lógica do campo "Outra" (Abre input de texto)
