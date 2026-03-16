@@ -858,12 +858,12 @@ app.post('/solicitacoes/novo-animal',
             idade, 
             porte, 
             local, 
-            'Resgate (Usuário)', 
+            'Protetor', 
             caminhoCapaBD, 
             vacinado, 
             castrado, 
             vermifugado, 
-            'analise', 
+            'disponivel', 
             historia
         ];
 
