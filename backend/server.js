@@ -12,6 +12,8 @@ const db = require('./db');
 const multer = require('multer');     
 const nodemailer = require('nodemailer'); 
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 // Inicializando a Aplicação.
 const app = express(); 
@@ -32,16 +34,22 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// > Configuração do Serviço de Upload de Imagens [Destino e Nome] (Foto do Perfil do Usuário). 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/foto_perfil/');
-    },
-    // Salva o nome do arquivo com o milissegundo atual + o nome do arquivo original.
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
+// > Configuração do Serviço de Upload de Imagens da Claudnary. 
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
 });
+
+// Ensina o Multer a mandar os arquivos direto para a nuvem.
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'meu_futuro_amigo/animais', 
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp']
+  },
+});
+
 // Inicializa o uploader com as regras acima.
 const upload = multer({ storage: storage });
 
@@ -796,6 +804,7 @@ app.get('/minhas-solicitacoes', async (req, res) => {
 
 
 // --------------------- Divulgar um Animal --------------------->
+// --------------------- Divulgar um Animal (Cloudinary) --------------------->
 app.post('/solicitacoes/novo-animal', 
     upload.fields([
         { name: 'foto_capa', maxCount: 1 }, 
@@ -804,45 +813,20 @@ app.post('/solicitacoes/novo-animal',
     async (req, res) => {
     
     try {
-        // Captura os dados de Texto.
         const { nome, especie, raca, idade, porte, sexo, local, historia } = req.body;
         
-        // Validação Básica de Arquivos.
         if (!req.files || !req.files['foto_capa']) {
             return res.status(400).json({ erro: 'A foto de capa é obrigatória!' });
         }
 
-        // Define se vai para a pasta 'cachorros' ou 'gatos'.
-        const pastaEspecie = especie === 'Gato' ? 'gatos' : 'cachorros';
-        
-        // Limpa o nome do animal (remove espaços/acentos) e adiciona a hora (timestamp).
-        const nomeLimpo = nome.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const nomePastaNova = `${nomeLimpo}_${Date.now()}`;
-        
-        // Caminho absoluto de onde a nova pasta deve ficar no seu projeto.
-        const diretorioDestino = path.join(__dirname, 'uploads', pastaEspecie, nomePastaNova);
-        
-        // Cria a pasta nova (recursive: true garante que crie as pastas pai se não existirem).
-        if (!fs.existsSync(diretorioDestino)) {
-            fs.mkdirSync(diretorioDestino, { recursive: true });
-        }
+        // MÁGICA: O Cloudinary já subiu a foto e nos deu o Link Seguro (URL)!
+        const urlCapaBD = req.files['foto_capa'][0].path; 
 
-        // --- MOVE A FOTO DE CAPA ---
-        const arquivoCapa = req.files['foto_capa'][0];
-        const destinoFinalCapa = path.join(diretorioDestino, arquivoCapa.filename);
-        
-        // Move o arquivo do local temporário (foto_perfil) para a nova pasta do animal.
-        fs.renameSync(arquivoCapa.path, destinoFinalCapa); 
-        
-        // Caminho final que será salvo no Banco de Dados.
-        const caminhoCapaBD = `uploads/${pastaEspecie}/${nomePastaNova}/${arquivoCapa.filename}`;
-
-        // Converte Checkboxes.
         const vacinado = req.body.vacinado === 'on';
         const castrado = req.body.castrado === 'on';
         const vermifugado = req.body.vermifugado === 'on';
 
-        // Inserção no Banco de Dados (Tabela Animais).
+        // INSERÇÃO NO BANCO DE DADOS (Tabela Animais)
         const queryAnimal = `
             INSERT INTO animais 
             (nome, especie, raca, sexo, idade, porte, local, origem, foto, vacinado, castrado, vermifugado, status, historia)
@@ -851,18 +835,10 @@ app.post('/solicitacoes/novo-animal',
         `;
 
         const valuesAnimal = [
-            nome, 
-            especie, 
-            raca, 
-            sexo, 
-            idade, 
-            porte, 
-            local, 
+            nome, especie, raca, sexo, idade, porte, local, 
             'Protetor', 
-            caminhoCapaBD, 
-            vacinado, 
-            castrado, 
-            vermifugado, 
+            urlCapaBD,  // Salvando o LINK DA NUVEM no banco!
+            vacinado, castrado, vermifugado, 
             'disponivel', 
             historia
         ];
@@ -870,28 +846,20 @@ app.post('/solicitacoes/novo-animal',
         const result = await db.query(queryAnimal, valuesAnimal);
         const novoAnimalId = result.rows[0].id;
 
-        // INSERÇÃO DAS FOTOS DA GALERIA (Tabela fotos_animais)
+        // INSERÇÃO DAS FOTOS DA GALERIA
         const queryFoto = `INSERT INTO fotos_animais (animal_id, caminho_arquivo, tipo) VALUES ($1, $2, $3)`;
         
-        // Salva a capa também como primeira foto da galeria.
-        await db.query(queryFoto, [novoAnimalId, caminhoCapaBD, 'foto']);
+        // Salva a capa também na galeria
+        await db.query(queryFoto, [novoAnimalId, urlCapaBD, 'foto']);
 
-        // --- MOVE E SALVA AS FOTOS DA GALERIA ---
         if (req.files['fotos_galeria']) {
             for (const file of req.files['fotos_galeria']) {
-                // Move o arquivo da galeria para a nova pasta.
-                const destinoFinalGaleria = path.join(diretorioDestino, file.filename);
-                fs.renameSync(file.path, destinoFinalGaleria);
-
-                // Caminho final para o banco de dados.
-                const caminhoGaleriaBD = `uploads/${pastaEspecie}/${nomePastaNova}/${file.filename}`;
-                
-                await db.query(queryFoto, [novoAnimalId, caminhoGaleriaBD, 'foto']);
+                const urlGaleriaBD = file.path; // Pega o link da nuvem de cada foto extra
+                await db.query(queryFoto, [novoAnimalId, urlGaleriaBD, 'foto']);
             }
         }
 
-        // Sucesso!
-        console.log(`Animal cadastrado: ${nome} (Pasta gerada: ${nomePastaNova})`);
+        console.log(`Animal cadastrado com sucesso direto na nuvem: ${nome}`);
         res.status(201).json({ mensagem: 'Animal cadastrado com sucesso!', id: novoAnimalId });
 
     } catch (erro) {
