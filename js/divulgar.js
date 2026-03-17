@@ -198,6 +198,17 @@ function configurarEnvioFormulario() {
             formData.delete('raca_manual'); // Limpa o campo auxiliar
         }
 
+        // Inserindo o Usuário responsavel pela divulgação no FormData.
+        const userSalvo = localStorage.getItem('user'); // Verifica o nome exato da sua chave no localStorage.
+        if (userSalvo) {
+            const userObj = JSON.parse(userSalvo);
+            formData.append('usuario_id', userObj.id); // Adiciona o ID no pacote.
+        } else {
+            alert("Você precisa estar logado para divulgar um animal!");
+            window.location.href = '/login'; // Redireciona se não achar o usuário.
+            return; 
+        }
+
         try {
             // Envia para o Backend (Rota que vamos criar em breve)
             const response = await fetch('/solicitacoes/novo-animal', {

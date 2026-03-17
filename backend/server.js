@@ -813,7 +813,7 @@ app.post('/solicitacoes/novo-animal',
     async (req, res) => {
     
     try {
-        const { nome, especie, raca, idade, porte, sexo, local, historia } = req.body;
+        const { nome, especie, raca, idade, porte, sexo, local, historia, usuario_id } = req.body;
         
         if (!req.files || !req.files['foto_capa']) {
             return res.status(400).json({ erro: 'A foto de capa é obrigatória!' });
@@ -829,8 +829,8 @@ app.post('/solicitacoes/novo-animal',
         // INSERÇÃO NO BANCO DE DADOS (Tabela Animais)
         const queryAnimal = `
             INSERT INTO animais 
-            (nome, especie, raca, sexo, idade, porte, local, origem, foto, vacinado, castrado, vermifugado, status, historia)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+            (nome, especie, raca, sexo, idade, porte, local, origem, foto, vacinado, castrado, vermifugado, status, historia, usuario_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
             RETURNING id;
         `;
 
@@ -840,7 +840,8 @@ app.post('/solicitacoes/novo-animal',
             urlCapaBD,  // Salvando o LINK DA NUVEM no banco!
             vacinado, castrado, vermifugado, 
             'disponivel', 
-            historia
+            historia,
+            usuario_id
         ];
 
         const result = await db.query(queryAnimal, valuesAnimal);
