@@ -803,6 +803,38 @@ app.get('/minhas-solicitacoes', async (req, res) => {
 });
 
 
+// --------------------- Minhas Divulgações (Histórico de Cadastros) --------------------->
+app.get('/minhas-divulgacoes', async (req, res) => {
+    // Extrai o ID do usuário da URL
+    const { usuario_id } = req.query;
+
+    if (!usuario_id) {
+        return res.status(400).json({ mensagem: 'ID do usuário é obrigatório.' });
+    }
+
+    console.log(`<--- Buscando histórico de divulgações para o Usuário ID: ${usuario_id} --->`);
+
+    try {
+        // Seleciona as informações básicas do animal para exibir no card.
+        const query = `
+            SELECT id, nome, foto, status 
+            FROM animais 
+            WHERE usuario_id = $1 
+            ORDER BY id DESC
+        `;
+
+        const result = await db.query(query, [usuario_id]);
+        
+        console.log(`Encontradas ${result.rows.length} divulgações.`);
+        res.status(200).json(result.rows);
+
+    } catch (error) {
+        console.error('Erro ao buscar minhas divulgações:', error);
+        res.status(500).json({ mensagem: 'Erro interno ao buscar histórico.' });
+    }
+});
+
+
 // --------------------- Divulgar um Animal --------------------->
 // --------------------- Divulgar um Animal (Cloudinary) --------------------->
 app.post('/solicitacoes/novo-animal', 
@@ -922,7 +954,7 @@ app.listen(PORT, () => {
     console.log(' > Gerenciamento de Perfil: [POST] /completar-perfil -|- [DELETE] /deletar-conta');
     console.log(' > Recuperação de Senha: [POST] /esqueci-senha -|- [POST] /verificar-token -|- [POST] /redefinir-senha');
     console.log(' > Animais: [GET] /animais -|- [GET] /animais/:id -|- [GET] /api/racas');
-    console.log(' > Divulgação: [POST] /solicitacoes/novo-animal');
+    console.log(' > Divulgação: [POST] /solicitacoes/novo-animal -|- [GET] /minhas-divulgacoes');
     console.log(' > Adoção: [POST] /solicitacoes -|- [GET] /minhas-solicitacoes');
     console.log(' > Utilitários: [GET] /teste-email');
     console.log('---------------------------------------------------------');
